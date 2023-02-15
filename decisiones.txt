@@ -1,0 +1,5 @@
+Aquí se recopilan decisiones de diseño y cosas interesantes que quizá haya que poner en algún lado pero por ahora es útil saberlo:
+	- por ahora usando JAVA_PATH con java jdk 11
+	- para emular AR necesitas Android 8.1 (API 27) o posteriores (https://developers.google.com/ar/devices?hl=es-419#emulators) por lo que se escoge esta versión para crear el proyecto inicialmente. Con esto, la app podría correr sobre el 88.1% de los dispositivos existentes.
+	- referencia de la API de ARCore: https://developers.google.com/ar/reference
+	- el dispositivo emulado utilizado es el Pixel 5 API 27 (Android 8.1)
