@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">DeAR</string>
+    <string name="app_name" translatable="false">DeAR</string>
+    <string name="username">Username or email</string>
+    <string name="button_send">Send</string>
 </resources>

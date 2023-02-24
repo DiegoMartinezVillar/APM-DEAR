@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DeAR</string>
+    <string name="username">Usuario o email</string>
+    <string name="button_send">Enviar</string>
+</resources>
