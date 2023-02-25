@@ -25,7 +25,7 @@ class PlaceRenderer(
      */
     private val bicycleIcon: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(context,
-            R.color.purple_200
+            R.color.colorPrimary
         )
         BitmapHelper.vectorToBitmap(
             context,
