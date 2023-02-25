@@ -5,10 +5,8 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.Circle
 import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.ClusterManager
 import ensemble.dear.place.Place
 import ensemble.dear.place.PlaceRenderer
@@ -92,25 +90,5 @@ class MainActivity2 : AppCompatActivity() {
                 .fillColor(ContextCompat.getColor(this, R.color.colorPrimaryTranslucent))
                 .strokeColor(ContextCompat.getColor(this, R.color.colorPrimary))
         )
-    }
-
-    private val bicycleIcon: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(this, R.color.colorPrimary)
-        BitmapHelper.vectorToBitmap(this, R.drawable.ic_directions_bike_black_24dp, color)
-    }
-
-    private fun addMarkers(googleMap: GoogleMap) {
-        places.forEach { place ->
-            val marker = googleMap.addMarker(
-                MarkerOptions()
-                    .title(place.name)
-                    .position(place.latLng)
-                    .icon(bicycleIcon)
-            )
-
-            // Set place as the tag on the marker object so it can be referenced within
-            // MarkerInfoWindowAdapter
-            marker?.tag = place
-        }
     }
 }
