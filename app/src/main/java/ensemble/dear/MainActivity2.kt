@@ -3,11 +3,16 @@ package ensemble.dear
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Circle
-import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.ktx.addCircle
+import com.google.maps.android.ktx.awaitMap
+import com.google.maps.android.ktx.awaitMapLoad
 import ensemble.dear.place.Place
 import ensemble.dear.place.PlaceRenderer
 import ensemble.dear.place.PlacesReader
@@ -22,14 +27,21 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        val mapFragment = supportFragmentManager.findFragmentById(
-            R.id.map_fragment
-        ) as? SupportMapFragment
-        mapFragment?.getMapAsync { googleMap ->
-            //addMarkers(googleMap)
+        val mapFragment =
+            supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+        lifecycleScope.launchWhenCreated {
+            // Get map
+            val googleMap = mapFragment.awaitMap()
+
             addClusteredMarkers(googleMap)
-            // Set custom info window adapter
-            // googleMap.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
+
+            // Wait for map to finish loading
+            googleMap.awaitMapLoad()
+
+            // Ensure all places are visible in the map
+            val bounds = LatLngBounds.builder()
+            places.forEach { bounds.include(it.latLng) }
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 20))
         }
     }
 
@@ -83,12 +95,11 @@ class MainActivity2 : AppCompatActivity() {
      */
     private fun addCircle(googleMap: GoogleMap, item: Place) {
         circle?.remove()
-        circle = googleMap.addCircle(
-            CircleOptions()
-                .center(item.latLng)
-                .radius(1000.0)
-                .fillColor(ContextCompat.getColor(this, R.color.colorPrimaryTranslucent))
-                .strokeColor(ContextCompat.getColor(this, R.color.colorPrimary))
-        )
+        circle = googleMap.addCircle {
+            center(item.latLng)
+            radius(1000.0)
+            fillColor(ContextCompat.getColor(this@MainActivity2, R.color.colorPrimaryTranslucent))
+            strokeColor(ContextCompat.getColor(this@MainActivity2, R.color.colorPrimary))
+        }
     }
 }

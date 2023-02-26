@@ -17,4 +17,7 @@ data class Place(
 
     override fun getSnippet(): String =
         address
+
+    override fun getZIndex(): Float? =
+        null
 }
