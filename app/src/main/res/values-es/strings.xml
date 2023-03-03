@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DeAR</string>
     <string name="username">Usuario o email</string>
     <string name="button_send">Enviar</string>
+    <string name="pre_admission">Pre-admisión</string>
+    <string name="on_the_way">En camino</string>
+    <string name="in_delivery">En reparto</string>
+    <string name="delivered">Entregado</string>
+    <string name="chat_button_content_description">Botón de chat</string>
 </resources>
