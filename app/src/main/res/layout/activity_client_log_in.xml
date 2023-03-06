@@ -106,7 +106,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="70dp"
       android:clickable="true"
-      android:text="@string/sign_up_button"
+      android:text="@string/new_to_dear"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.5"

@@ -13,5 +13,6 @@
     <string name="log_in_divider_or">Or</string>
     <string name="log_in_google">Log In with Google</string>
     <string name="log_in_authorized_courier">Are you an authorized courier?</string>
-    <string name="sign_up_button">New to deAr? Click here to sign up!</string>
+    <string name="new_to_dear">New to deAr? Click here to sign up!</string>
+    <string name="sign_up_button">Sign Up</string>
 </resources>
