@@ -12,6 +12,9 @@
         android:theme="@style/Theme.DeAR"
         tools:targetApi="31" >
         <activity
+            android:name=".CourierLogIn"
+            android:exported="false" />
+        <activity
             android:name=".ClientSignUp"
             android:exported="false" />
         <activity
