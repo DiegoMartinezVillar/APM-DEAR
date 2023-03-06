@@ -12,6 +12,9 @@
         android:theme="@style/Theme.DeAR"
         tools:targetApi="31" >
         <activity
+            android:name=".ClientLogIn"
+            android:exported="false" />
+        <activity
             android:name=".TrackingDetails"
             android:exported="false" />
         <activity

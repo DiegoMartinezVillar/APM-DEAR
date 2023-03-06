@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TrackingDetails">
+
+  <EditText
+      android:id="@+id/editTextTextEmailAddress"
+      android:layout_width="350dp"
+      android:layout_height="50dp"
+      android:layout_marginTop="25dp"
+      android:autofillHints="@string/log_in_email_hint"
+      android:ems="10"
+      android:hint="@string/log_in_email_hint"
+      android:inputType="textEmailAddress"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <EditText
+      android:id="@+id/editTextTextPassword"
+      android:layout_width="350dp"
+      android:layout_height="50dp"
+      android:layout_marginTop="25dp"
+      android:autofillHints="@string/password_hint"
+      android:ems="10"
+      android:hint="@string/password_hint"
+      android:inputType="textPassword"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.508"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+
+  <Button
+      android:id="@+id/buttonLogIn"
+      android:layout_width="320dp"
+      android:layout_height="50dp"
+      android:layout_marginTop="30dp"
+      android:text="@string/log_in_button"
+      android:visibility="visible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.508"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+
+  <View
+      android:id="@+id/divider1"
+      android:layout_width="160dp"
+      android:layout_height="2dp"
+      android:layout_marginStart="20dp"
+      android:layout_marginTop="70dp"
+      android:background="?android:attr/listDivider"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/buttonLogIn" />
+
+  <View
+      android:id="@+id/divider3"
+      android:layout_width="160dp"
+      android:layout_height="2dp"
+      android:layout_marginTop="70dp"
+      android:layout_marginEnd="20dp"
+      android:background="?android:attr/listDivider"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/buttonLogIn" />
+
+  <TextView
+      android:id="@+id/divider2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="60dp"
+      android:text="@string/log_in_divider_or"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/buttonLogIn" />
+
+  <Button
+      android:id="@+id/buttonLogInGoogle"
+      android:layout_width="320dp"
+      android:layout_height="50dp"
+      android:layout_marginTop="70dp"
+      android:text="@string/log_in_google"
+      app:icon="@drawable/google__g__logo"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+  <Button
+      android:id="@+id/buttonAuthorizedCouriers"
+      android:layout_width="320dp"
+      android:layout_height="50dp"
+      android:layout_marginTop="40dp"
+      android:text="@string/log_in_authorized_courier"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/buttonLogInGoogle" />
+
+  <TextView
+      android:id="@+id/textViewNewToDeAR"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="70dp"
+      android:clickable="true"
+      android:text="@string/sign_up_button"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/buttonAuthorizedCouriers" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

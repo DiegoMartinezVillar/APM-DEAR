@@ -7,4 +7,11 @@
     <string name="in_delivery">En reparto</string>
     <string name="delivered">Entregado</string>
     <string name="chat_button_content_description">Botón de chat</string>
+    <string name="log_in_email_hint">email o nombre de perfil</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="log_in_button">Iniciar sesión</string>
+    <string name="log_in_divider_or">O</string>
+    <string name="log_in_google">Inicia sesión con Google</string>
+    <string name="log_in_authorized_courier">Eres una persona repartidora autorizada?</string>
+    <string name="sign_up_button">No tienes una cuenta? Regístrate aquí!</string>
 </resources>
