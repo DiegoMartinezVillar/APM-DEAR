@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -12,6 +12,18 @@
         android:theme="@style/Theme.DeAR"
         tools:targetApi="31" >
         <activity
+            android:name=".DeliveryConfirmation"
+            android:exported="false" />
+        <activity
+            android:name=".CourierTrackingDetailsMap"
+            android:exported="false" />
+        <activity
+            android:name=".CourierTrackingDetails"
+            android:exported="false" />
+        <activity
+            android:name=".ClientTrackingDetailsMap"
+            android:exported="false" />
+        <activity
             android:name=".CourierLogIn"
             android:exported="false" />
         <activity
@@ -21,11 +33,11 @@
             android:name=".ClientLogIn"
             android:exported="false" />
         <activity
-            android:name=".TrackingDetails"
+            android:name=".ClientTrackingDetails"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

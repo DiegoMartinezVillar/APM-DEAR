@@ -15,4 +15,17 @@
     <string name="log_in_authorized_courier">Are you an authorized courier?</string>
     <string name="new_to_dear">New to deAr? Click here to sign up!</string>
     <string name="sign_up_button">Sign Up</string>
+    <string name="talk_to_your_courier">Talk to your courier</string>
+    <string name="your_package_is_scheduled_to_arrive_on">Your package is scheduled to arrive on:</string>
+    <string name="locate">Locate</string>
+    <string name="ar">AR</string>
+    <string name="talk_to_your_receiver">Talk to your receiver</string>
+    <string name="live_route">Live route</string>
+    <string name="additional_instructions">Additional instructions</string>
+    <string name="receiver">Receiver</string>
+    <string name="address">Address</string>
+    <string name="phone_number">Phone number</string>
+    <string name="proof_of_delivery">Proof of delivery</string>
+    <string name="clear">Clear</string>
+    <string name="confirm">Confirm</string>
 </resources>

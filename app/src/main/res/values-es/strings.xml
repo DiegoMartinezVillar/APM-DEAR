@@ -15,4 +15,17 @@
     <string name="log_in_authorized_courier">Eres una persona repartidora autorizada?</string>
     <string name="new_to_dear">No tienes una cuenta? Regístrate aquí!</string>
     <string name="sign_up_button">Registrarse</string>
+    <string name="talk_to_your_courier">Habla con tu repartidor</string>
+    <string name="your_package_is_scheduled_to_arrive_on">Tu paquete está programado para llegar el:</string>
+    <string name="locate">Localizar</string>
+    <string name="ar">RA</string>
+    <string name="talk_to_your_receiver">Habla con tu destinatario</string>
+    <string name="live_route">Ver ruta</string>
+    <string name="additional_instructions">Instrucciones adicionales</string>
+    <string name="receiver">Destinatario</string>
+    <string name="address">Dirección</string>
+    <string name="phone_number">Número de teléfono</string>
+    <string name="proof_of_delivery">Prueba de entrega</string>
+    <string name="clear">Limpiar</string>
+    <string name="confirm">Confirmar</string>
 </resources>

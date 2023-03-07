@@ -3,9 +3,9 @@ package ensemble.dear
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class TrackingDetails : AppCompatActivity() {
+class DeliveryConfirmation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tracking_details)
+        setContentView(R.layout.activity_delivery_confirmation)
     }
 }
