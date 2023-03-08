@@ -28,4 +28,20 @@
     <string name="proof_of_delivery">Proof of delivery</string>
     <string name="clear">Clear</string>
     <string name="confirm">Confirm</string>
+    <string name="input_tracking_code">Input your tracking code</string>
+    <string name="alias_for_package">Alias for your package</string>
+    <string name="add_tracking">Add tracking</string>
+    <string name="current_trackings">Current Trackings</string>
+    <string name="pending_shipments">Pending shipments</string>
+    <string name="button_search">Search</string>
+    <string name="add_button">Add</string>
+    <string name="scanner">Scanner</string>
+    <string name="scanner_text">Scan packages and check their info</string>
+    <string name="test_package_name">#123456789 - Alarm clock</string>
+    <string name="test_package_name_2">#121212121 - Sony headphones</string>
+    <string name="test_package_description">Shipper: Aliexpress.com</string>
+    <string name="test_package_description_2">Shipper: Amazon.com</string>
+    <string name="test_arrival_time">Your package arrives in 2 days</string>
+    <string name="test_arrival_time_2">Your package arrives in 3 days</string>
+    <string name="test_address">John Doe, 2421 16th St, San Francisco</string>
 </resources>

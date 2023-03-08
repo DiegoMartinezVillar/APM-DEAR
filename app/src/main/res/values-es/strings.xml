@@ -28,4 +28,20 @@
     <string name="proof_of_delivery">Prueba de entrega</string>
     <string name="clear">Limpiar</string>
     <string name="confirm">Confirmar</string>
+    <string name="input_tracking_code">Introduce tu código de seguimiento</string>
+    <string name="alias_for_package">Alias para el paquete</string>
+    <string name="add_tracking">Añadir seguimiento</string>
+    <string name="current_trackings">Seguimientos actuales</string>
+    <string name="pending_shipments">Envíos pendientes</string>
+    <string name="button_search">Buscar</string>
+    <string name="add_button">Añadir</string>
+    <string name="scanner">Escáner</string>
+    <string name="scanner_text">Escanea paquetes y comprueba su información</string>
+    <string name="test_package_name">#123456789 - Reloj despertador</string>
+    <string name="test_package_name_2">#121212121 - Auriculares Sony</string>
+    <string name="test_package_description">Enviado por: Aliexpress.com</string>
+    <string name="test_package_description_2">Enviado por: Amazon.com</string>
+    <string name="test_arrival_time">Tu paquete llegará en 2 días</string>
+    <string name="test_arrival_time_2">Tu paquete llegará en 3 días</string>
+    <string name="test_address">John Doe, 2421 16th St, San Francisco</string>
 </resources>
