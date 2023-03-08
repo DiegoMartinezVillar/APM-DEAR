@@ -44,4 +44,6 @@
     <string name="test_arrival_time">Your package arrives in 2 days</string>
     <string name="test_arrival_time_2">Your package arrives in 3 days</string>
     <string name="test_address">John Doe, 2421 16th St, San Francisco</string>
+    <string name="chat_reply_button">Reply</string>
+    <string name="live_ar_route">Live Route</string>
 </resources>

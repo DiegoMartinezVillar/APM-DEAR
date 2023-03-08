@@ -31,8 +31,8 @@
 
     <TextView
         android:id="@+id/textView28"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="408dp"
+        android:layout_height="32dp"
         android:layout_marginTop="57dp"
         android:layout_marginBottom="574dp"
         android:text="@string/scanner_text"
@@ -41,8 +41,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView11"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarARScanner" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarARScanner"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton3"
