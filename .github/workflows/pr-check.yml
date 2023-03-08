@@ -19,7 +19,7 @@ jobs:
         
       - name: Load API Token from secrets
         env:
-          API_TOKEN: ${{ secrets.API_OTKEN }}
+          MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         run: echo MAPS_API_KEY=\"$MAPS_API_KEY\" > ./local.properties
         
       - uses: actions/cache@v2
@@ -52,7 +52,7 @@ jobs:
         
       - name: Load API Token from secrets
         env:
-          API_TOKEN: ${{ secrets.API_OTKEN }}
+          MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         run: echo MAPS_API_KEY=\"$MAPS_API_KEY\" > ./local.properties
         
       - uses: actions/cache@v2
