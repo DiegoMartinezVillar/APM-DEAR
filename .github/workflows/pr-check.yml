@@ -15,6 +15,8 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v3
         
+      - run: chmod +x ./gradlew
+        
       - name: Load API Token from secrets
         env:
           API_TOKEN: ${{ secrets.API_OTKEN }}
