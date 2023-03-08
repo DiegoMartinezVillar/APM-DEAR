@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest # use mac to use hardware acceleration
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
         uses: actions/checkout@v3
@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew build
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest # use mac to use hardware acceleration
     needs: build
     strategy:
       matrix:
