@@ -3,9 +3,9 @@ package ensemble.dear
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class CourierLogIn : AppCompatActivity() {
+class Chat : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_courier_log_in)
+        setContentView(R.layout.activity_chat)
     }
 }
