@@ -43,7 +43,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        api-level: [27, 28]
+        api-level: [27, 28, 29, 30, 31, 32, 33]
         target: [google_apis]
 
     steps:
