@@ -82,7 +82,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
-          arch: x86_64
+          arch: ${{ matrix.api-level == 27 && 'x86' ||  'x86_64' }}
           profile: Nexus 6
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
@@ -94,7 +94,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
-          arch: ${{ matrix.api-level == 27 && 'x86' ||  'x86_64')  }}
+          arch: ${{ matrix.api-level == 27 && 'x86' ||  'x86_64' }}
           profile: Nexus 6
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
