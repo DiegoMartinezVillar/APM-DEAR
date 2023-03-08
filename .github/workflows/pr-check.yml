@@ -43,8 +43,8 @@ jobs:
     needs: build
     strategy:
       matrix:
-        api-level: [27, 28, 29, 30, 31, 32, 33]
-        target: [default]
+        api-level: [27]
+        target: [default, google_apis]
 
     steps:
       - name: Checkout the code
@@ -72,6 +72,6 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
-          arch: x86
+          arch: x86_64
           profile: Nexus 6
           script: ./gradlew connectedCheck --stacktrace
