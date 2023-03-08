@@ -6,6 +6,6 @@ import android.os.Bundle
 class CourierLogIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.courier_log_in)
+        setContentView(R.layout.activity_courier_log_in)
     }
 }
