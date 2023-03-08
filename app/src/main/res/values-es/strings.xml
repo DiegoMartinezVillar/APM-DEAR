@@ -28,4 +28,5 @@
     <string name="proof_of_delivery">Prueba de entrega</string>
     <string name="clear">Limpiar</string>
     <string name="confirm">Confirmar</string>
+    <string name="chat_reply_button">Responder</string>
 </resources>

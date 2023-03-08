@@ -24,6 +24,9 @@
             android:name=".ClientTrackingDetailsMap"
             android:exported="false" />
         <activity
+            android:name=".Chat"
+            android:exported="false" />
+        <activity
             android:name=".CourierLogIn"
             android:exported="false" />
         <activity
