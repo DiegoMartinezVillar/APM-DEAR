@@ -46,4 +46,6 @@
     <string name="test_address">John Doe, 2421 16th St, San Francisco</string>
     <string name="chat_reply_button">Responder</string>
     <string name="live_ar_route">Ruta guiada</string>
+    <string name="test_address_2">Jane Doe, 2343 Bryant St, San Francisco</string>
+    <string name="scan">Escanear</string>
 </resources>
