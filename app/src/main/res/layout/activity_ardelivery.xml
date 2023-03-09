@@ -6,21 +6,6 @@
     android:background="@color/material_dynamic_neutral80"
     tools:context=".ARScanner">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbarARScanner"
-        android:layout_width="fill_parent"
-        android:layout_height="54dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:translationZ="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="?attr/actionModeCloseDrawable"
-        app:title="@string/live_ar_route" />
-
     <ImageView
         android:id="@+id/imageView13"
         android:layout_width="510dp"
