@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name" translatable="false">DeAR</string>
-    <string name="username">Username or email</string>
     <string name="button_send">Send</string>
     <string name="pre_admission">Pre-Admission</string>
     <string name="on_the_way">On the way</string>
     <string name="in_delivery">In delivery</string>
     <string name="delivered">Delivered</string>
     <string name="chat_button_content_description">Chat button</string>
-    <string name="log_in_email_hint">email or username</string>
+    <string name="log_in_email_hint">Email or username</string>
     <string name="password_hint">Password</string>
     <string name="log_in_button">Log In</string>
     <string name="log_in_divider_or">Or</string>
