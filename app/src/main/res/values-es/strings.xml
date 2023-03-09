@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="username">Usuario o email</string>
     <string name="button_send">Enviar</string>
     <string name="pre_admission">Pre-admisión</string>
     <string name="on_the_way">En camino</string>
