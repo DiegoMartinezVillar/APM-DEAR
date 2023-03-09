@@ -137,7 +137,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="Send Button"
-        android:tint="@color/black"
+        app:tint="@color/black"
         android:tintMode="src_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
