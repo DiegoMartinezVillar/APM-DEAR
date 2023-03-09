@@ -6,47 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".ClientTrackingDetails">
 
-  <ImageView
-      android:id="@+id/imageView"
-      android:layout_width="69dp"
-      android:layout_height="57dp"
-      android:layout_marginStart="28dp"
-      android:layout_marginTop="32dp"
+  <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbarPendShipments4"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="675dp"
+      android:background="@color/purple_500"
+      android:minHeight="?attr/actionBarSize"
+      android:theme="?attr/actionBarTheme"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@android:drawable/ic_dialog_email" />
+      app:navigationIcon="?attr/actionModeCloseDrawable"
+      app:title="Tracking Details" />
 
   <TextView
       android:id="@+id/textView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
+      android:layout_marginTop="8dp"
       android:text="#123456"
       app:layout_constraintStart_toEndOf="@+id/imageView"
       app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-  <TextView
-      android:id="@+id/textView2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="8dp"
-      android:text="AliExpress.com"
-      app:layout_constraintStart_toEndOf="@+id/imageView"
-      app:layout_constraintTop_toBottomOf="@+id/textView" />
+  <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="69dp"
+      android:layout_height="57dp"
+      android:layout_marginStart="28dp"
+      android:layout_marginTop="76dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@android:drawable/ic_dialog_email" />
 
   <TextView
       android:id="@+id/textView3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
+      android:layout_marginTop="8dp"
       android:text="Alias: Culotte"
       app:layout_constraintStart_toEndOf="@+id/imageView"
       app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="4dp"
+      android:text="AliExpress.com"
+      app:layout_constraintStart_toEndOf="@+id/imageView"
+      app:layout_constraintTop_toBottomOf="@+id/textView" />
+
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/constraintLayout"
-      android:layout_width="match_parent"
-      android:layout_height="488dp"
+      android:layout_width="418dp"
+      android:layout_height="425dp"
       android:layout_marginTop="44dp"
       android:background="#9A9A9A"
       app:layout_constraintTop_toBottomOf="@+id/textView3"
@@ -165,8 +183,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="30th June 2023 at 12:30"
         android:background="@color/white"
+        android:text="30th June 2023 at 12:30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
