@@ -36,13 +36,10 @@
             android:name=".ClientSignUp"
             android:exported="false" />
         <activity
-            android:name=".ClientLogIn"
-            android:exported="false" />
-        <activity
             android:name=".ClientTrackingDetails"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ClientLogIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
