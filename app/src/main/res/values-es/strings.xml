@@ -48,4 +48,6 @@
     <string name="live_ar_route">Ruta guiada</string>
     <string name="test_address_2">Jane Doe, 2343 Bryant St, San Francisco</string>
     <string name="scan">Escanear</string>
+    <string name="delete_dialog_title">Confirmación de borrado</string>
+    <string name="delete_dialog_content">¿Estás seguro de que quieres borrar este seguimiento?</string>
 </resources>

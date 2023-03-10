@@ -47,7 +47,7 @@
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/buttonCamera"
         android:layout_width="123dp"
         android:layout_height="88dp"
         android:layout_marginBottom="4dp"
