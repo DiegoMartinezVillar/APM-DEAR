@@ -35,7 +35,7 @@
       app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
   <Button
-      android:id="@+id/buttonAuthorizedCouriers"
+      android:id="@+id/buttonAreYouAuthorizedCourier"
       android:layout_width="320dp"
       android:layout_height="50dp"
       android:layout_marginTop="30dp"
@@ -43,9 +43,22 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.508"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/buttonLogInGoogle" />
+      app:layout_constraintTop_toBottomOf="@+id/buttonClientLogInGoogle" />
 
-    <TextView
+  <TextView
+      android:id="@+id/textViewClickHereToSignUp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/click_here_to_sign_up"
+      android:textColor="#0277BD"
+      android:textSize="18sp"
+      android:textStyle="normal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textViewNewToDeAR" />
+
+  <TextView
       android:id="@+id/textViewNewToDeAR"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -56,10 +69,10 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/buttonAuthorizedCouriers" />
+      app:layout_constraintTop_toBottomOf="@+id/buttonAreYouAuthorizedCourier" />
 
   <Button
-      android:id="@+id/buttonLogIn"
+      android:id="@+id/buttonClientLogIn"
       android:layout_width="320dp"
       android:layout_height="50dp"
       android:layout_marginTop="70dp"
@@ -71,7 +84,7 @@
       app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
   <Button
-      android:id="@+id/buttonLogInGoogle"
+      android:id="@+id/buttonClientLogInGoogle"
       android:layout_width="320dp"
       android:layout_height="50dp"
       android:layout_marginTop="40dp"
@@ -86,12 +99,12 @@
       android:id="@+id/divider2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="70dp"
+      android:layout_marginTop="60dp"
       android:text="@string/log_in_divider_or"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/buttonLogIn" />
+      app:layout_constraintTop_toBottomOf="@+id/buttonClientLogIn" />
 
   <View
       android:id="@+id/divider1"
@@ -101,7 +114,7 @@
       android:layout_marginTop="68dp"
       android:background="?android:attr/listDivider"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/buttonLogIn" />
+      app:layout_constraintTop_toBottomOf="@+id/buttonClientLogIn" />
 
   <View
       android:id="@+id/divider3"
@@ -111,6 +124,6 @@
       android:layout_marginEnd="20dp"
       android:background="?android:attr/listDivider"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/buttonLogIn" />
+      app:layout_constraintTop_toBottomOf="@+id/buttonClientLogIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

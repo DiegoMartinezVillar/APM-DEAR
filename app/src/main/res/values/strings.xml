@@ -12,7 +12,8 @@
     <string name="log_in_divider_or">Or</string>
     <string name="log_in_google">Log In with Google</string>
     <string name="log_in_authorized_courier">Are you an authorized courier?</string>
-    <string name="new_to_dear">New to deAr? Click here to sign up!</string>
+    <string name="new_to_dear">New to deAR?</string>
+    <string name="click_here_to_sign_up">Click here to Sign Up!</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="talk_to_your_courier">Talk to your courier</string>
     <string name="your_package_is_scheduled_to_arrive_on">Your package is scheduled to arrive on:</string>

@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddressCourierLogIn" />
 
     <Button
-        android:id="@+id/buttonLogInClient"
+        android:id="@+id/buttonLogInCourier"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"

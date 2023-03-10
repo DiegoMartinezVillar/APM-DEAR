@@ -3,6 +3,7 @@ package ensemble.dear
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -11,15 +12,24 @@ class ClientLogIn : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_log_in)
 
-        val courierLogInButton = findViewById<Button>(R.id.buttonAuthorizedCouriers)
-        courierLogInButton.setOnClickListener{
-            val intent = Intent(this, CourierLogIn::class.java)
-            startActivity(intent)
+        val buttonClientLogIn = findViewById<Button>(R.id.buttonClientLogIn)
+        buttonClientLogIn.setOnClickListener{
+            startActivity(Intent(applicationContext, CurrentTrackings::class.java))
         }
 
-        val googleLogIn = findViewById<Button>(R.id.buttonLogInGoogle)
-        googleLogIn.setOnClickListener{
+        val buttonClientLogInGoogle = findViewById<Button>(R.id.buttonClientLogInGoogle)
+        buttonClientLogInGoogle.setOnClickListener{
             Toast.makeText(applicationContext, "Opening Google OAuth", Toast.LENGTH_LONG).show()
+        }
+
+        val buttonAreYouAuthorizedCourier = findViewById<Button>(R.id.buttonAreYouAuthorizedCourier)
+        buttonAreYouAuthorizedCourier.setOnClickListener{
+            startActivity(Intent(applicationContext, CourierLogIn::class.java))
+        }
+
+        val textViewClickHereToSignUp = findViewById<TextView>(R.id.textViewClickHereToSignUp)
+        textViewClickHereToSignUp.setOnClickListener{
+            startActivity(Intent(applicationContext, ClientSignUp::class.java))
         }
     }
 }

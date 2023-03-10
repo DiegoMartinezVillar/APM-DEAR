@@ -12,6 +12,9 @@
         android:theme="@style/Theme.DeAR"
         tools:targetApi="31" >
         <activity
+            android:name=".CurrentTrackings"
+            android:exported="false" />
+        <activity
             android:name=".DeliveryConfirmation"
             android:exported="false" />
         <activity
