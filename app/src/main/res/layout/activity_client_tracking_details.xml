@@ -186,7 +186,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonLocate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -219,18 +219,19 @@
       app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
   <TextView
-      android:id="@+id/textView10"
+      android:id="@+id/textPhoneNumberCall"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
       android:layout_marginTop="16dp"
       android:text="+1 (415)-553-0123"
       android:textColor="#0482C2"
+      android:clickable="true"
       app:layout_constraintStart_toEndOf="@+id/textView9"
       app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/floatingActionButton"
+      android:id="@+id/buttonChat"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="40dp"
@@ -247,7 +248,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:text="3 Kms Away"
-      app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
-      app:layout_constraintTop_toBottomOf="@+id/floatingActionButton" />
+      app:layout_constraintEnd_toEndOf="@+id/buttonChat"
+      app:layout_constraintTop_toBottomOf="@+id/buttonChat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
