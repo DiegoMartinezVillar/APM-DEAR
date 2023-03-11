@@ -82,6 +82,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/profilePastTracking"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
