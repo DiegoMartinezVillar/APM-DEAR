@@ -1,5 +1,6 @@
 package ensemble.dear
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -12,7 +13,7 @@ class CourierLogIn : AppCompatActivity() {
 
         val buttonCourierLogIn = findViewById<Button>(R.id.buttonCourierLogIn)
         buttonCourierLogIn.setOnClickListener{
-            Toast.makeText(applicationContext, "Pending shipments", Toast.LENGTH_LONG).show()
+            startActivity(Intent(applicationContext, PendingShipments::class.java))
         }
     }
 }
