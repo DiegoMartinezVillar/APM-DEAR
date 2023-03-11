@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddressSignUp" />
 
     <Button
-        android:id="@+id/buttonSignUp"
+        android:id="@+id/buttonClientSignUp"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
