@@ -20,7 +20,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="?attr/actionModeCloseDrawable"
-        app:title="@string/live_ar_route" />
+        app:navigationIconTint="@color/white"
+        app:title="@string/live_ar_route"
+        app:titleTextColor="@color/white" />
 
     <ImageView
         android:id="@+id/imageView13"

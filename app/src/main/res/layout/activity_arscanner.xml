@@ -5,11 +5,28 @@
     android:layout_height="match_parent"
     tools:context=".ARScanner">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarARScanner2"
+        android:layout_width="fill_parent"
+        android:layout_height="54dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:translationZ="90dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/actionModeCloseDrawable"
+        app:navigationIconTint="@color/white"
+        app:title="@string/scanner"
+        app:titleTextColor="@color/white" />
+
     <ImageView
         android:id="@+id/imageView11"
         android:layout_width="411dp"
         android:layout_height="323dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,19 +38,20 @@
         android:id="@+id/textView28"
         android:layout_width="408dp"
         android:layout_height="32dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:text="@string/scanner_text"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarARScanner2" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/cameraButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="76dp"
         android:adjustViewBounds="false"
         android:clickable="true"
         android:scaleType="center"
