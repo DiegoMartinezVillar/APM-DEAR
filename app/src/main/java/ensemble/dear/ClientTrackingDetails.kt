@@ -15,7 +15,7 @@ class ClientTrackingDetails : AppCompatActivity() {
 
         val locateButton = findViewById<Button>(R.id.buttonLocate)
         locateButton.setOnClickListener{
-            val intent = Intent(applicationContext, CourierLogIn::class.java)
+            val intent = Intent(applicationContext, ClientTrackingDetailsMap::class.java)
             startActivity(intent)
         }
 

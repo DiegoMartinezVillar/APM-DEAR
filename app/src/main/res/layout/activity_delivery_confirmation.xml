@@ -75,25 +75,25 @@
             app:srcCompat="@android:drawable/editbox_dropdown_light_frame" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/buttonClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/clear"
-            app:layout_constraintEnd_toStartOf="@+id/button5"
+            app:layout_constraintEnd_toStartOf="@+id/buttonConfirm"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/buttonConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/confirm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button4"
-            app:layout_constraintTop_toTopOf="@+id/button4" />
+            app:layout_constraintStart_toEndOf="@+id/buttonClear"
+            app:layout_constraintTop_toTopOf="@+id/buttonClear" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

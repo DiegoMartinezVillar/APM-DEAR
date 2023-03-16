@@ -23,6 +23,8 @@
         <activity
             android:name=".ARDelivery"
             android:exported="false" />
+        <activity android:name=".ARScanner"
+            android:exported="false" />
         <activity
             android:name=".DeliveryConfirmation"
             android:exported="false" />
