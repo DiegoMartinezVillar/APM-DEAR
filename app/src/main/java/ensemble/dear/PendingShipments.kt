@@ -17,7 +17,7 @@ class PendingShipments : AppCompatActivity() {
 
         val buttonScan = findViewById<Button>(R.id.buttonScan)
 
-        val textAddressPackage = findViewById<TextView>(R.id.textAddressPackage)
+        val textAddressPackage = findViewById<TextView>(R.id.textTrackingNumber)
 
         buttonScan.setOnClickListener {
             startActivity(Intent(applicationContext, ARScanner::class.java))
