@@ -6,13 +6,14 @@
     <string name="in_delivery">En reparto</string>
     <string name="delivered">Entregado</string>
     <string name="chat_button_content_description">Botón de chat</string>
-    <string name="log_in_email_hint">email o nombre de perfil</string>
+    <string name="log_in_email_hint">Email o nombre de perfil</string>
     <string name="password_hint">Contraseña</string>
     <string name="log_in_button">Iniciar sesión</string>
     <string name="log_in_divider_or">O</string>
     <string name="log_in_google">Inicia sesión con Google</string>
-    <string name="log_in_authorized_courier">Eres una persona repartidora autorizada?</string>
-    <string name="new_to_dear">No tienes una cuenta? Regístrate aquí!</string>
+    <string name="log_in_authorized_courier">¿Eres personal de envíos?</string>
+    <string name="new_to_dear">¿No tienes una cuenta?</string>
+    <string name="click_here_to_sign_up">¡Regístrate aquí!</string>
     <string name="sign_up_button">Registrarse</string>
     <string name="talk_to_your_courier">Habla con tu repartidor</string>
     <string name="your_package_is_scheduled_to_arrive_on">Tu paquete está programado para llegar el:</string>
@@ -44,7 +45,15 @@
     <string name="test_arrival_time_2">Tu paquete llegará en 3 días</string>
     <string name="test_address">John Doe, 2421 16th St, San Francisco</string>
     <string name="chat_reply_button">Responder</string>
-    <string name="live_ar_route">Ruta guiada</string>
+    <string name="live_ar_route">Ruta en vivo</string>
     <string name="test_address_2">Jane Doe, 2343 Bryant St, San Francisco</string>
     <string name="scan">Escanear</string>
+    <string name="delete_dialog_title">Confirmación de borrado</string>
+    <string name="delete_dialog_content">¿Estás seguro de que quieres borrar este seguimiento?</string>
+    <string name="delivery_details">Detalles de entrega</string>
+    <string name="log_in">Inicio de sesión</string>
+    <string name="tracking_details">Detalles de seguimiento</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="profile">Perfil</string>
+    <string name="chat">Chat</string>
 </resources>

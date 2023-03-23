@@ -5,11 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".ARScanner">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/actionModeCloseDrawable"
+        app:title="@string/scanner" />
+
     <ImageView
         android:id="@+id/imageView11"
         android:layout_width="411dp"
         android:layout_height="323dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="64dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,19 +30,20 @@
         android:id="@+id/textView28"
         android:layout_width="408dp"
         android:layout_height="32dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:text="@string/scanner_text"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/cameraButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:adjustViewBounds="false"
         android:clickable="true"
         android:scaleType="center"
@@ -47,7 +57,7 @@
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/buttonCamera"
         android:layout_width="123dp"
         android:layout_height="88dp"
         android:layout_marginBottom="4dp"
