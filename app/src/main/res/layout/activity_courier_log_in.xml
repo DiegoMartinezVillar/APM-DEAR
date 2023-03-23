@@ -6,19 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".CourierLogIn">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/actionModeCloseDrawable"
+        app:title="@string/log_in" />
+
     <EditText
         android:id="@+id/editTextTextEmailAddressCourierLogIn"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="92dp"
         android:autofillHints="@string/log_in_email_hint"
         android:ems="10"
         android:hint="@string/log_in_email_hint"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
 
     <EditText
         android:id="@+id/editTextTextPasswordCourierLogIn"
