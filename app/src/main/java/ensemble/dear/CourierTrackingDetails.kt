@@ -17,6 +17,12 @@ class CourierTrackingDetails : AppCompatActivity() {
         val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
 
+        val confirmButton = findViewById<Button>(R.id.buttonConfirm)
+        confirmButton.setOnClickListener{
+            val intent = Intent(applicationContext, DeliveryConfirmation::class.java)
+            startActivity(intent)
+        }
+
         val chatButton = findViewById<FloatingActionButton>(R.id.buttonChat)
         chatButton.setOnClickListener{
             val intent = Intent(applicationContext, Chat::class.java)
