@@ -15,6 +15,9 @@ class ARScanner : AppCompatActivity() {
         val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
 
+        val buttonCameraText = findViewById<Button>(R.id.buttonCamera)
+        buttonCameraText.isEnabled = false
+
         val cameraButton = findViewById<FloatingActionButton>(R.id.cameraButton)
 
         cameraButton.setOnClickListener {
