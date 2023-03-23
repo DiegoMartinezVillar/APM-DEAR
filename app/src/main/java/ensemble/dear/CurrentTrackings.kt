@@ -35,6 +35,9 @@ class CurrentTrackings : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_trackings)
 
+        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
+        setSupportActionBar(toolbar)
+
         val buttonAddTracking = findViewById<FloatingActionButton>(R.id.buttonAddTracking)
         val buttonDeleteTracking = findViewById<Button>(R.id.buttonDeleteTracking)
 
@@ -51,9 +54,5 @@ class CurrentTrackings : AppCompatActivity() {
         textTrackingNumber.setOnClickListener {
             startActivity(Intent(applicationContext, ClientTrackingDetails::class.java))
         }
-
     }
-
-
-
 }

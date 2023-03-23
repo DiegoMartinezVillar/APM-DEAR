@@ -12,6 +12,9 @@ class ClientLogIn : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_log_in)
 
+        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
+        setSupportActionBar(toolbar)
+
         val buttonClientLogIn = findViewById<Button>(R.id.buttonClientLogIn)
         buttonClientLogIn.setOnClickListener{
             startActivity(Intent(applicationContext, CurrentTrackings::class.java))

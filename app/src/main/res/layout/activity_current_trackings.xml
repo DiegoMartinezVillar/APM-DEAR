@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="?attr/actionModeCloseDrawable"
         app:title="@string/current_trackings" />
 
     <!--com.google.android.material.floatingactionbutton.FloatingActionButton
