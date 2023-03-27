@@ -93,7 +93,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 map!!.awaitMapLoad()
 
                 // Prompt the user for permission.
-                //getLocationPermission()
+                getLocationPermission()
 
                 // Turn on the My Location layer and the related control on the map.
                 //updateLocationUI()
