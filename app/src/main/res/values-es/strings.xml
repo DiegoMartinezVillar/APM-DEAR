@@ -56,4 +56,5 @@
     <string name="sign_up">Registrarse</string>
     <string name="profile">Perfil</string>
     <string name="chat">Chat</string>
+    <string name="log_out">Cerrar sesión</string>
 </resources>
