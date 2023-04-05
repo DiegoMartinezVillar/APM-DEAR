@@ -12,10 +12,10 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".PendingShipments"
+            android:name=".currentTrackings.CurrentTrackings"
             android:exported="false" />
         <activity
-            android:name=".CurrentTrackings"
+            android:name=".PendingShipments"
             android:exported="false" />
         <activity
             android:name=".AddTracking"
@@ -23,7 +23,8 @@
         <activity
             android:name=".ARDelivery"
             android:exported="false" />
-        <activity android:name=".ARScanner"
+        <activity
+            android:name=".ARScanner"
             android:exported="false" />
         <activity
             android:name=".DeliveryConfirmation"
