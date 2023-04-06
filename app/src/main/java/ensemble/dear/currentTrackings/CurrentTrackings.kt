@@ -10,7 +10,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ensemble.dear.AddTracking
 
 class CurrentTrackings : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_trackings)
@@ -19,17 +18,13 @@ class CurrentTrackings : AppCompatActivity() {
         val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
 
-//        val buttonAddTracking = findViewById<FloatingActionButton>(R.id.buttonAddTracking)
-//        buttonAddTracking.setOnClickListener {
-//            startActivity(Intent(applicationContext, AddTracking::class.java))
-//        }
-
-
-
+        val buttonAddTracking = findViewById<FloatingActionButton>(R.id.buttonAddTracking)
+        buttonAddTracking.setOnClickListener {
+            startActivity(Intent(applicationContext, AddTracking::class.java))
+        }
     }
 
     private fun replaceFragment() {
-
         supportFragmentManager.commit {
             setReorderingAllowed(true)
             replace<TrackingsFragment>(R.id.fragment_container_view)

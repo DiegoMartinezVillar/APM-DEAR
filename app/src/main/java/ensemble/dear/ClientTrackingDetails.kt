@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ensemble.dear.currentTrackings.IN_DELIVERY_STATE
+import ensemble.dear.currentTrackings.PRE_ADMISSION_STATE
+import ensemble.dear.currentTrackings.ON_THE_WAY_STATE
+import ensemble.dear.currentTrackings.DELIVERED_STATE
 import ensemble.dear.currentTrackings.TRACKING_ID
 
 class ClientTrackingDetails : AppCompatActivity() {
@@ -16,28 +21,34 @@ class ClientTrackingDetails : AppCompatActivity() {
     private val trackingDetailViewModel by viewModels<TrackingDetailViewModel> {
         TrackingDetailViewModelFactory(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_tracking_details)
 
-        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
+        val toolbar =
+            findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
 
         val locateButton = findViewById<Button>(R.id.buttonLocate)
-        locateButton.setOnClickListener{
+        locateButton.setOnClickListener {
             val intent = Intent(applicationContext, ClientTrackingDetailsMap::class.java)
             startActivity(intent)
         }
 
         val chatButton = findViewById<FloatingActionButton>(R.id.buttonChat)
-        chatButton.setOnClickListener{
+        chatButton.setOnClickListener {
             val intent = Intent(applicationContext, Chat::class.java)
             startActivity(intent)
         }
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
-        phoneNumberCallText.setOnClickListener{
-            Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
+        phoneNumberCallText.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "Calling " + phoneNumberCallText.text,
+                Toast.LENGTH_LONG
+            ).show()
         }
 
         setPageData()
@@ -58,35 +69,60 @@ class ClientTrackingDetails : AppCompatActivity() {
 
         /* Connect variables to UI elements. */
         val packageContent: TextView = findViewById(R.id.textView3)
-//        val flowerImage: ImageView = findViewById(R.id.flower_detail_image)
-//        val flowerDescription: TextView = findViewById(R.id.flower_detail_description)
-//        val removeFlowerButton: Button = findViewById(R.id.remove_button)
+
+        val preadmissionState: ImageView = findViewById(R.id.preadmissionCheck)
+        val inDeliveryState: ImageView = findViewById(R.id.inDeliveryCheck)
+        val onTheWayState: ImageView = findViewById(R.id.onTheWayCheck)
+        val deliveredState: ImageView = findViewById(R.id.deliveredCheck)
+
+        val address: TextView = findViewById(R.id.addressText)
+        val packageNumber: TextView = findViewById(R.id.detailPackageNumber)
+        val shippingCompany: TextView = findViewById(R.id.shippingCompany)
+        val arrivalDate: TextView = findViewById(R.id.arrivalTime)
+
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
             currentTrackingId = bundle.getInt(TRACKING_ID)
         }
 
-        /* If currentFlowerId is not null, get corresponding flower and set name, image and
-        description */
+        /* if currentTrackingId is not null, get corresponding tracking data */
         currentTrackingId?.let {
             val currentTracking = trackingDetailViewModel.getTrackingForId(it)
             packageContent.text = currentTracking?.packageContent
 
+            address.text = currentTracking?.deliveryAddress
+            packageNumber.text = "#" + currentTracking?.packageNumber.toString()
+            shippingCompany.text = currentTracking?.shipperCompany
+            arrivalDate.text = currentTracking?.estimatedArrivalDate.toString()
 
-//            if (currentFlower?.image == null) {
-//                flowerImage.setImageResource(R.drawable.rose)
-//            } else {
-//                flowerImage.setImageResource(currentFlower.image)
-//            }
-//            flowerDescription.text = currentFlower?.description
-//
-//            removeFlowerButton.setOnClickListener {
-//                if (currentFlower != null) {
-//                    flowerDetailViewModel.removeFlower(currentFlower)
-//                }
-//                finish()
-//            }
+            when (currentTracking?.currentState) {
+                PRE_ADMISSION_STATE -> {
+                    preadmissionState.setImageResource(android.R.drawable.checkbox_on_background)
+                    onTheWayState.setImageResource(android.R.drawable.checkbox_off_background)
+                    inDeliveryState.setImageResource(android.R.drawable.checkbox_off_background)
+                    deliveredState.setImageResource(android.R.drawable.checkbox_off_background)
+                }
+                ON_THE_WAY_STATE -> {
+                    preadmissionState.setImageResource(android.R.drawable.checkbox_on_background)
+                    onTheWayState.setImageResource(android.R.drawable.checkbox_on_background)
+                    inDeliveryState.setImageResource(android.R.drawable.checkbox_off_background)
+                    deliveredState.setImageResource(android.R.drawable.checkbox_off_background)
+                }
+                IN_DELIVERY_STATE -> {
+                    preadmissionState.setImageResource(android.R.drawable.checkbox_on_background)
+                    onTheWayState.setImageResource(android.R.drawable.checkbox_on_background)
+                    inDeliveryState.setImageResource(android.R.drawable.checkbox_on_background)
+                    deliveredState.setImageResource(android.R.drawable.checkbox_off_background)
+                }
+                DELIVERED_STATE -> {
+                    preadmissionState.setImageResource(android.R.drawable.checkbox_on_background)
+                    onTheWayState.setImageResource(android.R.drawable.checkbox_on_background)
+                    inDeliveryState.setImageResource(android.R.drawable.checkbox_on_background)
+                    deliveredState.setImageResource(android.R.drawable.checkbox_on_background)
+                }
+            }
+
         }
     }
 }

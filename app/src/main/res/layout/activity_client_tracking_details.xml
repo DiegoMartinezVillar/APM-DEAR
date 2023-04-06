@@ -26,7 +26,7 @@
       app:srcCompat="@android:drawable/ic_dialog_email" />
 
   <TextView
-      android:id="@+id/textView"
+      android:id="@+id/detailPackageNumber"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
@@ -35,13 +35,13 @@
       app:layout_constraintTop_toTopOf="@+id/imageView" />
 
   <TextView
-      android:id="@+id/textView2"
+      android:id="@+id/shippingCompany"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
       android:text="AliExpress.com"
       app:layout_constraintStart_toEndOf="@+id/imageView"
-      app:layout_constraintTop_toBottomOf="@+id/textView" />
+      app:layout_constraintTop_toBottomOf="@+id/detailPackageNumber" />
 
   <TextView
       android:id="@+id/textView3"
@@ -50,7 +50,7 @@
       android:layout_marginStart="8dp"
       android:text="Alias: Culotte"
       app:layout_constraintStart_toEndOf="@+id/imageView"
-      app:layout_constraintTop_toBottomOf="@+id/textView2" />
+      app:layout_constraintTop_toBottomOf="@+id/shippingCompany" />
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/constraintLayout"
@@ -70,7 +70,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:text="@string/pre_admission"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/preadmissionCheck"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/preadmissionCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -110,26 +110,26 @@
         app:srcCompat="@android:drawable/checkbox_on_background" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/onTheWayCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/preadmissionCheck"
         app:layout_constraintTop_toTopOf="@+id/textView5"
         app:srcCompat="@android:drawable/checkbox_on_background" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/inDeliveryCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/onTheWayCheck"
         app:layout_constraintTop_toTopOf="@+id/textView7"
         app:srcCompat="@android:drawable/checkbox_on_background" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/deliveredCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/inDeliveryCheck"
         app:layout_constraintTop_toTopOf="@+id/textView8"
         app:srcCompat="@android:drawable/checkbox_off_background" />
 
@@ -138,8 +138,8 @@
         android:layout_width="19dp"
         android:layout_height="24dp"
         android:rotation="90"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/preadmissionCheck"
+        app:layout_constraintTop_toBottomOf="@+id/preadmissionCheck"
         app:srcCompat="@drawable/dotted_line" />
 
     <ImageView
@@ -147,8 +147,8 @@
         android:layout_width="19dp"
         android:layout_height="24dp"
         android:rotation="90"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/onTheWayCheck"
+        app:layout_constraintTop_toBottomOf="@+id/onTheWayCheck"
         app:srcCompat="@drawable/dotted_line" />
 
     <ImageView
@@ -156,8 +156,8 @@
         android:layout_width="19dp"
         android:layout_height="24dp"
         android:rotation="90"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/inDeliveryCheck"
+        app:layout_constraintTop_toBottomOf="@+id/inDeliveryCheck"
         app:srcCompat="@drawable/dotted_line" />
 
     <TextView
@@ -171,7 +171,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/arrivalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -183,7 +183,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/addressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -192,7 +192,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/arrivalTime" />
 
     <Button
         android:id="@+id/buttonLocate"
@@ -202,7 +202,7 @@
         android:text="@string/locate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/addressText" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
