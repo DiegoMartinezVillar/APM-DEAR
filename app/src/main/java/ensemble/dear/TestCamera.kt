@@ -154,15 +154,6 @@ class TestCamera : AppCompatActivity() {
         cameraExecutor.shutdown()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     companion object {
         private val TAG = TestCamera::class.java.simpleName
