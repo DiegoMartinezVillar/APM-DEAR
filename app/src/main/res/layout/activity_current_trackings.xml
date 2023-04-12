@@ -32,7 +32,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintViewPendShipments"
+            android:id="@+id/constraintViewCurrentTrackings"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".CurrentTrackings">
@@ -182,24 +182,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
-            <!--version for recycleView-->
-            <!--androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="56dp"
-                android:background="@color/cardview_dark_background"
-                android:paddingStart="@dimen/shr_product_grid_spacing"
-                android:paddingEnd="@dimen/shr_product_grid_spacing"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </androidx.core.widget.NestedScrollView-->
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/buttonAddTracking"
                 android:layout_width="wrap_content"
@@ -229,6 +211,6 @@
         app:headerLayout="@layout/header_navigation_drawer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/navigation_drawer" />
+        app:menu="@menu/client_navigation_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
