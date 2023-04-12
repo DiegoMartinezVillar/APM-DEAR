@@ -4,11 +4,13 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 
 class TestImage : AppCompatActivity() {
+    lateinit var imageUriDeletion : Uri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_image)
@@ -20,6 +22,8 @@ class TestImage : AppCompatActivity() {
         if (imageURI != null) {
             val imageView = findViewById<ImageView>(R.id.imageView)
             imageView.setImageURI(imageURI)
+            imageUriDeletion = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                                    imageURI.lastPathSegment)
         }
 
     }
@@ -36,14 +40,23 @@ class TestImage : AppCompatActivity() {
         return imageUri
     }
 
+    private fun deleteImage() {
+        contentResolver.delete(imageUriDeletion, null, null)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                Toast.makeText(applicationContext, "Back button pressed", Toast.LENGTH_LONG).show()
+                deleteImage()
                 onBackPressedDispatcher.onBackPressed()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        deleteImage()
+        onBackPressedDispatcher.onBackPressed()
     }
 }
