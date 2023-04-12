@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navCurrentTrackings"
+            android:icon="@drawable/google__g__logo"
+            android:title="@string/current_trackings"
+            android:checked="true" />
+    </group>
+
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/subtitle"
+            android:title="@string/account">
+            <menu>
+
+                <item
+                    android:id="@+id/navProfile"
+                    android:icon="@drawable/avatar"
+                    android:title="@string/profile" />
+                <item
+                    android:id="@+id/navLogOut"
+                    android:icon="@drawable/google__g__logo"
+                    android:title="@string/log_out" />
+            </menu>
+        </item>
+    </group>
+</menu>
