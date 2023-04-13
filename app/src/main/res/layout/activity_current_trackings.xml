@@ -24,7 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/current_trackings"
-                app:navigationIcon="@drawable/google__g__logo"
+                app:navigationIcon="@drawable/icons8_menu_24"
+                app:navigationIconTint="@color/white"
                 style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
                 android:background="@android:color/transparent"
                 android:elevation="0dp" />
