@@ -38,3 +38,6 @@ hs_err_pid*
 .externalNativeBuild
 .cxx
 local.properties
+
+# Do not ignore the following files
+!/app/build/outputs/apk/debug/app-debug.apk
