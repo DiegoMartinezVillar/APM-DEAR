@@ -62,16 +62,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-        <ImageView
-            android:id="@+id/imageView2"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map_fragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="354dp"
             android:layout_height="311dp"
             android:layout_marginTop="24dp"
-            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/map_1" />
+            tools:layout="@layout/map"/>
 
         <TextView
             android:id="@+id/textView15"
@@ -79,8 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="2421 16th St"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintStart_toStartOf="@+id/map_fragment"
+            app:layout_constraintTop_toBottomOf="@+id/map_fragment" />
 
         <TextView
             android:id="@+id/textView16"

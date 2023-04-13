@@ -58,4 +58,6 @@
     <string name="profile">Profile</string>
     <string name="chat">Chat</string>
     <string name="shipper_company">Shipper Company</string>
+    <string name="log_out">Log out</string>
+    <string name="account">Account</string>
 </resources>

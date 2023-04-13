@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import ensemble.dear.drawing.DrawView
+import ensemble.dear.pendingShipments.PendingShipments
 
 class DeliveryConfirmation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,14 +16,17 @@ class DeliveryConfirmation : AppCompatActivity() {
         val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
 
+        val drawView = findViewById<DrawView>(R.id.drawView)
+
         val clearButton = findViewById<Button>(R.id.buttonClear)
         clearButton.setOnClickListener{
-            Toast.makeText(applicationContext, "Content cleared!", Toast.LENGTH_LONG).show()
+            drawView.clear()
         }
 
         val confirmButton = findViewById<Button>(R.id.buttonConfirm)
         confirmButton.setOnClickListener{
-            Toast.makeText(applicationContext, "Delivery confirmed!", Toast.LENGTH_LONG).show()
+            val intent = Intent(applicationContext, PendingShipments::class.java)
+            startActivity(intent)
         }
     }
 

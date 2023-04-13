@@ -57,5 +57,7 @@
     <string name="sign_up">Registrarse</string>
     <string name="profile">Perfil</string>
     <string name="chat">Chat</string>
-    <string name="shipper_company">Shipper Company</string>
+    <string name="shipper_company">Empresa transportista</string>
+    <string name="log_out">Cerrar sesión</string>
+    <string name="account">Cuenta</string>
 </resources>
