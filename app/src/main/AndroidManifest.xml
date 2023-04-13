@@ -22,10 +22,7 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".TestImage"
-            android:exported="false" />
-        <activity
-            android:name=".ClientLogIn"
+            android:name=".ARDeliveryImageCheck"
             android:exported="false" />
         <activity
             android:name=".PendingShipments"
@@ -70,7 +67,7 @@
             android:name=".ClientTrackingDetails"
             android:exported="false" />
         <activity
-            android:name=".TestCamera"
+            android:name=".ClientLogIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

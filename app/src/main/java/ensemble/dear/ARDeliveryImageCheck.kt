@@ -7,13 +7,12 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.Toast
 
-class TestImage : AppCompatActivity() {
+class ARDeliveryImageCheck : AppCompatActivity() {
     lateinit var imageUriDeletion : Uri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test_image)
+        setContentView(R.layout.activity_ardelivery_image_check)
 
         val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
@@ -41,6 +40,7 @@ class TestImage : AppCompatActivity() {
     }
 
     private fun deleteImage() {
+        // Delete the image from the MediaStore.
         contentResolver.delete(imageUriDeletion, null, null)
     }
 
