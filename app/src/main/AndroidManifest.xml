@@ -25,10 +25,10 @@
             android:name=".ARDeliveryImageCheck"
             android:exported="false" />
         <activity
-            android:name=".PendingShipments"
+            android:name=".currentTrackings.CurrentTrackings"
             android:exported="false" />
         <activity
-            android:name=".CurrentTrackings"
+            android:name=".pendingShipments.PendingShipments"
             android:exported="false" />
         <activity
             android:name=".AddTracking"
