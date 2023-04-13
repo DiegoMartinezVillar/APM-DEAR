@@ -1,1 +1,4 @@
 /build
+
+# Do not ignore the following files
+!build/outputs/apk/debug/app-debug.apk

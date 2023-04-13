@@ -40,4 +40,4 @@ hs_err_pid*
 local.properties
 
 # Do not ignore the following files
-!/app/build/outputs/apk/debug/app-debug.apk
+!app/build/outputs/apk/debug/app-debug.apk
