@@ -1,4 +1,4 @@
-package ensemble.dear.currentTrackings
+package ensemble.dear.pendingShipments
 
 import java.time.LocalDate
 
@@ -8,11 +8,11 @@ const val IN_DELIVERY_STATE : String = "in_delivery"
 const val DELIVERED_STATE : String = "delivered"
 
 
-class TrackingsProvider {
+class ShipmentsProvider {
 
     companion object {
-        val trackingsList = listOf<Tracking>(
-            Tracking(
+        val shipmentsList = listOf<Shipment>(
+            Shipment(
                 packageNumber = 123456789,
                 packageContent = "Alarm Clock",
                 daysUntilArrival = 2,
@@ -22,9 +22,11 @@ class TrackingsProvider {
                 currentState = IN_DELIVERY_STATE,
                 assignedCourier = "1",
                 deliveryAddress = "436 Constitution Way " +
-                        "San Francisco, California"
+                        "San Francisco, California",
+                additionalInstructions = "The house is next to John's bakery"
+                //receiver
             ),
-            Tracking(
+            Shipment(
                 packageNumber = 121212121,
                 packageContent = "Bike shorts",
                 daysUntilArrival = 3,
@@ -34,9 +36,10 @@ class TrackingsProvider {
                 currentState = PRE_ADMISSION_STATE,
                 assignedCourier = "3",
                 deliveryAddress = "29 Idlewood Dr " +
-                        "San Francisco, California"
+                        "San Francisco, California",
+                additionalInstructions = "Send a message around ten minutes before arriving"
             ),
-            Tracking(
+            Shipment(
                 packageNumber = 666666666,
                 packageContent = "Floral cushion",
                 daysUntilArrival = 3,
@@ -46,7 +49,8 @@ class TrackingsProvider {
                 currentState = ON_THE_WAY_STATE,
                 assignedCourier = "2",
                 deliveryAddress = "114 Camaritas Ave " +
-                        "San Francisco, California"
+                        "San Francisco, California",
+                additionalInstructions = "Leave at front door"
             ),
         )
     }

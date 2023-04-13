@@ -9,7 +9,7 @@ import ensemble.dear.currentTrackings.TrackingsProvider
 class TrackingsDataSource(resources: Resources) {
     private val trackingsLiveData = MutableLiveData(TrackingsProvider.trackingsList)
 
-    /* Adds flower to liveData and posts value. */
+    // adds tracking to liveData and posts value
     fun addTracking(tracking: Tracking) {
         val currentList = trackingsLiveData.value
         if (currentList == null) {
@@ -21,7 +21,7 @@ class TrackingsDataSource(resources: Resources) {
         }
     }
 
-    /* Removes flower from liveData and posts value. */
+    // Removes tracking from liveData and posts value
     fun removeTracking(tracking: Tracking) {
         val currentList = trackingsLiveData.value
         if (currentList != null) {
