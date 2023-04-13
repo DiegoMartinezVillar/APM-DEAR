@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import ensemble.dear.currentTrackings.CurrentTrackings
+import ensemble.dear.pendingShipments.PendingShipments
 
 class Profile : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout

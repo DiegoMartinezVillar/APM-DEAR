@@ -1,44 +1,25 @@
-package ensemble.dear
+package ensemble.dear.currentTrackings
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
-import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import ensemble.dear.R
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
+import ensemble.dear.AddTracking
+import ensemble.dear.ClientLogIn
+import ensemble.dear.Profile
 
 class CurrentTrackings : AppCompatActivity() {
-
     private lateinit var drawerLayout: DrawerLayout
-
-    private val positiveButtonClick = { dialog: DialogInterface, which: Int ->
-        Toast.makeText(applicationContext,
-        android.R.string.ok, Toast.LENGTH_LONG).show()
-    }
-
-    private val negativeButtonClick = { dialog: DialogInterface, which: Int ->
-        Toast.makeText(applicationContext,
-            android.R.string.cancel, Toast.LENGTH_LONG).show()
-    }
-
-    fun confirmDeletionAlert(){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle("Confirm Deletion")
-        builder.setMessage("Are you sure you want to delete this tracking?")
-        builder.setPositiveButton("Delete", DialogInterface.OnClickListener(function = positiveButtonClick))
-        builder.setNegativeButton(android.R.string.cancel, negativeButtonClick )
-        builder.show()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_trackings)
+        replaceFragment()
 
         val topAppBar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(topAppBar)
@@ -63,22 +44,16 @@ class CurrentTrackings : AppCompatActivity() {
             true
         }
 
-
         val buttonAddTracking = findViewById<FloatingActionButton>(R.id.buttonAddTracking)
-        val buttonDeleteTracking = findViewById<Button>(R.id.buttonDeleteTracking)
-
-        val textTrackingNumber = findViewById<TextView>(R.id.textTrackingNumber)
-
         buttonAddTracking.setOnClickListener {
             startActivity(Intent(applicationContext, AddTracking::class.java))
         }
+    }
 
-        buttonDeleteTracking.setOnClickListener {
-            confirmDeletionAlert()
-        }
-
-        textTrackingNumber.setOnClickListener {
-            startActivity(Intent(applicationContext, ClientTrackingDetails::class.java))
+    private fun replaceFragment() {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<TrackingsFragment>(R.id.fragment_container_view)
         }
     }
 

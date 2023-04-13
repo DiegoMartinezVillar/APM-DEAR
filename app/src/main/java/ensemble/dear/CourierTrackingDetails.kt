@@ -5,11 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ensemble.dear.currentTrackings.*
+import ensemble.dear.pendingShipments.SHIPMENT_ID
 
 class CourierTrackingDetails : AppCompatActivity() {
+
+    private val shipmentDetailViewModel by viewModels<ShipmentsDetailViewModel> {
+        ShipmentsDetailViewModelFactory(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_courier_tracking_details)
@@ -39,6 +48,8 @@ class CourierTrackingDetails : AppCompatActivity() {
         phoneNumberCallText.setOnClickListener{
             Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
         }
+
+        setPageData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -49,5 +60,38 @@ class CourierTrackingDetails : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setPageData() {
+        var currentShipmentId: Int? = null
+
+        // connect variables to UI elements
+        val packageContent: TextView = findViewById(R.id.textView3)
+
+        val address: TextView = findViewById(R.id.addressText)
+        val packageNumber: TextView = findViewById(R.id.deliveryNumber)
+        val shippingCompany: TextView = findViewById(R.id.shipperCompany)
+        //val arrivalDate: TextView = findViewById(R.id.arrivalTime)
+
+        val additionalInstructions: TextView = findViewById(R.id.additionalInstructions)
+
+        val bundle: Bundle? = intent.extras
+        if (bundle != null) {
+            currentShipmentId = bundle.getInt(SHIPMENT_ID)
+        }
+
+        /* if currentTrackingId is not null, get corresponding tracking data */
+        currentShipmentId?.let {
+            val currentShipment = shipmentDetailViewModel.getShipmentForId(it)
+            packageContent.text = currentShipment?.packageContent
+
+            address.text = currentShipment?.deliveryAddress
+            packageNumber.text = "#" + currentShipment?.packageNumber.toString()
+            shippingCompany.text = currentShipment?.shipperCompany
+            additionalInstructions.text = currentShipment?.additionalInstructions
+            //arrivalDate.text = currentTracking?.estimatedArrivalDate.toString()
+
+
+        }
     }
 }

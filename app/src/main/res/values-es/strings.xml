@@ -48,6 +48,7 @@
     <string name="live_ar_route">Ruta en vivo</string>
     <string name="test_address_2">Jane Doe, 2343 Bryant St, San Francisco</string>
     <string name="scan">Escanear</string>
+    <string name="delete_text">Borrar</string>
     <string name="delete_dialog_title">Confirmación de borrado</string>
     <string name="delete_dialog_content">¿Estás seguro de que quieres borrar este seguimiento?</string>
     <string name="delivery_details">Detalles de entrega</string>
@@ -56,6 +57,7 @@
     <string name="sign_up">Registrarse</string>
     <string name="profile">Perfil</string>
     <string name="chat">Chat</string>
+    <string name="shipper_company">Empresa transportista</string>
     <string name="log_out">Cerrar sesión</string>
     <string name="account">Cuenta</string>
 </resources>
