@@ -60,4 +60,5 @@
     <string name="shipper_company">Empresa transportista</string>
     <string name="log_out">Cerrar sesión</string>
     <string name="account">Cuenta</string>
+    <string name="confirm_log_out">¿Estás seguro de que quieres cerrar la sesión?</string>
 </resources>
