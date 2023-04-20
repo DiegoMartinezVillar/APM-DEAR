@@ -62,8 +62,7 @@ class CurrentTrackings : AppCompatActivity() {
         val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
 
         if (acct != null) {
-            val profileName = findViewById<TextView>(R.id.side_menu_account_name)
-            //profileName.text.toString()
+            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_name).text = acct.displayName
         }
 
         val buttonAddTracking = findViewById<FloatingActionButton>(R.id.buttonAddTracking)

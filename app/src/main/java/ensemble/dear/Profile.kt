@@ -28,12 +28,14 @@ class Profile : AppCompatActivity() {
         val topAppBar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(topAppBar)
 
-        gso =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         gsc = GoogleSignIn.getClient(this, gso)
+
+        val navigationView = findViewById<com.google.android.material.navigation.NavigationView>(R.id.navigationView)
 
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         if (acct != null) {
+            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_name).text = acct.displayName
             findViewById<TextView>(R.id.text_view_profile_name).text = acct.displayName
             findViewById<TextView>(R.id.text_view_profile_email).text = acct.email
         }
@@ -44,8 +46,6 @@ class Profile : AppCompatActivity() {
         }
 
         //mark item in drawer as selected
-
-        val navigationView = findViewById<com.google.android.material.navigation.NavigationView>(R.id.navigationView)
 
         val navCurrentTrackings = navigationView.menu.findItem(R.id.navCurrentTrackings)
         val navProfile = navigationView.menu.findItem(R.id.navProfile)

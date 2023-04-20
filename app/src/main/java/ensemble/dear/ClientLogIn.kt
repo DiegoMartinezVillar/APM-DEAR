@@ -25,8 +25,7 @@ class ClientLogIn : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_log_in)
 
-        gso =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         gsc = GoogleSignIn.getClient(this, gso)
 
         val acct = GoogleSignIn.getLastSignedInAccount(this)
