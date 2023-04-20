@@ -60,4 +60,5 @@
     <string name="shipper_company">Shipper Company</string>
     <string name="log_out">Log out</string>
     <string name="account">Account</string>
+    <string name="confirm_log_out">Are you sure you want to log out?</string>
 </resources>
