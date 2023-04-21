@@ -37,11 +37,13 @@ class Profile : AppCompatActivity() {
 
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         if (acct != null) {
-            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_name).text = acct.displayName
+            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_name).text = acct.givenName
+            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_email).text = acct.email
             findViewById<TextView>(R.id.text_view_profile_name).text = acct.displayName
             findViewById<TextView>(R.id.text_view_profile_email).text = acct.email
 
             if (acct.photoUrl != null) {
+                Picasso.get().load(acct.photoUrl).into(navigationView.getHeaderView(0).findViewById<ImageView>(R.id.side_menu_profile_pic));
                 Picasso.get().load(acct.photoUrl).into(findViewById<ImageView>(R.id.image_view_profile_avatar));
             }
         }
