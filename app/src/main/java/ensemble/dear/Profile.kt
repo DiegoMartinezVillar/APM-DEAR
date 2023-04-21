@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.squareup.picasso.Picasso
 import ensemble.dear.currentTrackings.CurrentTrackings
 import ensemble.dear.pendingShipments.PendingShipments
 
@@ -38,6 +40,10 @@ class Profile : AppCompatActivity() {
             navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_name).text = acct.displayName
             findViewById<TextView>(R.id.text_view_profile_name).text = acct.displayName
             findViewById<TextView>(R.id.text_view_profile_email).text = acct.email
+
+            if (acct.photoUrl != null) {
+                Picasso.get().load(acct.photoUrl).into(findViewById<ImageView>(R.id.image_view_profile_avatar));
+            }
         }
 
         drawerLayout = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawerLayout)
