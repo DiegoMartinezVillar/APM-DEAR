@@ -1,25 +1,31 @@
 package ensemble.dear
 
-import android.content.ContentValues
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.WindowManager
+import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
+import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.text.SimpleDateFormat
-import java.util.*
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.google.mlkit.vision.common.InputImage
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -50,50 +56,6 @@ class ARScanner : AppCompatActivity() {
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
-    }
-
-    private fun takePhoto() {
-        // Get a stable reference of the modifiable image capture use case
-        val imageCapture = imageCapture ?: return
-
-        // Create time stamped name and MediaStore entry.
-        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
-            .format(System.currentTimeMillis())
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/CameraX-Image")
-            }
-        }
-
-        // Create output options object which contains file + metadata
-        val outputOptions = ImageCapture.OutputFileOptions
-            .Builder(contentResolver,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues)
-            .build()
-
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
-        imageCapture.takePicture(
-            outputOptions,
-            ContextCompat.getMainExecutor(this),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
-                }
-
-                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val msg = "Photo capture succeeded: ${output.savedUri}"
-                    Log.d(TAG, msg)
-                    // Create a new intent to open the stored image
-                    val intent = Intent(applicationContext, ARDeliveryImageCheck::class.java)
-                    intent.putExtra("imageUri", output.savedUri)
-                    startActivity(intent)
-                }
-            }
-        )
     }
 
     private fun startCamera() {
@@ -132,6 +94,118 @@ class ARScanner : AppCompatActivity() {
             }
 
         }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun takePhoto() {
+        // Get a stable reference of the modifiable image capture use case
+        val imageCapture = imageCapture ?: return
+
+        imageCapture.takePicture(
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageCapturedCallback() {
+                override fun onError(exc: ImageCaptureException) {
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                }
+
+                @ExperimentalGetImage override fun onCaptureSuccess(imageProxy: ImageProxy) {
+                    super.onCaptureSuccess(imageProxy)
+                    val mediaImage = imageProxy.image
+                    if (mediaImage != null) {
+                        // get the scale factor of the imageProxy
+                        Log.e(TAG, imageProxy.height.toString() + "," + imageProxy.width.toString())
+                        val image = InputImage.fromMediaImage(mediaImage,
+                                                            imageProxy.imageInfo.rotationDegrees)
+                        processPicture(image)
+                        // Close ImageProxy after processing the QR codes
+                        imageProxy.close()
+                    }
+                }
+            }
+        )
+    }
+
+    private fun processPicture(image: InputImage) {
+        // Use QR code scanner
+        val scanner_options = BarcodeScannerOptions.Builder()
+            .setBarcodeFormats(
+                Barcode.FORMAT_QR_CODE)
+            .build()
+        // Get the scanner
+        val scanner = BarcodeScanning.getClient()
+
+        val result = scanner.process(image)
+            .addOnSuccessListener { barcodes ->
+                if (barcodes.isEmpty()) {
+                    Toast.makeText(this, "No QR code found", Toast.LENGTH_LONG).show()
+                    return@addOnSuccessListener
+                }
+                // Task completed successfully
+                for (barcode in barcodes) {
+                    //val bounds = barcode.boundingBox
+                    val corners = barcode.cornerPoints
+
+                    if (corners != null) {
+                        // Get the offset to display the popup
+                        var offsetX = corners[0].x
+                        var offsetY = (corners[0].y + corners[2].y) / 2
+
+                        val rawValue = barcode.rawValue
+
+                        // See API reference for complete list of supported types
+                        when (barcode.valueType) {
+                            Barcode.TYPE_TEXT -> {
+                                // Inflate view and set title, address and rating
+                                val view = LayoutInflater.from(this)
+                                    .inflate(R.layout.qr_popup_window, null)
+                                view.findViewById<TextView>(R.id.text_view_text).text = rawValue
+
+                                // Show popup window
+                                val popupWindow = PopupWindow(
+                                    view,
+                                    WindowManager.LayoutParams.WRAP_CONTENT,
+                                    WindowManager.LayoutParams.WRAP_CONTENT,
+                                    true
+                                )
+                                // Get image size
+                                val imageWidth = image.width
+                                val imageHeight = image.height
+                                //Log.e(TAG, imageWidth.toString() + "," + imageHeight.toString())
+
+                                // get preview view size
+                                val previewView = findViewById<androidx.camera.view.PreviewView>(R.id.viewFinder)
+                                val previewViewWidth = previewView.width
+                                val previewViewHeight = previewView.height
+                                //Log.e(TAG, previewViewWidth.toString() + "," + previewViewHeight.toString())
+
+                                // Rescale the coordinates of the QR code
+                                val scaleFactorX = imageWidth.toFloat() / previewViewWidth.toFloat()
+                                val scaleFactorY = imageHeight.toFloat() / previewViewHeight.toFloat()
+                                //Log.e(TAG, "Prior center coordinates: $offsetX, $offsetY")
+                                offsetX = (offsetX / scaleFactorX).toInt()
+                                offsetY = (offsetY / scaleFactorY).toInt()
+                                //Log.e(TAG, "Center coordinates: $offsetX, $offsetY")
+
+                                popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, offsetX, offsetY)
+                                // do custom actions after outside touch
+                                popupWindow.setOnDismissListener {
+                                    // do something
+                                }
+                            }
+                            else -> {
+                                Toast.makeText(
+                                    this,
+                                    "QR code type not supported",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+                }
+            }.addOnFailureListener {
+                // Task failed with an exception
+                Toast.makeText(this, "Barcode scanning failed", Toast.LENGTH_LONG).show()
+                Log.e(TAG, "Barcode scanning failed: ${it.message}", it)
+            }
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
