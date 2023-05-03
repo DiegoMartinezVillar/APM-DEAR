@@ -4,9 +4,7 @@ package ensemble.dear
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ensemble.dear.currentTrackings.Tracking
-import ensemble.dear.data.ShipmentsDataSource
-import ensemble.dear.data.TrackingsDataSource
+import ensemble.dear.database.ShipmentsDataSource
 import ensemble.dear.pendingShipments.Shipment
 
 class ShipmentsDetailViewModel(private val datasource: ShipmentsDataSource) : ViewModel() {
