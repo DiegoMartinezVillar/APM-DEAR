@@ -3,6 +3,7 @@ package ensemble.dear.currentTrackings
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -14,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Picasso
 import ensemble.dear.AddTracking
 import ensemble.dear.ClientLogIn
 import ensemble.dear.Profile
@@ -62,7 +64,12 @@ class CurrentTrackings : AppCompatActivity() {
         val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
 
         if (acct != null) {
-            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_name).text = acct.displayName
+            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_name).text = acct.givenName
+            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_email).text = acct.email
+
+            if (acct.photoUrl != null) {
+                Picasso.get().load(acct.photoUrl).into(navigationView.getHeaderView(0).findViewById<ImageView>(R.id.side_menu_profile_pic));
+            }
         }
 
         val buttonAddTracking = findViewById<FloatingActionButton>(R.id.buttonAddTracking)
