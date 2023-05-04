@@ -10,7 +10,7 @@ import ensemble.dear.database.entities.PackageEntity
 interface PackageDAO {
 
     @Query("SELECT * FROM package_table ")
-    fun getAllPackages(): LiveData<List<PackageEntity>>
+    fun getAllPackages(): List<PackageEntity>
 
     @Insert
     fun insert(packageEnt: PackageEntity)

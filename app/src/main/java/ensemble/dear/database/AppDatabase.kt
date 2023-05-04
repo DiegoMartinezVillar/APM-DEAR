@@ -6,13 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ensemble.dear.currentTrackings.IN_DELIVERY_STATE
+import ensemble.dear.currentTrackings.PRE_ADMISSION_STATE
 import ensemble.dear.database.dao.DeliveryDAO
 import ensemble.dear.database.dao.PackageDAO
 import ensemble.dear.database.entities.DeliveryEntity
 import ensemble.dear.database.entities.PackageEntity
+import ensemble.dear.database.repository.PackageRepository
 import java.time.LocalDate
 
-@Database(entities = [DeliveryEntity::class, PackageEntity::class], version = 1)
+@Database(entities = [DeliveryEntity::class, PackageEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun deliveriesDAO(): DeliveryDAO
@@ -29,12 +31,12 @@ abstract class AppDatabase : RoomDatabase() {
                     ctx.applicationContext, AppDatabase::class.java,
                     "trackings_database"
                 )
-                        //.allowMainThreadQueries()
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
+                    //.addCallback(roomCallback)
                     .build()
 
-                populateDatabase(instance!!)
+                populateDatabase(ctx)
             }
             return instance!!
 
@@ -44,28 +46,28 @@ abstract class AppDatabase : RoomDatabase() {
             instance = null
         }
 
-        private val roomCallback = object : Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                populateDatabase(instance!!)
-            }
-        }
+        private fun populateDatabase(context: Context) {
+            var deliveryDAO = PackageRepository(context).getAll()
 
-        private fun populateDatabase(db: AppDatabase) {
-            val deliveryDAO = db.deliveriesDAO()
-            val packageDAO = db.packageDAO()
-
-
-            //subscribeOnBackground {
-            packageDAO.insert(
+            var newPackages = listOf(
                 PackageEntity(
-                    123456789, "436 Constitution Way San Francisco, California",
+                    123456789, "Alarm clock","436 Constitution Way San Francisco, California",
                     IN_DELIVERY_STATE, //LocalDate.of(2023, 4, 20),
-                    1
+                    "20th of april 2023",
+                    1, "Aliexpress"
+                ),
+                PackageEntity(
+                    121212121, "Bike shorts", "29 Idlewood Dr " +
+                            "San Francisco, California", PRE_ADMISSION_STATE,
+                    "13th of april 2023", 3, "Alibaba"
                 )
             )
 
-            //}
+            for (courier in newPackages) {
+                if (courier !in deliveryDAO) {
+                    PackageRepository(context).insert(courier)
+                }
+            }
         }
     }
 }

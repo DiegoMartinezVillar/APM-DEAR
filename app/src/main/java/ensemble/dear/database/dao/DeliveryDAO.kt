@@ -9,7 +9,7 @@ import ensemble.dear.database.entities.DeliveryEntity;
 interface DeliveryDAO {
 
     @Query("SELECT * FROM delivery_table ")
-    fun getAllDeliveries(): LiveData<List<DeliveryEntity>>
+    fun getAllDeliveries(): List<DeliveryEntity>
 
     @Insert
     fun insert(delivery: DeliveryEntity)

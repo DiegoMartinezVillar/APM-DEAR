@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.ClientTrackingDetails
 import ensemble.dear.R
 import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
+import ensemble.dear.database.entities.PackageEntity
 import ensemble.dear.database.repository.PackageRepository
 
 const val TRACKING_ID = "tracking_id"
@@ -22,7 +23,7 @@ class TrackingsFragment : Fragment() {
 
     private var trackingsMutableList: MutableList<Tracking> = TrackingsProvider.trackingsList.toMutableList()
     private lateinit var adapter: TrackingsAdapter
-    val packageRepo = this.context?.let { PackageRepository.getInstance(it) }
+    //val packageRepo = this.context?.let { PackageRepository.getInstance(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +41,10 @@ class TrackingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var packagesList = PackageRepository(this.requireActivity()).getAll()
+
         adapter = TrackingsAdapter(
-            trackingsList = trackingsMutableList,
+            trackingsList = packagesList,
             onClickListener = { tracking -> onItemSelected(tracking) },
             onClickDelete = { position -> confirmDeletionAlert(position) }
         )
@@ -56,8 +59,13 @@ class TrackingsFragment : Fragment() {
         builder.setTitle(R.string.delete_dialog_title)
         builder.setMessage(R.string.delete_dialog_content)
         builder.setPositiveButton(R.string.delete_text) { _: DialogInterface, _: Int ->
-            trackingsMutableList.removeAt(position)
-            adapter.notifyItemRemoved(position)
+            //trackingsMutableList.removeAt(position)
+            //adapter.notifyItemRemoved(position)
+            //PackageRepository(this.requireActivity()).delete()
+            Toast.makeText(
+                context,
+                "not implemented yet", Toast.LENGTH_LONG
+            ).show()
         }
         builder.setNegativeButton(android.R.string.cancel) { _: DialogInterface, _: Int ->
             Toast.makeText(
@@ -68,10 +76,10 @@ class TrackingsFragment : Fragment() {
         builder.show()
     }
 
-    private fun onItemSelected(tracking: Tracking) {
+    private fun onItemSelected(packageEnt: PackageEntity) {
         val intent = Intent(context, ClientTrackingDetails()::class.java)
 
-        intent.putExtra(TRACKING_ID, tracking.packageNumber)
+        intent.putExtra(TRACKING_ID, packageEnt.packageNumber)
         startActivity(intent)
     }
 

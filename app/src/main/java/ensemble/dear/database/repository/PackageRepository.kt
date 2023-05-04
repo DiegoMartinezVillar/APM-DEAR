@@ -2,30 +2,26 @@ package ensemble.dear.database.repository
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.room.Room
+import android.os.AsyncTask
 import ensemble.dear.database.AppDatabase
 import ensemble.dear.database.dao.PackageDAO
 import ensemble.dear.database.entities.PackageEntity
 
-class PackageRepository(application: Application) {
+class PackageRepository(context: Context) {
 
-    private var packageDAO: PackageDAO
-    private var allPackages: LiveData<List<PackageEntity>>
+    private val database = AppDatabase.getInstance(context)
 
-    private val database = AppDatabase.getInstance(application)
-
-
-    init {
-        packageDAO = database.packageDAO()
-        allPackages = packageDAO.getAllPackages()
-    }
+    var packageDAO: PackageDAO = AppDatabase.getInstance(context)?.packageDAO()!!
 
     fun insert(packageEnt: PackageEntity) {
-        packageDAO.insert(packageEnt)
+        insertAsyncTask(packageDAO).execute(packageEnt)
     }
 
-    fun getAll(): LiveData<List<PackageEntity>> {
+    fun delete(packageEnt: PackageEntity) {
+        packageDAO.delete(packageEnt)
+    }
+
+    fun getAll(): List<PackageEntity> {
         return packageDAO.getAllPackages()
     }
 
@@ -40,6 +36,16 @@ class PackageRepository(application: Application) {
             }
             return instance!!
 
+        }
+    }
+
+    private class insertAsyncTask internal constructor(private val packageDAO: PackageDAO) :
+        AsyncTask<PackageEntity, Void, Void>() {
+
+        @Deprecated("Deprecated in Java")
+        override fun doInBackground(vararg params: PackageEntity): Void? {
+            packageDAO.insert(params[0])
+            return null
         }
     }
 
