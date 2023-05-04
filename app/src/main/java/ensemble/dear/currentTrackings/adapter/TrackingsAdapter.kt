@@ -10,15 +10,11 @@ import ensemble.dear.currentTrackings.Tracking
 import ensemble.dear.database.entities.PackageEntity
 
 class TrackingsAdapter(
-    //private val trackingsList: LiveData<List<PackageEntity>>,
-    private val trackingsList: MutableList<Tracking>,
-    private val onClickListener: (Tracking) -> Unit,
+    private val trackingsList: List<PackageEntity>,
+    private val onClickListener: (PackageEntity) -> Unit,
     private val onClickDelete: (Int) -> Unit
 ) :
     RecyclerView.Adapter<TrackingsViewHolder>() {
-
-    val notifyTrackingsList = MediatorLiveData<List<PackageEntity?>>()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackingsViewHolder {
         val layoutinflater = LayoutInflater.from(parent.context)

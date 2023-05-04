@@ -1,26 +1,28 @@
 package ensemble.dear.database.repository
 
-import android.app.Application
-import androidx.lifecycle.LiveData
+import android.content.Context
 import ensemble.dear.database.AppDatabase
 import ensemble.dear.database.dao.DeliveryDAO
 import ensemble.dear.database.entities.DeliveryEntity
 
-class DeliveryRepository(application: Application) {
+class DeliveryRepository(context: Context) {
 
-    private var deliveriesDAO: DeliveryDAO
-    private var allDeliveries: LiveData<List<DeliveryEntity>>
+    //private val database = AppDatabase.getInstance(application)
 
-    private val database = AppDatabase.getInstance(application)
+    var deliveriesDAO: DeliveryDAO = AppDatabase.getInstance(context)?.deliveryDAO()!!
 
-    init {
-        deliveriesDAO = database!!.deliveryDAO()
-        allDeliveries = deliveriesDAO.getAllDeliveries()
-    }
 
     fun insert(delivery: DeliveryEntity) {
         deliveriesDAO.insert(delivery)
-
     }
+
+    fun delete(delivery: DeliveryEntity) {
+        deliveriesDAO.delete(delivery)
+    }
+
+    fun getAll(): List<DeliveryEntity> {
+        return deliveriesDAO.getAllDeliveries()
+    }
+
 
 }

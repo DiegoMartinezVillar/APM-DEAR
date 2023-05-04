@@ -7,17 +7,23 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ensemble.dear.database.converters.AuthorizedCourierConverter
 import ensemble.dear.database.dao.AuthorizedCourierDAO
+import androidx.sqlite.db.SupportSQLiteDatabase
+import ensemble.dear.currentTrackings.IN_DELIVERY_STATE
+import ensemble.dear.currentTrackings.PRE_ADMISSION_STATE
 import ensemble.dear.database.dao.DeliveryDAO
 import ensemble.dear.database.dao.PackageDAO
 import ensemble.dear.database.entities.AuthorizedCourier
 import ensemble.dear.database.entities.DeliveryEntity
 import ensemble.dear.database.entities.PackageEntity
+import ensemble.dear.database.repository.PackageRepository
+import java.time.LocalDate
 import ensemble.dear.database.repository.AuthorizedCourierRepository
 
 fun insertAuthorizedCouriers(context: Context) {
     val newCouriers = listOf(AuthorizedCourier("ensemble.dear.app@gmail.com"))
     val insertedCouriers = AuthorizedCourierRepository(context).getAllAuthorizedCouriers()
 
+@Database(entities = [DeliveryEntity::class, PackageEntity::class], version = 2)
     for (courier in newCouriers) {
         if (courier !in insertedCouriers) {
             AuthorizedCourierRepository(context).insertAuthorizedCourier(courier)
@@ -35,23 +41,52 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun deliveryDAO(): DeliveryDAO
 
     companion object {
-        private var INSTANCE: AppDatabase? = null
+        private var instance: AppDatabase? = null
 
-        fun getInstance(context: Context): AppDatabase? {
-            if (INSTANCE == null) {
-                synchronized(AppDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext, AppDatabase::class.java, "user.db"
-                    ).allowMainThreadQueries().build()
-                }
+        @Synchronized
+        fun getInstance(ctx: Context): AppDatabase {
+            if (instance == null) {
+                instance = Room.databaseBuilder(
+                    ctx.applicationContext, AppDatabase::class.java,
+                    "trackings_database"
+                )
+                        //.allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
+                    .build()
 
-                insertAuthorizedCouriers(context)
+                populateDatabase(ctx)
+                insertAuthorizedCouriers(ctx)
             }
-            return INSTANCE
+            return instance!!
+
         }
 
         fun destroyInstance() {
-            INSTANCE = null
+            instance = null
+        }
+
+        private fun populateDatabase(context: Context) {
+            var deliveryDAO = PackageRepository(context).getAll()
+
+            var newPackages = listOf(
+                PackageEntity(
+                    123456789, "Alarm clock","436 Constitution Way San Francisco, California",
+                    IN_DELIVERY_STATE, //LocalDate.of(2023, 4, 20),
+                    "20th of april 2023",
+                    1, "Aliexpress"
+                ),
+                PackageEntity(
+                    121212121, "Bike shorts", "29 Idlewood Dr " +
+                            "San Francisco, California", PRE_ADMISSION_STATE,
+                    "13th of april 2023", 3, "Alibaba"
+                )
+            )
+
+            for (courier in newPackages) {
+                if (courier !in deliveryDAO) {
+                    PackageRepository(context).insert(courier)
+                }
+            }
         }
     }
 }

@@ -1,9 +1,8 @@
 package ensemble.dear.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
+import androidx.room.*
+import ensemble.dear.database.entities.DeliveryEntity
 
 import ensemble.dear.database.entities.PackageEntity
 
@@ -11,11 +10,14 @@ import ensemble.dear.database.entities.PackageEntity
 interface PackageDAO {
 
     @Query("SELECT * FROM package_table ")
-    fun getAllPackages(): LiveData<List<PackageEntity>>
-    //suspend
+    fun getAllPackages(): List<PackageEntity>
 
     @Insert
     fun insert(packageEnt: PackageEntity)
 
+    @Update
+    fun update(packageEnt: PackageEntity)
 
+    @Delete
+    fun delete(packageEnt: PackageEntity)
 }
