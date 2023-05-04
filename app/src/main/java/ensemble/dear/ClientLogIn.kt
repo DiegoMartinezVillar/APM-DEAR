@@ -108,6 +108,10 @@ class ClientLogIn : AppCompatActivity() {
                         .show()
                 }
             }
+            else {
+                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
 
     private fun navigateToSecondActivity() {
