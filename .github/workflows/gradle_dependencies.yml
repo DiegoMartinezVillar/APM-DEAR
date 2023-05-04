@@ -1,6 +1,6 @@
 name: Dependencies
 on:
-  pull_request:
+#  pull_request:
 #    branches:
 #      - master # run the action on your projects default branch
       
