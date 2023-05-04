@@ -14,7 +14,7 @@ class DeliveryRepository(application: Application) {
     private val database = AppDatabase.getInstance(application)
 
     init {
-        deliveriesDAO = database.deliveriesDAO()
+        deliveriesDAO = database!!.deliveryDAO()
         allDeliveries = deliveriesDAO.getAllDeliveries()
     }
 

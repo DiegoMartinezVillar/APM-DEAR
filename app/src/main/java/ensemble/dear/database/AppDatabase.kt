@@ -4,68 +4,54 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import ensemble.dear.currentTrackings.IN_DELIVERY_STATE
+import androidx.room.TypeConverters
+import ensemble.dear.database.converters.AuthorizedCourierConverter
+import ensemble.dear.database.dao.AuthorizedCourierDAO
 import ensemble.dear.database.dao.DeliveryDAO
 import ensemble.dear.database.dao.PackageDAO
+import ensemble.dear.database.entities.AuthorizedCourier
 import ensemble.dear.database.entities.DeliveryEntity
 import ensemble.dear.database.entities.PackageEntity
-import java.time.LocalDate
+import ensemble.dear.database.repository.AuthorizedCourierRepository
 
-@Database(entities = [DeliveryEntity::class, PackageEntity::class], version = 1)
+fun insertAuthorizedCouriers(context: Context) {
+    val newCouriers = listOf(AuthorizedCourier("ensemble.dear.app@gmail.com"))
+    val insertedCouriers = AuthorizedCourierRepository(context).getAllAuthorizedCouriers()
+
+    for (courier in newCouriers) {
+        if (courier !in insertedCouriers) {
+            AuthorizedCourierRepository(context).insertAuthorizedCourier(courier)
+        }
+    }
+
+}
+
+@Database(entities = [AuthorizedCourier::class, PackageEntity::class, DeliveryEntity::class], version = 1, exportSchema = false)
+@TypeConverters(AuthorizedCourierConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun deliveriesDAO(): DeliveryDAO
+    abstract fun authorizedCourierDao(): AuthorizedCourierDAO
     abstract fun packageDAO(): PackageDAO
-
+    abstract fun deliveryDAO(): DeliveryDAO
 
     companion object {
-        private var instance: AppDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-        @Synchronized
-        fun getInstance(ctx: Context): AppDatabase {
-            if (instance == null) {
-                instance = Room.databaseBuilder(
-                    ctx.applicationContext, AppDatabase::class.java,
-                    "trackings_database"
-                )
-                        //.allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
-                    .build()
+        fun getInstance(context: Context): AppDatabase? {
+            if (INSTANCE == null) {
+                synchronized(AppDatabase::class) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext, AppDatabase::class.java, "user.db"
+                    ).allowMainThreadQueries().build()
+                }
 
-                populateDatabase(instance!!)
+                insertAuthorizedCouriers(context)
             }
-            return instance!!
-
+            return INSTANCE
         }
 
         fun destroyInstance() {
-            instance = null
-        }
-
-        private val roomCallback = object : Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                populateDatabase(instance!!)
-            }
-        }
-
-        private fun populateDatabase(db: AppDatabase) {
-            val deliveryDAO = db.deliveriesDAO()
-            val packageDAO = db.packageDAO()
-
-
-            //subscribeOnBackground {
-            packageDAO.insert(
-                PackageEntity(
-                    123456789, "436 Constitution Way San Francisco, California",
-                    IN_DELIVERY_STATE, //LocalDate.of(2023, 4, 20),
-                    1
-                )
-            )
-
-            //}
+            INSTANCE = null
         }
     }
 }

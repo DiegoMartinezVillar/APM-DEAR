@@ -17,7 +17,7 @@ class PackageRepository(application: Application) {
 
 
     init {
-        packageDAO = database.packageDAO()
+        packageDAO = database!!.packageDAO()
         allPackages = packageDAO.getAllPackages()
     }
 

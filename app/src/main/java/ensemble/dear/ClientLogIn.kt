@@ -15,11 +15,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import ensemble.dear.currentTrackings.CurrentTrackings
+import ensemble.dear.database.repository.AuthorizedCourierRepository
 import ensemble.dear.pendingShipments.PendingShipments
-
-object Constants {
-    val COURIER_EMAILS = listOf("ensemble.dear.app@gmail.com")
-}
 
 
 class ClientLogIn : AppCompatActivity() {
@@ -27,6 +24,16 @@ class ClientLogIn : AppCompatActivity() {
     lateinit var gso: GoogleSignInOptions
     lateinit var gsc: GoogleSignInClient
     lateinit var attemptType: String
+
+    private fun courierEmailIsAuthorized(email: String): Boolean {
+        val authorizedCouriers = AuthorizedCourierRepository(this).getAllAuthorizedCouriers()
+        for (courier in authorizedCouriers) {
+            if (courier.email == email) {
+                return true
+            }
+        }
+        return false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,15 +85,15 @@ class ClientLogIn : AppCompatActivity() {
                     GoogleSignIn.getSignedInAccountFromIntent(data)
                 try {
                     task.getResult(ApiException::class.java)
-                    val email = GoogleSignIn.getLastSignedInAccount(this)?.email
-                    if ((attemptType == "courier") and (email !in Constants.COURIER_EMAILS)) {
+                    val email = GoogleSignIn.getLastSignedInAccount(this)?.email.toString()
+                    if ((attemptType == "courier") and (!courierEmailIsAuthorized(email))) {
                         Toast.makeText(
                             applicationContext,
                             "Email not recognized as courier",
                             Toast.LENGTH_SHORT
                         ).show()
                         gsc.signOut()
-                    } else if ((attemptType == "client") and (email in Constants.COURIER_EMAILS)) {
+                    } else if ((attemptType == "client") and (courierEmailIsAuthorized(email))) {
                         Toast.makeText(
                             applicationContext,
                             "Email only valid for courier login",
@@ -105,7 +112,7 @@ class ClientLogIn : AppCompatActivity() {
 
     private fun navigateToSecondActivity() {
         finish()
-        if (GoogleSignIn.getLastSignedInAccount(this)?.email in Constants.COURIER_EMAILS) {
+        if (courierEmailIsAuthorized(GoogleSignIn.getLastSignedInAccount(this)?.email.toString())) {
             startActivity(Intent(applicationContext, PendingShipments::class.java))
         } else {
             startActivity(Intent(applicationContext, CurrentTrackings::class.java))
