@@ -7,7 +7,6 @@ const val ON_THE_WAY_STATE : String = "on_the_way"
 const val IN_DELIVERY_STATE : String = "in_delivery"
 const val DELIVERED_STATE : String = "delivered"
 
-
 class TrackingsProvider {
 
     companion object {
