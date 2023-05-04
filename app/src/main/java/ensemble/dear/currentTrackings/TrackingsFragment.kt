@@ -16,9 +16,6 @@ import ensemble.dear.R
 import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
 import ensemble.dear.database.repository.PackageRepository
 
-//private const val ARG_PARAM1 = "param1"
-//private const val ARG_PARAM2 = "param2"
-
 const val TRACKING_ID = "tracking_id"
 
 class TrackingsFragment : Fragment() {
@@ -29,10 +26,7 @@ class TrackingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-        }
+        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -46,8 +40,6 @@ class TrackingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //initRecyclerView
-
         adapter = TrackingsAdapter(
             trackingsList = trackingsMutableList,
             onClickListener = { tracking -> onItemSelected(tracking) },
@@ -57,7 +49,6 @@ class TrackingsFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
-
     }
 
     private fun confirmDeletionAlert(position: Int) {
@@ -78,8 +69,6 @@ class TrackingsFragment : Fragment() {
     }
 
     private fun onItemSelected(tracking: Tracking) {
-        //Toast.makeText(context, tracking.packageNumber, Toast.LENGTH_SHORT).show()
-
         val intent = Intent(context, ClientTrackingDetails()::class.java)
 
         intent.putExtra(TRACKING_ID, tracking.packageNumber)
