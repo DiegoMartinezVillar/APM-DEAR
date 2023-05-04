@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ensemble.dear.currentTrackings.Tracking
-import ensemble.dear.data.TrackingsDataSource
+import ensemble.dear.database.TrackingsDataSource
 
 class TrackingDetailViewModel(private val datasource: TrackingsDataSource) : ViewModel() {
 

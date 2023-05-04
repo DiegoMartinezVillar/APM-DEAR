@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.ClientTrackingDetails
 import ensemble.dear.R
 import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
+import ensemble.dear.database.repository.PackageRepository
 
 //private const val ARG_PARAM1 = "param1"
 //private const val ARG_PARAM2 = "param2"
@@ -22,9 +23,9 @@ const val TRACKING_ID = "tracking_id"
 
 class TrackingsFragment : Fragment() {
 
-    private var trackingsMutableList: MutableList<Tracking> =
-        TrackingsProvider.trackingsList.toMutableList()
+    private var trackingsMutableList: MutableList<Tracking> = TrackingsProvider.trackingsList.toMutableList()
     private lateinit var adapter: TrackingsAdapter
+    val packageRepo = this.context?.let { PackageRepository.getInstance(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

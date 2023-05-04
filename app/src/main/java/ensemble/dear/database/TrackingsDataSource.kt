@@ -1,4 +1,4 @@
-package ensemble.dear.data
+package ensemble.dear.database
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
@@ -28,10 +28,15 @@ class TrackingsDataSource(resources: Resources) {
             val updatedList = currentList.toMutableList()
             updatedList.remove(tracking)
             trackingsLiveData.postValue(updatedList)
+
+
+
+
+
         }
     }
 
-    /* Returns flower given an ID. */
+    /* Returns Tracking given an ID. */
     fun getTrackingByNumber(id: Int): Tracking? {
         trackingsLiveData.value?.let { trackings ->
             return trackings.firstOrNull{ it.packageNumber == id}
