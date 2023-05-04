@@ -1,10 +1,8 @@
-package ensemble.dear.data
+package ensemble.dear.database
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ensemble.dear.currentTrackings.Tracking
-import ensemble.dear.currentTrackings.TrackingsProvider
 import ensemble.dear.pendingShipments.Shipment
 import ensemble.dear.pendingShipments.ShipmentsProvider
 

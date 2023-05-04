@@ -1,25 +1,38 @@
 package ensemble.dear.pendingShipments
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import ensemble.dear.R
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.squareup.picasso.Picasso
 import ensemble.dear.ARScanner
 import ensemble.dear.ClientLogIn
 import ensemble.dear.Profile
 
 class PendingShipments : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
+    lateinit var gso: GoogleSignInOptions
+    lateinit var gsc: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pending_shipments)
         replaceFragment()
+
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        gsc = GoogleSignIn.getClient(this, gso)
 
         val topAppBar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(topAppBar)
@@ -36,12 +49,23 @@ class PendingShipments : AppCompatActivity() {
                     startActivity(Intent(applicationContext, Profile::class.java))
                 }
                 R.id.navLogOut -> {
-                    startActivity(Intent(applicationContext, ClientLogIn::class.java))
+                    confirmLogOut()
                 }
             }
             menuItem.isChecked = true
             drawerLayout.close()
             true
+        }
+
+        val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+
+        if (acct != null) {
+            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_name).text = acct.givenName
+            navigationView.getHeaderView(0).findViewById<TextView>(R.id.side_menu_email).text = acct.email
+
+            if (acct.photoUrl != null) {
+                Picasso.get().load(acct.photoUrl).into(navigationView.getHeaderView(0).findViewById<ImageView>(R.id.side_menu_profile_pic));
+            }
         }
 
         val buttonScan = findViewById<Button>(R.id.buttonScan)
@@ -65,5 +89,21 @@ class PendingShipments : AppCompatActivity() {
         } else {
             onBackPressedDispatcher.onBackPressed()
         }
+    }
+
+    private fun confirmLogOut() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.confirm_log_out)
+
+        builder.setPositiveButton(android.R.string.yes) { _, _ ->
+            gsc.signOut().addOnCompleteListener {
+                finish()
+                startActivity(Intent(applicationContext, ClientLogIn::class.java))
+            }
+        }
+
+        builder.setNegativeButton(android.R.string.no) { _, _ -> }
+
+        builder.show()
     }
 }
