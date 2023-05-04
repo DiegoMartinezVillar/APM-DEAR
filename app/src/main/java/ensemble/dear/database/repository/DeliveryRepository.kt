@@ -10,10 +10,11 @@ import ensemble.dear.database.dao.PackageDAO
 import ensemble.dear.database.entities.DeliveryEntity
 import ensemble.dear.database.entities.PackageEntity
 
-class DeliveryRepository(context: Context) {
+class DeliveryRepository(application: Application) {
 
 
-    private val database = AppDatabase.getInstance(context)
+
+    private val database = AppDatabase.getInstance(application)
 
     var deliveriesDAO: DeliveryDAO = AppDatabase.getInstance(context)?.deliveriesDAO()!!
 
