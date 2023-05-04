@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       - run: chmod +x ./gradlew
-      - run: chmod +x ./local.properties
+      - run: cat > file1.txt
 
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@v1
