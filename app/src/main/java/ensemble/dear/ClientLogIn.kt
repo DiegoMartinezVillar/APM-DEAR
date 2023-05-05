@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import ensemble.dear.currentTrackings.CurrentTrackings
+import ensemble.dear.database.AppDatabase
 import ensemble.dear.database.repository.AuthorizedCourierRepository
 import ensemble.dear.pendingShipments.PendingShipments
 
@@ -38,9 +39,9 @@ class ClientLogIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_log_in)
+        AppDatabase.getInstance(this)
 
-        gso =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         gsc = GoogleSignIn.getClient(this, gso)
 
         val acct = GoogleSignIn.getLastSignedInAccount(this)
@@ -107,10 +108,6 @@ class ClientLogIn : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
                         .show()
                 }
-            }
-            else {
-                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
-                    .show()
             }
         }
 
