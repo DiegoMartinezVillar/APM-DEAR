@@ -11,10 +11,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ensemble.dear.ClientTrackingDetails
 import ensemble.dear.R
 import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
-import ensemble.dear.database.entities.PackageEntity
+import ensemble.dear.database.entity.DeliveryPackage
+import ensemble.dear.database.entity.Package
+import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
 
 const val TRACKING_ID = "tracking_id"
@@ -41,7 +42,7 @@ class TrackingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var packagesList = PackageRepository(this.requireActivity()).getAll()
+        val packagesList = DeliveryRepository(this.requireActivity()).getAllUser(1)
 
         adapter = TrackingsAdapter(
             trackingsList = packagesList,
@@ -62,6 +63,9 @@ class TrackingsFragment : Fragment() {
             //trackingsMutableList.removeAt(position)
             //adapter.notifyItemRemoved(position)
             //PackageRepository(this.requireActivity()).delete()
+
+
+
             Toast.makeText(
                 context,
                 "not implemented yet", Toast.LENGTH_LONG
@@ -76,7 +80,7 @@ class TrackingsFragment : Fragment() {
         builder.show()
     }
 
-    private fun onItemSelected(packageEnt: PackageEntity) {
+    private fun onItemSelected(packageEnt: DeliveryPackage) {
         val intent = Intent(context, ClientTrackingDetails()::class.java)
 
         intent.putExtra(TRACKING_ID, packageEnt.packageNumber)

@@ -5,34 +5,23 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import ensemble.dear.database.converters.AuthorizedCourierConverter
+import ensemble.dear.database.converter.AuthorizedCourierConverter
 import ensemble.dear.database.dao.AuthorizedCourierDAO
-import androidx.sqlite.db.SupportSQLiteDatabase
 import ensemble.dear.currentTrackings.IN_DELIVERY_STATE
 import ensemble.dear.currentTrackings.PRE_ADMISSION_STATE
 import ensemble.dear.database.dao.DeliveryDAO
 import ensemble.dear.database.dao.PackageDAO
-import ensemble.dear.database.entities.AuthorizedCourier
-import ensemble.dear.database.entities.DeliveryEntity
-import ensemble.dear.database.entities.PackageEntity
+import ensemble.dear.database.entity.AuthorizedCourier
+import ensemble.dear.database.entity.Delivery
+import ensemble.dear.database.entity.DeliveryPackage
+import ensemble.dear.database.entity.Package
 import ensemble.dear.database.repository.PackageRepository
-import java.time.LocalDate
 import ensemble.dear.database.repository.AuthorizedCourierRepository
 
-fun insertAuthorizedCouriers(context: Context) {
-    val newCouriers = listOf(AuthorizedCourier("ensemble.dear.app@gmail.com"))
-    val insertedCouriers = AuthorizedCourierRepository(context).getAllAuthorizedCouriers()
 
-@Database(entities = [DeliveryEntity::class, PackageEntity::class], version = 2)
-    for (courier in newCouriers) {
-        if (courier !in insertedCouriers) {
-            AuthorizedCourierRepository(context).insertAuthorizedCourier(courier)
-        }
-    }
 
-}
-
-@Database(entities = [AuthorizedCourier::class, PackageEntity::class, DeliveryEntity::class], version = 1, exportSchema = false)
+@Database(entities = [AuthorizedCourier::class, Package::class,
+    Delivery::class], version = 2, exportSchema = false)
 @TypeConverters(AuthorizedCourierConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -50,11 +39,11 @@ abstract class AppDatabase : RoomDatabase() {
                     ctx.applicationContext, AppDatabase::class.java,
                     "trackings_database"
                 )
-                        //.allowMainThreadQueries()
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
 
-                populateDatabase(ctx)
+                insertPreloadedPackages(ctx)
                 insertAuthorizedCouriers(ctx)
             }
             return instance!!
@@ -65,20 +54,20 @@ abstract class AppDatabase : RoomDatabase() {
             instance = null
         }
 
-        private fun populateDatabase(context: Context) {
-            var deliveryDAO = PackageRepository(context).getAll()
+        private fun insertPreloadedPackages(context: Context) {
+            val deliveryDAO = PackageRepository(context).getAll()
 
-            var newPackages = listOf(
-                PackageEntity(
+            val newPackages = listOf(
+                Package(
                     123456789, "Alarm clock","436 Constitution Way San Francisco, California",
                     IN_DELIVERY_STATE, //LocalDate.of(2023, 4, 20),
                     "20th of april 2023",
-                    1, "Aliexpress"
+                    1, "Aliexpress", ""
                 ),
-                PackageEntity(
+                Package(
                     121212121, "Bike shorts", "29 Idlewood Dr " +
                             "San Francisco, California", PRE_ADMISSION_STATE,
-                    "13th of april 2023", 3, "Alibaba"
+                    "13th of april 2023", 3, "Alibaba", ""
                 )
             )
 
@@ -87,6 +76,18 @@ abstract class AppDatabase : RoomDatabase() {
                     PackageRepository(context).insert(courier)
                 }
             }
+        }
+
+        private fun insertAuthorizedCouriers(context: Context) {
+            val newCouriers = listOf(AuthorizedCourier("ensemble.dear.app@gmail.com"))
+            val insertedCouriers = AuthorizedCourierRepository(context).getAllAuthorizedCouriers()
+
+            for (courier in newCouriers) {
+                if (courier !in insertedCouriers) {
+                    AuthorizedCourierRepository(context).insertAuthorizedCourier(courier)
+                }
+            }
+
         }
     }
 }

@@ -1,4 +1,4 @@
-package ensemble.dear
+package ensemble.dear.pendingShipments
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -29,6 +29,7 @@ import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.ktx.addCircle
 import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.awaitMapLoad
+import ensemble.dear.*
 import ensemble.dear.place.Place
 import ensemble.dear.place.PlaceRenderer
 import ensemble.dear.place.PlacesReader
@@ -207,7 +208,9 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         circle = map!!.addCircle {
             center(item.latLng)
             radius(1000.0)
-            fillColor(ContextCompat.getColor(this@CourierTrackingDetailsMap, R.color.colorPrimaryTranslucent))
+            fillColor(ContextCompat.getColor(this@CourierTrackingDetailsMap,
+                R.color.colorPrimaryTranslucent
+            ))
             strokeColor(ContextCompat.getColor(this@CourierTrackingDetailsMap, R.color.colorPrimary))
         }
     }
@@ -274,7 +277,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(
                 android.Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
         }
     }
 

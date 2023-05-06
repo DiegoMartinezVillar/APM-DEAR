@@ -1,4 +1,4 @@
-package ensemble.dear
+package ensemble.dear.currentTrackings
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,11 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ensemble.dear.currentTrackings.IN_DELIVERY_STATE
-import ensemble.dear.currentTrackings.PRE_ADMISSION_STATE
-import ensemble.dear.currentTrackings.ON_THE_WAY_STATE
-import ensemble.dear.currentTrackings.DELIVERED_STATE
-import ensemble.dear.currentTrackings.TRACKING_ID
+import ensemble.dear.Chat
+import ensemble.dear.R
 
 class ClientTrackingDetails : AppCompatActivity() {
 
@@ -91,12 +88,12 @@ class ClientTrackingDetails : AppCompatActivity() {
             val currentTracking = trackingDetailViewModel.getTrackingForId(it)
             packageContent.text = currentTracking?.packageContent
 
-            address.text = currentTracking?.deliveryAddress
+            address.text = currentTracking?.address
             packageNumber.text = "#" + currentTracking?.packageNumber.toString()
-            shippingCompany.text = currentTracking?.shipperCompany
-            arrivalDate.text = currentTracking?.estimatedArrivalDate.toString()
+            shippingCompany.text = currentTracking?.packageContent//currentTracking?.shipperCompany
+            arrivalDate.text = currentTracking?.arrivalDate.toString()
 
-            when (currentTracking?.currentState) {
+            when (currentTracking?.state) {
                 PRE_ADMISSION_STATE -> {
                     preadmissionState.setImageResource(android.R.drawable.checkbox_on_background)
                     onTheWayState.setImageResource(android.R.drawable.checkbox_off_background)

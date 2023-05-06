@@ -1,4 +1,4 @@
-package ensemble.dear.database.entities
+package ensemble.dear.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

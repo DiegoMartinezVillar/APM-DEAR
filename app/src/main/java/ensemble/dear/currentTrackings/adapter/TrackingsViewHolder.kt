@@ -5,8 +5,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.R
-import ensemble.dear.currentTrackings.Tracking
-import ensemble.dear.database.entities.PackageEntity
+import ensemble.dear.database.entity.DeliveryPackage
+import ensemble.dear.database.entity.Package
 
 class TrackingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -17,7 +17,7 @@ class TrackingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val shipperCompany = view.findViewById<TextView>(R.id.shipperCompany)
     val btnDelete = view.findViewById<Button>(R.id.buttonDeleteTracking)
 
-    fun render(trackingModel: PackageEntity, onClickListener: (PackageEntity) -> Unit, onClickDelete: (Int) -> Unit) {
+    fun render(trackingModel: DeliveryPackage, onClickListener: (DeliveryPackage) -> Unit, onClickDelete: (Int) -> Unit) {
         ////daysUntilArrival.text = trackingModel.daysUntilArrival.toString()
 
         //daysUntilArrival.text = trackingModel.estimatedArrivalDate.toString()
@@ -30,7 +30,14 @@ class TrackingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 
         /* Listeners */
-        itemView.setOnClickListener { onClickListener(trackingModel) }
-        btnDelete.setOnClickListener { onClickDelete(adapterPosition) }
+        itemView.setOnClickListener {
+            onClickListener(trackingModel)
+
+
+
+        }
+        btnDelete.setOnClickListener {
+            onClickDelete(adapterPosition)
+        }
     }
 }

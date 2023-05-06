@@ -3,15 +3,14 @@ package ensemble.dear.currentTrackings.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.MediatorLiveData
 import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.R
-import ensemble.dear.currentTrackings.Tracking
-import ensemble.dear.database.entities.PackageEntity
+import ensemble.dear.database.entity.DeliveryPackage
+import ensemble.dear.database.entity.Package
 
 class TrackingsAdapter(
-    private val trackingsList: List<PackageEntity>,
-    private val onClickListener: (PackageEntity) -> Unit,
+    private val trackingsList: List<DeliveryPackage>,
+    private val onClickListener: (DeliveryPackage) -> Unit,
     private val onClickDelete: (Int) -> Unit
 ) :
     RecyclerView.Adapter<TrackingsViewHolder>() {
@@ -26,5 +25,7 @@ class TrackingsAdapter(
     override fun onBindViewHolder(holder: TrackingsViewHolder, position: Int) {
         val item = trackingsList[position]
         holder.render(item, onClickListener, onClickDelete)
+
+
     }
 }

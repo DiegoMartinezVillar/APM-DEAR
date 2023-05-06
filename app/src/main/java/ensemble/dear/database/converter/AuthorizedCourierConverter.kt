@@ -1,4 +1,4 @@
-package ensemble.dear.database.converters
+package ensemble.dear.database.converter
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

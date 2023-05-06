@@ -1,11 +1,10 @@
-package ensemble.dear
+package ensemble.dear.pendingShipments
 
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ensemble.dear.database.ShipmentsDataSource
-import ensemble.dear.pendingShipments.Shipment
 
 class ShipmentsDetailViewModel(private val datasource: ShipmentsDataSource) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package ensemble.dear
+package ensemble.dear.currentTrackings
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ensemble.dear.Chat
+import ensemble.dear.R
 
 class ClientTrackingDetailsMap : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

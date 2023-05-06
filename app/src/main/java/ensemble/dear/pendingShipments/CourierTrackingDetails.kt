@@ -1,17 +1,17 @@
-package ensemble.dear
+package ensemble.dear.pendingShipments
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ensemble.dear.currentTrackings.*
-import ensemble.dear.pendingShipments.SHIPMENT_ID
+import ensemble.dear.Chat
+import ensemble.dear.DeliveryConfirmation
+import ensemble.dear.R
 
 class CourierTrackingDetails : AppCompatActivity() {
 
