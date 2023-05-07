@@ -5,24 +5,26 @@ import android.content.Context
 import android.os.AsyncTask
 import ensemble.dear.database.AppDatabase
 import ensemble.dear.database.dao.PackageDAO
-import ensemble.dear.database.entities.PackageEntity
+import ensemble.dear.database.entity.Package
 
 class PackageRepository(context: Context) {
 
-    private val database = AppDatabase.getInstance(context)
-
     var packageDAO: PackageDAO = AppDatabase.getInstance(context)?.packageDAO()!!
 
-    fun insert(packageEnt: PackageEntity) {
+    fun insert(packageEnt: Package) {
         insertAsyncTask(packageDAO).execute(packageEnt)
     }
 
-    fun delete(packageEnt: PackageEntity) {
+    fun delete(packageEnt: Package) {
         packageDAO.delete(packageEnt)
     }
 
-    fun getAll(): List<PackageEntity> {
+    fun getAll(): List<Package> {
         return packageDAO.getAllPackages()
+    }
+
+    fun getPackageByNumber(number: Int): Package {
+        return packageDAO.getPackageByNumber(number)
     }
 
     companion object {
@@ -40,10 +42,10 @@ class PackageRepository(context: Context) {
     }
 
     private class insertAsyncTask internal constructor(private val packageDAO: PackageDAO) :
-        AsyncTask<PackageEntity, Void, Void>() {
+        AsyncTask<Package, Void, Void>() {
 
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg params: PackageEntity): Void? {
+        @Deprecated("Deprecated")
+        override fun doInBackground(vararg params: Package): Void? {
             packageDAO.insert(params[0])
             return null
         }

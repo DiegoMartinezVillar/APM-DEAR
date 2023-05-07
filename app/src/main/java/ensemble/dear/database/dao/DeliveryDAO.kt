@@ -1,23 +1,40 @@
 package ensemble.dear.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
-import ensemble.dear.database.entities.DeliveryEntity;
+import ensemble.dear.database.entity.Delivery;
+import ensemble.dear.database.entity.DeliveryPackage
 
 @Dao
 interface DeliveryDAO {
 
     @Query("SELECT * FROM delivery_table ")
-    fun getAllDeliveries(): List<DeliveryEntity>
+    fun getAllDeliveries(): List<Delivery>
+
+    @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
+            " p.arrivalDate as arrivalDate, p.packageContent as packageContent, p.shipperCompany as shipperCompany, " +
+            " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
+            " FROM delivery_table d " +
+            " JOIN package_table p on p.packageNumber = d.idPackage " +
+            " WHERE d.idClient = :idUser")
+    fun getPackagesUser(idUser: Int): List<DeliveryPackage>
+
+    @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
+            " p.arrivalDate as arrivalDate, p.packageContent as packageContent, p.shipperCompany as shipperCompany, " +
+            " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
+            " FROM delivery_table d " +
+            " JOIN package_table p on p.packageNumber = d.idPackage" +
+            " WHERE d.idPackage = :idPackageSearch" ) //+
+    fun getPackageById(idPackageSearch: Int): DeliveryPackage
+
 
     @Insert
-    fun insert(delivery: DeliveryEntity)
+    fun insert(delivery: Delivery)
 
     @Update
-    fun update(delivery: DeliveryEntity)
+    fun update(delivery: Delivery)
 
-    @Delete
-    fun delete(delivery: DeliveryEntity)
+    @Query("DELETE FROM delivery_table WHERE idDelivery = :idDelivery")
+    fun delete(idDelivery: Int)
 
 }

@@ -74,21 +74,6 @@ class CurrentTrackings : AppCompatActivity() {
 
         val buttonAddTracking = findViewById<FloatingActionButton>(R.id.buttonAddTracking)
         buttonAddTracking.setOnClickListener {
-            /*val db = DatabaseConnection(
-                LoginInfo("marialgarcia", "myNewPassword"),
-                "deAR",
-                "deAR")
-
-            val collection = db.collectionOf<Tracking_test>("trackings")
-
-            // Find all trackings
-            collection.find().forEach {
-                println(it.packageNumber)
-                Log.i("package number", it.packageNumber.toString())
-            }
-
-
-*/
             startActivity(Intent(applicationContext, AddTracking::class.java))
         }
     }
