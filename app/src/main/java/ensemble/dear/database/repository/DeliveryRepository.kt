@@ -8,25 +8,22 @@ import ensemble.dear.database.entity.DeliveryPackage
 
 class DeliveryRepository(context: Context) {
 
-    //private val database = AppDatabase.getInstance(application)
-
     var deliveriesDAO: DeliveryDAO = AppDatabase.getInstance(context)?.deliveryDAO()!!
 
-
-    fun getAllById(idPackage: Int): DeliveryPackage {
-        return deliveriesDAO.getPackagesById(idPackage)
+    fun getPackageById(idPackage: Int): DeliveryPackage {
+        return deliveriesDAO.getPackageById(idPackage)
     }
 
     fun getAllUser(idUser: Int): List<DeliveryPackage> {
-        return deliveriesDAO.getPackagesUser()
+        return deliveriesDAO.getPackagesUser(idUser)
     }
 
     fun insert(delivery: Delivery) {
         deliveriesDAO.insert(delivery)
     }
 
-    fun delete(delivery: Delivery) {
-        deliveriesDAO.delete(delivery)
+    fun delete(idDelivery: Int) {
+        deliveriesDAO.delete(idDelivery)
     }
 
     fun getAll(): List<Delivery> {

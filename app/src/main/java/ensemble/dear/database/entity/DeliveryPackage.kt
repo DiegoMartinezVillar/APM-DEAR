@@ -3,6 +3,7 @@ package ensemble.dear.database.entity
 import androidx.room.*
 
 data class DeliveryPackage(
+    val idDelivery: Int,
     val packageNumber: Int,
     val address: String,
     val state: String,

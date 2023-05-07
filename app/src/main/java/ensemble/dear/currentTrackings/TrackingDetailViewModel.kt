@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ensemble.dear.database.entity.DeliveryPackage
 import ensemble.dear.database.repository.DeliveryRepository
-import ensemble.dear.database.repository.PackageRepository
 
 class TrackingDetailViewModel( //private val datasource: TrackingsDataSource
 private val repository: DeliveryRepository ) : ViewModel() {
@@ -14,7 +13,7 @@ private val repository: DeliveryRepository ) : ViewModel() {
     fun getTrackingForId(id: Int) : DeliveryPackage? {
         //return datasource.getTrackingByNumber(id)
 
-        return repository.getAllById(id)
+        return repository.getPackageById(id)
     }
 
 }

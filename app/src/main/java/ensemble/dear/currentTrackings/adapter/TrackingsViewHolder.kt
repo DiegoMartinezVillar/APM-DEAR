@@ -17,27 +17,20 @@ class TrackingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val shipperCompany = view.findViewById<TextView>(R.id.shipperCompany)
     val btnDelete = view.findViewById<Button>(R.id.buttonDeleteTracking)
 
-    fun render(trackingModel: DeliveryPackage, onClickListener: (DeliveryPackage) -> Unit, onClickDelete: (Int) -> Unit) {
-        ////daysUntilArrival.text = trackingModel.daysUntilArrival.toString()
-
-        //daysUntilArrival.text = trackingModel.estimatedArrivalDate.toString()
-        //shipperCompany.text = trackingModel.shipperCompany
-        //packageContent.text = trackingModel.packageContent
+    fun render(trackingModel: DeliveryPackage, onClickListener: (DeliveryPackage) -> Unit, onClickDelete: (Int, Int) -> Unit) {
 
         daysUntilArrival.text = trackingModel.arrivalDate
         shipperCompany.text = trackingModel.shipperCompany
         packageContent.text = trackingModel.packageAlias
 
-
         /* Listeners */
         itemView.setOnClickListener {
             onClickListener(trackingModel)
-
-
-
         }
+
         btnDelete.setOnClickListener {
-            onClickDelete(adapterPosition)
+            onClickDelete(trackingModel.idDelivery, adapterPosition)
+            //onClickDelete(adapterPosition)
         }
     }
 }

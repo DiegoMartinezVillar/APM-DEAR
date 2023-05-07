@@ -11,7 +11,7 @@ import ensemble.dear.database.entity.Package
 class TrackingsAdapter(
     private val trackingsList: List<DeliveryPackage>,
     private val onClickListener: (DeliveryPackage) -> Unit,
-    private val onClickDelete: (Int) -> Unit
+    private val onClickDelete: (Int, Int) -> Unit
 ) :
     RecyclerView.Adapter<TrackingsViewHolder>() {
 

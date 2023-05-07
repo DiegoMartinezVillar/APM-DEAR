@@ -11,10 +11,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import ensemble.dear.R
 import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
 import ensemble.dear.database.entity.DeliveryPackage
 import ensemble.dear.database.entity.Package
+import ensemble.dear.database.repository.ClientRepository
 import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
 
@@ -41,34 +44,37 @@ class TrackingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val packagesList = DeliveryRepository(this.requireActivity()).getAllUser(1)
+        val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this.requireContext())
 
-        adapter = TrackingsAdapter(
-            trackingsList = packagesList,
-            onClickListener = { tracking -> onItemSelected(tracking) },
-            onClickDelete = { position -> confirmDeletionAlert(position) }
-        )
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerTracking)
+        if(acct != null) {
+            val idOfLoggedUser = ClientRepository(this.requireContext())
+                .getClientByEmail(acct.email.toString())
 
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
+            val packagesList = DeliveryRepository(this.requireContext()).getAllUser(idOfLoggedUser)
+
+            adapter = TrackingsAdapter(
+                trackingsList = packagesList,
+                onClickListener = { tracking -> onItemSelected(tracking) },
+                onClickDelete = { idDelivery, position ->
+                    confirmDeletionAlert(idDelivery, position) }
+            )
+            val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerTracking)
+
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = adapter
+        }
+
     }
 
-    private fun confirmDeletionAlert(position: Int) {
+    private fun confirmDeletionAlert(idDelivery: Int, position: Int) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.delete_dialog_title)
         builder.setMessage(R.string.delete_dialog_content)
         builder.setPositiveButton(R.string.delete_text) { _: DialogInterface, _: Int ->
-            //trackingsMutableList.removeAt(position)
-            //adapter.notifyItemRemoved(position)
-            //PackageRepository(this.requireActivity()).delete()
 
+            DeliveryRepository(this.requireActivity()).delete(idDelivery)
+            adapter.notifyItemRemoved(position)
 
-
-            Toast.makeText(
-                context,
-                "not implemented yet", Toast.LENGTH_LONG
-            ).show()
         }
         builder.setNegativeButton(android.R.string.cancel) { _: DialogInterface, _: Int ->
             Toast.makeText(

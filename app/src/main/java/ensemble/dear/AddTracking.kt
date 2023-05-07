@@ -13,8 +13,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import ensemble.dear.currentTrackings.CurrentTrackings
 import ensemble.dear.database.entity.Delivery
+import ensemble.dear.database.repository.ClientRepository
 import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
 
@@ -51,26 +54,29 @@ class AddTracking : AppCompatActivity() {
             if(searchTrackingNumberText != "" && inputAlias.text.toString() != "" ) {
 
                 val trackingNumber = searchTrackingNumberText.toInt()
-                val packageFound = PackageRepository(this@AddTracking)
-                    .getPackageByNumber(trackingNumber)
+                val packageFound = PackageRepository(this@AddTracking).getPackageByNumber(trackingNumber)
 
                 if(packageFound != null) {
 
-                    val delivery = Delivery(0, packageFound.packageNumber,
-                        inputAdditionalInstructions.text.toString(),
-                        inputAlias.text.toString(), "", 1)
+                    val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
 
-                    DeliveryRepository(this@AddTracking).insert(delivery)
+                    if(acct != null){
+                        val idOfLoggedUser = ClientRepository(this@AddTracking)
+                            .getClientByEmail(acct.email.toString())
 
-                    startActivity(Intent(applicationContext, CurrentTrackings::class.java))
+                        val delivery = Delivery(0, packageFound.packageNumber,
+                            inputAdditionalInstructions.text.toString(),
+                            inputAlias.text.toString(), "", idOfLoggedUser)
+
+                        DeliveryRepository(this@AddTracking).insert(delivery)
+
+                        startActivity(Intent(applicationContext, CurrentTrackings::class.java))
+                    }
                 }
-
             } else {
                 Toast.makeText(applicationContext,
                     "tracking number and ALIAS cannot be empty", Toast.LENGTH_LONG).show()
             }
-
-
         }
 
         buttonSearchButton.setOnClickListener {
@@ -79,8 +85,7 @@ class AddTracking : AppCompatActivity() {
             if(searchTrackingNumberText != ""){
                 val trackingNumber = searchTrackingNumberText.toInt()
 
-                val packageFound = PackageRepository(this@AddTracking)
-                    .packageDAO.getPackageByNumber(trackingNumber)
+                val packageFound = PackageRepository(this@AddTracking).packageDAO.getPackageByNumber(trackingNumber)
 
                 if(packageFound != null) {
                     buttonAddTracking.isEnabled = true
@@ -95,13 +100,10 @@ class AddTracking : AppCompatActivity() {
                     Toast.makeText(applicationContext,
                         "tracking not found :(", Toast.LENGTH_LONG).show()
                 }
-
             } else {
                 Toast.makeText(applicationContext,
                     "tracking number cannot be empty", Toast.LENGTH_LONG).show()
             }
-
-
         }
     }
 
