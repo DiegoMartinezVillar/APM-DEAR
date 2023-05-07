@@ -1,6 +1,5 @@
 package ensemble.dear.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import ensemble.dear.database.entity.Client
 
@@ -8,7 +7,7 @@ import ensemble.dear.database.entity.Client
 interface ClientDAO {
 
     @Query("SELECT * FROM client_table ")
-    fun getAllClients(): LiveData<List<Client>>
+    fun getAllClients(): List<Client>
 
     @Insert
     fun insert(client: Client)

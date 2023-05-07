@@ -9,25 +9,25 @@ import ensemble.dear.database.converter.AuthorizedCourierConverter
 import ensemble.dear.database.dao.AuthorizedCourierDAO
 import ensemble.dear.currentTrackings.IN_DELIVERY_STATE
 import ensemble.dear.currentTrackings.PRE_ADMISSION_STATE
+import ensemble.dear.database.dao.ClientDAO
 import ensemble.dear.database.dao.DeliveryDAO
 import ensemble.dear.database.dao.PackageDAO
-import ensemble.dear.database.entity.AuthorizedCourier
-import ensemble.dear.database.entity.Delivery
-import ensemble.dear.database.entity.DeliveryPackage
-import ensemble.dear.database.entity.Package
+import ensemble.dear.database.entity.*
 import ensemble.dear.database.repository.PackageRepository
 import ensemble.dear.database.repository.AuthorizedCourierRepository
-
+import ensemble.dear.database.repository.ClientRepository
 
 
 @Database(entities = [AuthorizedCourier::class, Package::class,
-    Delivery::class], version = 2, exportSchema = false)
+    Delivery::class, Client::class], version = 3, exportSchema = false)
 @TypeConverters(AuthorizedCourierConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun authorizedCourierDao(): AuthorizedCourierDAO
     abstract fun packageDAO(): PackageDAO
     abstract fun deliveryDAO(): DeliveryDAO
+
+    abstract fun clientDAO(): ClientDAO
 
     companion object {
         private var instance: AppDatabase? = null
@@ -45,6 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
 
                 insertPreloadedPackages(ctx)
                 insertAuthorizedCouriers(ctx)
+                insertClients(ctx)
             }
             return instance!!
 
@@ -76,6 +77,18 @@ abstract class AppDatabase : RoomDatabase() {
                     PackageRepository(context).insert(courier)
                 }
             }
+        }
+
+        private fun insertClients(context: Context) {
+            val clients = listOf(Client(1, "maria.lopezgarcia11@gmail.com"))
+            val insertedClients = ClientRepository(context).getAllClients()
+
+            for (client in clients) {
+                if (client !in insertedClients) {
+                    ClientRepository(context).insert(client)
+                }
+            }
+
         }
 
         private fun insertAuthorizedCouriers(context: Context) {

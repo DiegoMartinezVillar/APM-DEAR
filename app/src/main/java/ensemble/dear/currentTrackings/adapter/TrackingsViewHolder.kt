@@ -26,7 +26,7 @@ class TrackingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         daysUntilArrival.text = trackingModel.arrivalDate
         shipperCompany.text = trackingModel.shipperCompany
-        packageContent.text = trackingModel.packageContent
+        packageContent.text = trackingModel.packageAlias
 
 
         /* Listeners */

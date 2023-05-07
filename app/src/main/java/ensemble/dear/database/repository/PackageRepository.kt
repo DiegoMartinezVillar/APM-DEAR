@@ -23,7 +23,7 @@ class PackageRepository(context: Context) {
         return packageDAO.getAllPackages()
     }
 
-    fun getById(number: Int): Package {
+    fun getPackageByNumber(number: Int): Package {
         return packageDAO.getPackageByNumber(number)
     }
 

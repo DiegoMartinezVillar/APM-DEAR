@@ -24,7 +24,6 @@ class TrackingsFragment : Fragment() {
 
     private var trackingsMutableList: MutableList<Tracking> = TrackingsProvider.trackingsList.toMutableList()
     private lateinit var adapter: TrackingsAdapter
-    //val packageRepo = this.context?.let { PackageRepository.getInstance(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

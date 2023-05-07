@@ -86,11 +86,11 @@ class ClientTrackingDetails : AppCompatActivity() {
         /* if currentTrackingId is not null, get corresponding tracking data */
         currentTrackingId?.let {
             val currentTracking = trackingDetailViewModel.getTrackingForId(it)
-            packageContent.text = currentTracking?.packageContent
+            packageContent.text = currentTracking?.packageAlias
 
             address.text = currentTracking?.address
             packageNumber.text = "#" + currentTracking?.packageNumber.toString()
-            shippingCompany.text = currentTracking?.packageContent//currentTracking?.shipperCompany
+            shippingCompany.text = currentTracking?.shipperCompany//currentTracking?.shipperCompany
             arrivalDate.text = currentTracking?.arrivalDate.toString()
 
             when (currentTracking?.state) {

@@ -1,6 +1,5 @@
 package ensemble.dear
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -9,11 +8,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import ensemble.dear.currentTrackings.CurrentTrackings
+import ensemble.dear.database.entity.Delivery
 import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
 
@@ -41,10 +42,35 @@ class AddTracking : AppCompatActivity() {
         val buttonAddTracking = findViewById<Button>(R.id.add_button)
         val buttonSearchButton = findViewById<Button>(R.id.search_button)
         val inputTrackingNumber = findViewById<TextView>(R.id.tracking_code)
+        val inputAdditionalInstructions = findViewById<EditText>(R.id.additionalInstructionsText)
+        val inputAlias = findViewById<EditText>(R.id.alias_text)
 
         buttonAddTracking.setOnClickListener {
 
-            startActivity(Intent(applicationContext, CurrentTrackings::class.java))
+            val searchTrackingNumberText = inputTrackingNumber.text.toString()
+            if(searchTrackingNumberText != "" && inputAlias.text.toString() != "" ) {
+
+                val trackingNumber = searchTrackingNumberText.toInt()
+                val packageFound = PackageRepository(this@AddTracking)
+                    .getPackageByNumber(trackingNumber)
+
+                if(packageFound != null) {
+
+                    val delivery = Delivery(0, packageFound.packageNumber,
+                        inputAdditionalInstructions.text.toString(),
+                        inputAlias.text.toString(), "", 1)
+
+                    DeliveryRepository(this@AddTracking).insert(delivery)
+
+                    startActivity(Intent(applicationContext, CurrentTrackings::class.java))
+                }
+
+            } else {
+                Toast.makeText(applicationContext,
+                    "tracking number and ALIAS cannot be empty", Toast.LENGTH_LONG).show()
+            }
+
+
         }
 
         buttonSearchButton.setOnClickListener {
