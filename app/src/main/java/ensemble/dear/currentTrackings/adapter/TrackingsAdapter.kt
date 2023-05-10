@@ -26,6 +26,9 @@ class TrackingsAdapter(
         val item = trackingsList[position]
         holder.render(item, onClickListener, onClickDelete)
 
+    }
 
+    fun getTrackingsList(): List<DeliveryPackage> {
+        return trackingsList
     }
 }

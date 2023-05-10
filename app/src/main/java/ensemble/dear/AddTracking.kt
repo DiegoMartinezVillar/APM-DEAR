@@ -12,12 +12,12 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import ensemble.dear.currentTrackings.CurrentTrackings
 import ensemble.dear.database.entity.Delivery
-import ensemble.dear.database.repository.ClientRepository
 import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
 
@@ -50,10 +50,12 @@ class AddTracking : AppCompatActivity() {
 
         buttonAddTracking.setOnClickListener {
 
-            val searchTrackingNumberText = inputTrackingNumber.text.toString()
-            if(searchTrackingNumberText != "" && inputAlias.text.toString() != "" ) {
+            val searchTrackingNumberText = inputTrackingNumber.text
+            if(!searchTrackingNumberText.isNullOrBlank() &&
+                searchTrackingNumberText.isDigitsOnly() &&
+                inputAlias.text.toString() != "" ) {
 
-                val trackingNumber = searchTrackingNumberText.toInt()
+                val trackingNumber = searchTrackingNumberText.toString().toInt()
                 val packageFound = PackageRepository(this@AddTracking).getPackageByNumber(trackingNumber)
 
                 if(packageFound != null) {
@@ -61,12 +63,9 @@ class AddTracking : AppCompatActivity() {
                     val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
 
                     if(acct != null){
-                        val idOfLoggedUser = ClientRepository(this@AddTracking)
-                            .getClientByEmail(acct.email.toString())
-
                         val delivery = Delivery(0, packageFound.packageNumber,
                             inputAdditionalInstructions.text.toString(),
-                            inputAlias.text.toString(), "", idOfLoggedUser)
+                            inputAlias.text.toString(), "", acct.email.toString())
 
                         DeliveryRepository(this@AddTracking).insert(delivery)
 
@@ -81,9 +80,10 @@ class AddTracking : AppCompatActivity() {
 
         buttonSearchButton.setOnClickListener {
 
-            val searchTrackingNumberText = inputTrackingNumber.text.toString()
-            if(searchTrackingNumberText != ""){
-                val trackingNumber = searchTrackingNumberText.toInt()
+            val searchTrackingNumberText = inputTrackingNumber.text
+            if(!searchTrackingNumberText.isNullOrBlank() &&
+                searchTrackingNumberText.isDigitsOnly() ){
+                val trackingNumber = searchTrackingNumberText.toString().toInt()
 
                 val packageFound = PackageRepository(this@AddTracking).packageDAO.getPackageByNumber(trackingNumber)
 

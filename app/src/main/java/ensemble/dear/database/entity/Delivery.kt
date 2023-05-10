@@ -9,12 +9,8 @@ foreignKeys = [
     ForeignKey(
         entity = Package::class,
         childColumns = ["idPackage"],
-        parentColumns = ["packageNumber"]),
-    ForeignKey(
-        entity = Client::class,
-        childColumns = ["idClient"],
-        parentColumns = ["id"]
-    )])
+        parentColumns = ["packageNumber"])
+    ])
 data class Delivery(
     @PrimaryKey(autoGenerate = true)
     val idDelivery: Int,
@@ -23,5 +19,5 @@ data class Delivery(
     val packageAlias: String,
     val signature: String,
     //val alarm: String
-    val idClient: Int
+    val idClient: String
 ) { }

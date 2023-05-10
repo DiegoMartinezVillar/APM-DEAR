@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,21 +17,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import ensemble.dear.R
 import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
 import ensemble.dear.database.entity.DeliveryPackage
-import ensemble.dear.database.entity.Package
-import ensemble.dear.database.repository.ClientRepository
 import ensemble.dear.database.repository.DeliveryRepository
-import ensemble.dear.database.repository.PackageRepository
 
 const val TRACKING_ID = "tracking_id"
 
 class TrackingsFragment : Fragment() {
 
-    private var trackingsMutableList: MutableList<Tracking> = TrackingsProvider.trackingsList.toMutableList()
     private lateinit var adapter: TrackingsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
+
     }
 
     override fun onCreateView(
@@ -47,21 +45,21 @@ class TrackingsFragment : Fragment() {
         val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this.requireContext())
 
         if(acct != null) {
-            val idOfLoggedUser = ClientRepository(this.requireContext())
-                .getClientByEmail(acct.email.toString())
 
-            val packagesList = DeliveryRepository(this.requireContext()).getAllUser(idOfLoggedUser)
+            val packagesList = DeliveryRepository(this.requireContext()).getAllUser(acct.email.toString())
 
             adapter = TrackingsAdapter(
-                trackingsList = packagesList,
-                onClickListener = { tracking -> onItemSelected(tracking) },
-                onClickDelete = { idDelivery, position ->
-                    confirmDeletionAlert(idDelivery, position) }
-            )
+                    trackingsList = packagesList,
+                    onClickListener = { tracking -> onItemSelected(tracking) },
+                    onClickDelete = { idDelivery, position ->
+                        confirmDeletionAlert(idDelivery, position) }
+                )
+
             val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerTracking)
 
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = adapter
+
         }
 
     }
@@ -73,6 +71,7 @@ class TrackingsFragment : Fragment() {
         builder.setPositiveButton(R.string.delete_text) { _: DialogInterface, _: Int ->
 
             DeliveryRepository(this.requireActivity()).delete(idDelivery)
+            (adapter.getTrackingsList() as MutableList).removeAt(position)
             adapter.notifyItemRemoved(position)
 
         }
