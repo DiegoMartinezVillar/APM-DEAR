@@ -9,25 +9,24 @@ import ensemble.dear.database.converter.AuthorizedCourierConverter
 import ensemble.dear.database.dao.AuthorizedCourierDAO
 import ensemble.dear.currentTrackings.IN_DELIVERY_STATE
 import ensemble.dear.currentTrackings.PRE_ADMISSION_STATE
-import ensemble.dear.database.dao.ClientDAO
+import ensemble.dear.database.converter.LocalDateConverter
 import ensemble.dear.database.dao.DeliveryDAO
 import ensemble.dear.database.dao.PackageDAO
 import ensemble.dear.database.entity.*
 import ensemble.dear.database.repository.PackageRepository
 import ensemble.dear.database.repository.AuthorizedCourierRepository
-import ensemble.dear.database.repository.ClientRepository
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 
-@Database(entities = [AuthorizedCourier::class, Package::class,
-    Delivery::class, Client::class], version = 3, exportSchema = false)
-@TypeConverters(AuthorizedCourierConverter::class)
+@Database(entities = [AuthorizedCourier::class, Package::class, Delivery::class], version = 8, exportSchema = false)
+@TypeConverters(AuthorizedCourierConverter::class, LocalDateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun authorizedCourierDao(): AuthorizedCourierDAO
     abstract fun packageDAO(): PackageDAO
     abstract fun deliveryDAO(): DeliveryDAO
 
-    abstract fun clientDAO(): ClientDAO
 
     companion object {
         private var instance: AppDatabase? = null
@@ -45,7 +44,6 @@ abstract class AppDatabase : RoomDatabase() {
 
                 insertPreloadedPackages(ctx)
                 insertAuthorizedCouriers(ctx)
-                insertClients(ctx)
             }
             return instance!!
 
@@ -61,14 +59,14 @@ abstract class AppDatabase : RoomDatabase() {
             val newPackages = listOf(
                 Package(
                     123456789, "Alarm clock","436 Constitution Way San Francisco, California",
-                    IN_DELIVERY_STATE, //LocalDate.of(2023, 4, 20),
-                    "20th of april 2023",
+                    IN_DELIVERY_STATE, LocalDate.of(2023, 4, 20),
                     1, "Aliexpress", ""
                 ),
                 Package(
                     121212121, "Bike shorts", "29 Idlewood Dr " +
                             "San Francisco, California", PRE_ADMISSION_STATE,
-                    "13th of april 2023", 3, "Alibaba", ""
+                    LocalDate.of(2023, 4, 13),
+                    3, "Alibaba", ""
                 )
             )
 
@@ -79,17 +77,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        private fun insertClients(context: Context) {
-            val clients = listOf(Client(1, "maria.lopezgarcia11@gmail.com"))
-            val insertedClients = ClientRepository(context).getAllClients()
-
-            for (client in clients) {
-                if (client !in insertedClients) {
-                    ClientRepository(context).insert(client)
-                }
-            }
-
-        }
 
         private fun insertAuthorizedCouriers(context: Context) {
             val newCouriers = listOf(AuthorizedCourier("ensemble.dear.app@gmail.com"))

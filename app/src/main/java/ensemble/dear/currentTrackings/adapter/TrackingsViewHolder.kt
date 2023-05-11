@@ -19,7 +19,8 @@ class TrackingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(trackingModel: DeliveryPackage, onClickListener: (DeliveryPackage) -> Unit, onClickDelete: (Int, Int) -> Unit) {
 
-        daysUntilArrival.text = trackingModel.arrivalDate
+        daysUntilArrival.text = trackingModel.arrivalDate.dayOfMonth.toString() + " " +
+                trackingModel.arrivalDate.month.name.lowercase() + " " + trackingModel.arrivalDate.year.toString()
         shipperCompany.text = trackingModel.shipperCompany
         packageContent.text = trackingModel.packageAlias
 

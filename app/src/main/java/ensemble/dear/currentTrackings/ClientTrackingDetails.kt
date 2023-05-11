@@ -88,7 +88,7 @@ class ClientTrackingDetails : AppCompatActivity() {
             val currentTracking = trackingDetailViewModel.getTrackingForId(it)
             packageContent.text = currentTracking?.packageAlias
 
-            address.text = currentTracking?.address
+            address.text = currentTracking?.arrivalDate.toString()
             packageNumber.text = "#" + currentTracking?.packageNumber.toString()
             shippingCompany.text = currentTracking?.shipperCompany//currentTracking?.shipperCompany
             arrivalDate.text = currentTracking?.arrivalDate.toString()

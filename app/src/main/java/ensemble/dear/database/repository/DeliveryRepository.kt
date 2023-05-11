@@ -14,7 +14,7 @@ class DeliveryRepository(context: Context) {
         return deliveriesDAO.getPackageById(idPackage)
     }
 
-    fun getAllUser(idUser: Int): List<DeliveryPackage> {
+    fun getAllUser(idUser: String): List<DeliveryPackage> {
         return deliveriesDAO.getPackagesUser(idUser)
     }
 
