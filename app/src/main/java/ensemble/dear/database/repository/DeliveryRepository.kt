@@ -18,6 +18,10 @@ class DeliveryRepository(context: Context) {
         return deliveriesDAO.getPackagesUser(idUser)
     }
 
+    fun getUserPastPackages(idUser: String): List<DeliveryPackage> {
+        return deliveriesDAO.getPastPackages(idUser)
+    }
+
     fun insert(delivery: Delivery) {
         deliveriesDAO.insert(delivery)
     }

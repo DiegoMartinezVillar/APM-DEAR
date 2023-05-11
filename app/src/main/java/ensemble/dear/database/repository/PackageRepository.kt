@@ -34,7 +34,6 @@ class PackageRepository(context: Context) {
         fun getInstance(ctx: Context): PackageRepository {
             if (instance == null) {
                 instance = PackageRepository(ctx as Application)
-
             }
             return instance!!
 
