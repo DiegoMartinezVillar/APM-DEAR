@@ -26,8 +26,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/profile"
                 app:navigationIcon="@drawable/icons8_menu_24"
-                app:navigationIconTint="@color/white"
-                style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                app:navigationIconTint="@color/textIcons"
                 android:background="@android:color/transparent"
                 android:elevation="0dp" />
 
@@ -42,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="405dp"
                 android:layout_marginTop="54dp"
-                android:background="@color/teal_700">
+                android:background="@color/lightPrimaryColor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -64,7 +63,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
                         android:text="Pepito"
-                        android:textColor="@color/purple_700"
+                        android:textColor="@color/darkPrimaryColor"
                         android:textSize="21sp"
                         android:textStyle="bold" />
 
@@ -106,7 +105,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
                                 android:text="5"
-                                android:textColor="@color/black"
+                                android:textColor="@color/primaryText"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -122,7 +121,7 @@
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/purple_200"
+                android:backgroundTint="@color/lightPrimaryColor"
                 android:orientation="vertical">
 
                 <LinearLayout

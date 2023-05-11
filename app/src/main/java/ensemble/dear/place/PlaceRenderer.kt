@@ -24,7 +24,7 @@ class PlaceRenderer(
      * The icon to use for each cluster item
      */
     private val boxIcon: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(context, R.color.colorPrimary)
+        val color = ContextCompat.getColor(context, R.color.primaryColor)
         BitmapHelper.vectorToBitmap(context, R.drawable.ic_directions_box_black_24dp, color)
     }
 
