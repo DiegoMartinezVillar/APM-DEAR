@@ -20,6 +20,7 @@ const val ON_THE_WAY_STATE : String = "on_the_way"
 const val IN_DELIVERY_STATE : String = "in_delivery"
 const val DELIVERED_STATE : String = "delivered"
 
+
 @Database(entities = [AuthorizedCourier::class, Package::class, Delivery::class], version = 9, exportSchema = false)
 @TypeConverters(AuthorizedCourierConverter::class, LocalDateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
