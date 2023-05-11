@@ -1,12 +1,9 @@
 package ensemble.dear.pendingShipments
 
+import ensemble.dear.database.IN_DELIVERY_STATE
+import ensemble.dear.database.ON_THE_WAY_STATE
+import ensemble.dear.database.PRE_ADMISSION_STATE
 import java.time.LocalDate
-
-const val PRE_ADMISSION_STATE : String = "pre_admission"
-const val ON_THE_WAY_STATE : String = "on_the_way"
-const val IN_DELIVERY_STATE : String = "in_delivery"
-const val DELIVERED_STATE : String = "delivered"
-
 
 class ShipmentsProvider {
 

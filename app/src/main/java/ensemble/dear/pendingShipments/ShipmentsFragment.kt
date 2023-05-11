@@ -1,21 +1,14 @@
 package ensemble.dear.pendingShipments
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ensemble.dear.ClientTrackingDetails
-import ensemble.dear.CourierTrackingDetails
 import ensemble.dear.R
-import ensemble.dear.currentTrackings.Tracking
-import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
 import ensemble.dear.pendingShipments.adapter.ShipmentsAdapter
 
 

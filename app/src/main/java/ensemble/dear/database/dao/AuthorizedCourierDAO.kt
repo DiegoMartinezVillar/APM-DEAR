@@ -1,7 +1,7 @@
 package ensemble.dear.database.dao
 
 import androidx.room.*
-import ensemble.dear.database.entities.AuthorizedCourier
+import ensemble.dear.database.entity.AuthorizedCourier
 
 @Dao
 interface AuthorizedCourierDAO {

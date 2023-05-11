@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.AsyncTask
 import ensemble.dear.database.AppDatabase
 import ensemble.dear.database.dao.AuthorizedCourierDAO
-import ensemble.dear.database.entities.AuthorizedCourier
+import ensemble.dear.database.entity.AuthorizedCourier
 
 
 

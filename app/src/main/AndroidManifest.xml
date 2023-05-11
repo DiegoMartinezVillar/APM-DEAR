@@ -44,13 +44,13 @@
             android:name=".DeliveryConfirmation"
             android:exported="false" />
         <activity
-            android:name=".CourierTrackingDetailsMap"
+            android:name=".pendingShipments.CourierTrackingDetailsMap"
             android:exported="false" />
         <activity
-            android:name=".CourierTrackingDetails"
+            android:name=".pendingShipments.CourierTrackingDetails"
             android:exported="false" />
         <activity
-            android:name=".ClientTrackingDetailsMap"
+            android:name=".currentTrackings.ClientTrackingDetailsMap"
             android:exported="false" />
         <activity
             android:name=".Profile"
@@ -65,7 +65,7 @@
             android:name=".ClientSignUp"
             android:exported="false" />
         <activity
-            android:name=".ClientTrackingDetails"
+            android:name=".currentTrackings.ClientTrackingDetails"
             android:exported="false" />
         <activity
             android:name=".ClientLogIn"
