@@ -10,7 +10,6 @@ data class DeliveryPackage(
     val address: String,
     val state: String,
     val arrivalDate: LocalDate,
-    val packageContent: String,
     val shipperCompany: String,
     //val shipperCompanyPhoto: String,
     val additionalInstructions: String,

@@ -12,6 +12,10 @@ import androidx.activity.viewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ensemble.dear.Chat
 import ensemble.dear.R
+import ensemble.dear.database.DELIVERED_STATE
+import ensemble.dear.database.IN_DELIVERY_STATE
+import ensemble.dear.database.ON_THE_WAY_STATE
+import ensemble.dear.database.PRE_ADMISSION_STATE
 
 class ClientTrackingDetails : AppCompatActivity() {
 

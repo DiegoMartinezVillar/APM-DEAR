@@ -11,7 +11,6 @@ import java.time.LocalDate
 data class Package(
     @PrimaryKey
     val packageNumber: Int,
-    val packageContent: String,
     val address: String,
     val state: String,
     val arrivalDate: LocalDate,
