@@ -1,11 +1,13 @@
 package ensemble.dear.place
 
 import android.content.Context
+import com.google.android.gms.maps.model.LatLng
 import ensemble.dear.R
 import java.io.InputStream
 import java.io.InputStreamReader
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import ensemble.dear.database.repository.PackageRepository
 
 /**
  * Reads a list of place JSON objects from the file places.json
@@ -24,10 +26,9 @@ class PlacesReader(private val context: Context) {
      * and returns a list of Place objects
      */
     fun read(): List<Place> {
-        val itemType = object : TypeToken<List<PlaceResponse>>() {}.type
-        val reader = InputStreamReader(inputStream)
-        return gson.fromJson<List<PlaceResponse>>(reader, itemType).map {
-            it.toPlace()
+        val allPackages = PackageRepository(context).getAll()
+        return allPackages.map {
+            Place(it.packageNumber.toString(), LatLng(it.placeLat, it.placeLong), it.address, (0.0).toFloat())
         }
     }
 }

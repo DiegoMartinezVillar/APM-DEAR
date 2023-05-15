@@ -37,6 +37,15 @@ interface DeliveryDAO {
             " WHERE d.idClient = :idUser and p.state = '" + DELIVERED_STATE + "'")
     fun getPastPackages(idUser: String): List<DeliveryPackage>
 
+    @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
+            " p.arrivalDate as arrivalDate, p.shipperCompany as shipperCompany, " +
+            " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
+            " FROM delivery_table d " +
+            " JOIN package_table p on p.packageNumber = d.idPackage " +
+            " WHERE d.idClient = :idUser and p.state != '" + DELIVERED_STATE + "'" +
+            " AND p.packageNumber = :idPackage")
+    fun existsTrackingForUserAndPackage(idUser: String, idPackage: Int): DeliveryPackage
+
 
     @Insert
     fun insert(delivery: Delivery)

@@ -54,14 +54,12 @@ class TrackingsFragment : Fragment() {
                     onClickDelete = { idDelivery, position ->
                         confirmDeletionAlert(idDelivery, position) }
                 )
-
             val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerTracking)
 
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = adapter
 
         }
-
     }
 
     private fun confirmDeletionAlert(idDelivery: Int, position: Int) {
@@ -73,7 +71,6 @@ class TrackingsFragment : Fragment() {
             DeliveryRepository(this.requireActivity()).delete(idDelivery)
             (adapter.getTrackingsList() as MutableList).removeAt(position)
             adapter.notifyItemRemoved(position)
-
         }
         builder.setNegativeButton(android.R.string.cancel) { _: DialogInterface, _: Int ->
             Toast.makeText(

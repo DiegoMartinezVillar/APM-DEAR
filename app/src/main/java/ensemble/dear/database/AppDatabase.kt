@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.google.android.gms.maps.model.LatLng
 import ensemble.dear.database.converter.AuthorizedCourierConverter
 import ensemble.dear.database.dao.AuthorizedCourierDAO
 import ensemble.dear.database.converter.LocalDateConverter
@@ -21,7 +22,7 @@ const val IN_DELIVERY_STATE : String = "in_delivery"
 const val DELIVERED_STATE : String = "delivered"
 
 
-@Database(entities = [AuthorizedCourier::class, Package::class, Delivery::class], version = 9, exportSchema = false)
+@Database(entities = [AuthorizedCourier::class, Package::class, Delivery::class], version = 10, exportSchema = false)
 @TypeConverters(AuthorizedCourierConverter::class, LocalDateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -63,13 +64,13 @@ abstract class AppDatabase : RoomDatabase() {
                     123456789, //"Alarm clock",
                     "436 Constitution Way San Francisco, California",
                     IN_DELIVERY_STATE, LocalDate.of(2023, 4, 20),
-                    1, "Aliexpress", ""
+                    1, "Aliexpress", "", 37.7557557, -122.4208508
                 ),
                 Package(
                     121212121, //"Bike shorts",
                     "29 Idlewood Dr San Francisco, California", PRE_ADMISSION_STATE,
                     LocalDate.of(2023, 4, 13),
-                    3, "Alibaba", ""
+                    3, "Alibaba", "", 37.80764569999999, -122.4195251
                 )
             )
 

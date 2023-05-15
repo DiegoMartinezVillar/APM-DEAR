@@ -52,29 +52,37 @@ class AddTracking : AppCompatActivity() {
 
             val searchTrackingNumberText = inputTrackingNumber.text
             if(!searchTrackingNumberText.isNullOrBlank() &&
-                searchTrackingNumberText.isDigitsOnly() &&
-                inputAlias.text.toString() != "" ) {
+                searchTrackingNumberText.isDigitsOnly()
+                ) {
+                if(inputAlias.text.toString() != "") {
+                    val trackingNumber = searchTrackingNumberText.toString().toInt()
+                    val packageFound = PackageRepository(this@AddTracking).getPackageByNumber(trackingNumber)
 
-                val trackingNumber = searchTrackingNumberText.toString().toInt()
-                val packageFound = PackageRepository(this@AddTracking).getPackageByNumber(trackingNumber)
+                    if(packageFound != null) {
+                        val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+                        if(acct != null){
+                            val existsTracking = DeliveryRepository(this@AddTracking)
+                                .existsTrackingForUserAndPackage(acct.email.toString(), packageFound.packageNumber)
+                            if(!existsTracking){
+                                val delivery = Delivery(0, packageFound.packageNumber,
+                                    inputAdditionalInstructions.text.toString(),
+                                    inputAlias.text.toString(), "", acct.email.toString())
 
-                if(packageFound != null) {
-
-                    val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
-
-                    if(acct != null){
-                        val delivery = Delivery(0, packageFound.packageNumber,
-                            inputAdditionalInstructions.text.toString(),
-                            inputAlias.text.toString(), "", acct.email.toString())
-
-                        DeliveryRepository(this@AddTracking).insert(delivery)
-
-                        startActivity(Intent(applicationContext, CurrentTrackings::class.java))
+                                DeliveryRepository(this@AddTracking).insert(delivery)
+                                startActivity(Intent(applicationContext, CurrentTrackings::class.java))
+                            } else {
+                                Toast.makeText(applicationContext,
+                                    "you already are tracking for this number", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    } else {
+                        inputTrackingNumber.error = "This tracking code is not valid";
                     }
+                } else {
+                    inputAlias.error = "This field can not be blank";
                 }
             } else {
-                Toast.makeText(applicationContext,
-                    "tracking number and ALIAS cannot be empty", Toast.LENGTH_LONG).show()
+                inputTrackingNumber.error = "This field can not be blank";
             }
         }
 
@@ -88,15 +96,25 @@ class AddTracking : AppCompatActivity() {
                 val packageFound = PackageRepository(this@AddTracking).packageDAO.getPackageByNumber(trackingNumber)
 
                 if(packageFound != null) {
-                    buttonAddTracking.isEnabled = true
+                    val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+                    if(acct != null){
+                        val existsTracking = DeliveryRepository(this@AddTracking)
+                            .existsTrackingForUserAndPackage(acct.email.toString(), packageFound.packageNumber)
+                        if(!existsTracking){
+                            buttonAddTracking.isEnabled = true
 
-                    Toast.makeText(applicationContext,
-                        "tracking found!", Toast.LENGTH_LONG).show()
-                    hideKeyboard()
+                            Toast.makeText(applicationContext,
+                                "tracking found!", Toast.LENGTH_LONG).show()
+                            hideKeyboard()
+                        } else {
+                            inputTrackingNumber.error = "you already are tracking for this number";
+                        }
+                    } else {
+                        inputTrackingNumber.error = "This field can not be blank";
+                    }
 
                 } else {
                     buttonAddTracking.isEnabled = false
-
                     Toast.makeText(applicationContext,
                         "tracking not found :(", Toast.LENGTH_LONG).show()
                 }
