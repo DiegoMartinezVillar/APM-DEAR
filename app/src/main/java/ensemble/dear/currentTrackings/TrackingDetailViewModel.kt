@@ -7,12 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import ensemble.dear.database.entity.DeliveryPackage
 import ensemble.dear.database.repository.DeliveryRepository
 
-class TrackingDetailViewModel( //private val datasource: TrackingsDataSource
-private val repository: DeliveryRepository ) : ViewModel() {
+class TrackingDetailViewModel( private val repository: DeliveryRepository ) : ViewModel() {
 
     fun getTrackingForId(id: Int) : DeliveryPackage? {
-        //return datasource.getTrackingByNumber(id)
-
         return repository.getPackageById(id)
     }
 
@@ -23,7 +20,6 @@ class TrackingDetailViewModelFactory(private val context: Context) : ViewModelPr
         if (modelClass.isAssignableFrom(TrackingDetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return TrackingDetailViewModel(
-                //datasource = TrackingsDataSource.getDataSource(context.resources)
                 repository = DeliveryRepository(context)
             ) as T
         }
