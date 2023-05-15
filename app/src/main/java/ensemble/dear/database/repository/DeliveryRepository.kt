@@ -22,6 +22,11 @@ class DeliveryRepository(context: Context) {
         return deliveriesDAO.getPastPackages(idUser)
     }
 
+    fun existsTrackingForUserAndPackage(idUser: String, idPackage: Int): Boolean {
+        val returned = deliveriesDAO.existsTrackingForUserAndPackage(idUser, idPackage)
+        return returned != null
+    }
+
     fun insert(delivery: Delivery) {
         deliveriesDAO.insert(delivery)
     }

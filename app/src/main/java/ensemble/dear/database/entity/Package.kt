@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.google.android.gms.maps.model.LatLng
 import ensemble.dear.database.converter.LocalDateConverter
 import java.time.LocalDate
 
@@ -16,5 +17,7 @@ data class Package(
     val arrivalDate: LocalDate,
     val idCourier: Int,
     val shipperCompany: String,
-    val shipperCompanyPhoto: String
+    val shipperCompanyPhoto: String,
+    val placeLat: Double,
+    val placeLong: Double
 ) { }

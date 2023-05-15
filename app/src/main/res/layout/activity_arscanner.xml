@@ -29,7 +29,7 @@
         android:elevation="2dp"
         android:clickable="true"
         android:scaleType="center"
-        app:backgroundTint="@color/purple_500"
+        app:backgroundTint="@color/darkPrimaryColor"
         app:fabCustomSize="60dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"

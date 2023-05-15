@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="8:00"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryText"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/card_gchat_message_other"
         app:layout_constraintStart_toEndOf="@+id/card_gchat_message_other" />
@@ -112,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10:00"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryText"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/card_gchat_message_me"
         app:layout_constraintEnd_toStartOf="@+id/card_gchat_message_me" />
@@ -147,7 +147,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="Send Button"
-        app:tint="@color/black"
+        app:tint="@color/primaryText"
         android:tintMode="src_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -92,9 +92,9 @@ class ClientTrackingDetails : AppCompatActivity() {
             val currentTracking = trackingDetailViewModel.getTrackingForId(it)
             packageContent.text = currentTracking?.packageAlias
 
-            address.text = currentTracking?.arrivalDate.toString()
+            address.text = currentTracking?.address.toString()
             packageNumber.text = "#" + currentTracking?.packageNumber.toString()
-            shippingCompany.text = currentTracking?.shipperCompany//currentTracking?.shipperCompany
+            shippingCompany.text = currentTracking?.shipperCompany
             arrivalDate.text = currentTracking?.arrivalDate.toString()
 
             when (currentTracking?.state) {
@@ -123,7 +123,6 @@ class ClientTrackingDetails : AppCompatActivity() {
                     deliveredState.setImageResource(android.R.drawable.checkbox_on_background)
                 }
             }
-
         }
     }
 }

@@ -209,9 +209,9 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
             center(item.latLng)
             radius(1000.0)
             fillColor(ContextCompat.getColor(this@CourierTrackingDetailsMap,
-                R.color.colorPrimaryTranslucent
+                R.color.accentColor
             ))
-            strokeColor(ContextCompat.getColor(this@CourierTrackingDetailsMap, R.color.colorPrimary))
+            strokeColor(ContextCompat.getColor(this@CourierTrackingDetailsMap, R.color.primaryColor))
         }
     }
 
