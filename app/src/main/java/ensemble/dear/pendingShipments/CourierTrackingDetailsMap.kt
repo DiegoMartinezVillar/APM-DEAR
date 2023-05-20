@@ -96,6 +96,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 // Prompt the user for permission.
                 getLocationPermission()
 
+                // Turn off the map toolbar
+                map?.uiSettings?.isMapToolbarEnabled = false
                 // Turn on the My Location layer and the related control on the map.
                 //updateLocationUI()
 
@@ -209,7 +211,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
             center(item.latLng)
             radius(1000.0)
             fillColor(ContextCompat.getColor(this@CourierTrackingDetailsMap,
-                R.color.accentColor
+                R.color.primaryColorTranslucent
             ))
             strokeColor(ContextCompat.getColor(this@CourierTrackingDetailsMap, R.color.primaryColor))
         }

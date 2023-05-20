@@ -17,6 +17,7 @@
     <color name="darkPrimaryColor">#00796B</color>
     <color name="lightPrimaryColor">#b2dfdb</color>
     <color name="primaryColor">#009688</color>
+    <color name="primaryColorTranslucent">#55009688</color>
     <color name="textIcons">#b2dfdb</color>
     <color name="accentColor">#795548</color>
     <color name="primaryText">#212121</color>
