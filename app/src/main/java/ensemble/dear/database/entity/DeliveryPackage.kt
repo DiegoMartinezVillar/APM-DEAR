@@ -1,7 +1,5 @@
 package ensemble.dear.database.entity
 
-import androidx.room.*
-import ensemble.dear.database.converter.LocalDateConverter
 import java.time.LocalDate
 
 data class DeliveryPackage(

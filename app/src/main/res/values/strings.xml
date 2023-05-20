@@ -49,8 +49,9 @@
     <string name="test_address_2">Jane Doe, 2343 Bryant St, San Francisco</string>
     <string name="scan">Scan</string>
     <string name="delete_text">Delete</string>
+    <string name="cancel_text">Cancel</string>
     <string name="delete_dialog_title">Confirm Deletion</string>
-    <string name="delete_dialog_content">Are you sure you want to delete this tracking?</string>
+    <string name="delete_dialog_content">Are you sure you want to remove this tracking?</string>
     <string name="delivery_details">Delivery details</string>
     <string name="log_in">Log in</string>
     <string name="tracking_details">Tracking details</string>

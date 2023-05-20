@@ -1,11 +1,9 @@
 package ensemble.dear.pendingShipments.adapter
 
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.R
-import ensemble.dear.currentTrackings.Tracking
 import ensemble.dear.pendingShipments.Shipment
 
 class ShipmentsViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -1,7 +1,6 @@
 package ensemble.dear.currentTrackings
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -9,9 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ensemble.dear.Chat
 import ensemble.dear.R
+import ensemble.dear.Chat
 import ensemble.dear.database.DELIVERED_STATE
 import ensemble.dear.database.IN_DELIVERY_STATE
 import ensemble.dear.database.ON_THE_WAY_STATE
@@ -39,17 +39,17 @@ class ClientTrackingDetails : AppCompatActivity() {
 
         val chatButton = findViewById<FloatingActionButton>(R.id.buttonChat)
         chatButton.setOnClickListener {
+            /*
             val intent = Intent(applicationContext, Chat::class.java)
             startActivity(intent)
+            */
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
         phoneNumberCallText.setOnClickListener {
-            Toast.makeText(
-                applicationContext,
-                "Calling " + phoneNumberCallText.text,
-                Toast.LENGTH_LONG
-            ).show()
+            //Toast.makeText(applicationContext, "Calling " + phoneNumberCallText.text, Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
 
         setPageData()

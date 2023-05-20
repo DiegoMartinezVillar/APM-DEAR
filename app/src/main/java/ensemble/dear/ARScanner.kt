@@ -2,7 +2,6 @@ package ensemble.dear
 
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -12,8 +11,9 @@ import android.view.WindowManager
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.camera.core.ExperimentalGetImage
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
@@ -136,7 +136,7 @@ class ARScanner : AppCompatActivity() {
         val result = scanner.process(image)
             .addOnSuccessListener { barcodes ->
                 if (barcodes.isEmpty()) {
-                    Toast.makeText(this, "No QR code found", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "No QR code found", Toast.LENGTH_LONG).show()
                     return@addOnSuccessListener
                 }
                 // Task completed successfully
@@ -154,7 +154,7 @@ class ARScanner : AppCompatActivity() {
                         // See API reference for complete list of supported types
                         when (barcode.valueType) {
                             Barcode.TYPE_TEXT -> {
-                                // Inflate view and set title, address and rating
+                                // Inflate view and set the QR content
                                 val view = LayoutInflater.from(this)
                                     .inflate(R.layout.qr_popup_window, null)
                                 view.findViewById<TextView>(R.id.text_view_text).text = rawValue
@@ -203,7 +203,7 @@ class ARScanner : AppCompatActivity() {
                 }
             }.addOnFailureListener {
                 // Task failed with an exception
-                Toast.makeText(this, "Barcode scanning failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Barcode scanning failed", Toast.LENGTH_LONG).show()
                 Log.e(TAG, "Barcode scanning failed: ${it.message}", it)
             }
     }

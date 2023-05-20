@@ -2,14 +2,13 @@ package ensemble.dear.pendingShipments
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import ensemble.dear.R
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -20,6 +19,7 @@ import com.squareup.picasso.Picasso
 import ensemble.dear.ARScanner
 import ensemble.dear.ClientLogIn
 import ensemble.dear.Profile
+import ensemble.dear.R
 
 class PendingShipments : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -86,8 +86,12 @@ class PendingShipments : AppCompatActivity() {
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.close()
-        } else {
-            onBackPressedDispatcher.onBackPressed()
+        }
+        else {
+            Intent(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_HOME)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }.also { startActivity(it) }
         }
     }
 

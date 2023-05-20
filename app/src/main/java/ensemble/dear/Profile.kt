@@ -107,14 +107,14 @@ class Profile : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(R.string.confirm_log_out)
 
-        builder.setPositiveButton(android.R.string.yes) { _, _ ->
+        builder.setPositiveButton(android.R.string.ok) { _, _ ->
             gsc.signOut().addOnCompleteListener {
                 finish()
                 startActivity(Intent(applicationContext, ClientLogIn::class.java))
             }
         }
 
-        builder.setNegativeButton(android.R.string.no) { _, _ -> }
+        builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
 
         builder.show()
     }
