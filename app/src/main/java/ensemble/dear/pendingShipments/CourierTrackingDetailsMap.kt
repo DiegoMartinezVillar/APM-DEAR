@@ -131,8 +131,11 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
 
         val chatButton = findViewById<FloatingActionButton>(R.id.buttonChat)
         chatButton.setOnClickListener{
+            /*
             val intent = Intent(applicationContext, Chat::class.java)
             startActivity(intent)
+            */
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
 
         val arButton = findViewById<Button>(R.id.buttonAR)

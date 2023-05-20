@@ -57,7 +57,7 @@ class ClientLogIn : AppCompatActivity() {
         val buttonClientLogIn = findViewById<Button>(R.id.buttonClientLogIn)
         buttonClientLogIn.setOnClickListener {
             //startActivity(Intent(applicationContext, CurrentTrackings::class.java))
-            Toast.makeText(applicationContext, "Non-priority feature.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
 
         val buttonClientLogInGoogle = findViewById<Button>(R.id.buttonClientLogInGoogle)

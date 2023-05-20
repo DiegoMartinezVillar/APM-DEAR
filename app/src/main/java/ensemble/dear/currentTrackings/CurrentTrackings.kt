@@ -89,20 +89,26 @@ class CurrentTrackings : AppCompatActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.close()
         }
+        else {
+            Intent(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_HOME)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }.also { startActivity(it) }
+        }
     }
 
     private fun confirmLogOut() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(R.string.confirm_log_out)
 
-        builder.setPositiveButton(android.R.string.yes) { _, _ ->
+        builder.setPositiveButton(android.R.string.ok) { _, _ ->
             gsc.signOut().addOnCompleteListener {
                 finish()
                 startActivity(Intent(applicationContext, ClientLogIn::class.java))
             }
         }
 
-        builder.setNegativeButton(android.R.string.no) { _, _ -> }
+        builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
 
         builder.show()
     }
