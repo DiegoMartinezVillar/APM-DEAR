@@ -10,7 +10,7 @@ import ensemble.dear.database.entity.AuthorizedCourier
 
 class AuthorizedCourierRepository(context: Context) {
 
-    var db: AuthorizedCourierDAO = AppDatabase.getInstance(context)?.authorizedCourierDao()!!
+    var db: AuthorizedCourierDAO = AppDatabase.getInstance(context).authorizedCourierDao()
 
     //Fetch All the AuthorizedCouriers
     fun getAllAuthorizedCouriers(): List<AuthorizedCourier> {

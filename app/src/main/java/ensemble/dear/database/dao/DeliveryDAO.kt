@@ -3,7 +3,7 @@ package ensemble.dear.database.dao
 import androidx.room.*
 import ensemble.dear.database.DELIVERED_STATE
 
-import ensemble.dear.database.entity.Delivery;
+import ensemble.dear.database.entity.Delivery
 import ensemble.dear.database.entity.DeliveryPackage
 
 @Dao

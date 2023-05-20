@@ -1,8 +1,6 @@
 package ensemble.dear.database.dao
 
 import androidx.room.*
-import ensemble.dear.database.entity.DeliveryPackage
-
 import ensemble.dear.database.entity.Package
 
 @Dao
