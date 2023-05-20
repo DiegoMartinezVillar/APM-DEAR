@@ -2,7 +2,6 @@ package ensemble.dear
 
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -12,8 +11,9 @@ import android.view.WindowManager
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.camera.core.ExperimentalGetImage
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy

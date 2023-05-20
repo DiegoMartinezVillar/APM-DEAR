@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.R
 import ensemble.dear.database.entity.DeliveryPackage
-import ensemble.dear.database.entity.Package
 
 class TrackingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

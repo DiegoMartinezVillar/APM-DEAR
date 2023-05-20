@@ -5,15 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.google.android.gms.maps.model.LatLng
 import ensemble.dear.database.converter.AuthorizedCourierConverter
-import ensemble.dear.database.dao.AuthorizedCourierDAO
 import ensemble.dear.database.converter.LocalDateConverter
+import ensemble.dear.database.dao.AuthorizedCourierDAO
 import ensemble.dear.database.dao.DeliveryDAO
 import ensemble.dear.database.dao.PackageDAO
-import ensemble.dear.database.entity.*
-import ensemble.dear.database.repository.PackageRepository
+import ensemble.dear.database.entity.AuthorizedCourier
+import ensemble.dear.database.entity.Delivery
+import ensemble.dear.database.entity.Package
 import ensemble.dear.database.repository.AuthorizedCourierRepository
+import ensemble.dear.database.repository.PackageRepository
 import java.time.LocalDate
 
 const val PRE_ADMISSION_STATE : String = "pre_admission"
