@@ -16,17 +16,21 @@ class DeliveryConfirmation : AppCompatActivity() {
         val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
 
-        val drawView = findViewById<DrawView>(R.id.drawView)
-
-        val clearButton = findViewById<Button>(R.id.buttonClear)
-        clearButton.setOnClickListener{
-            drawView.clear()
-        }
-
         val confirmButton = findViewById<Button>(R.id.buttonConfirm)
         confirmButton.setOnClickListener{
             val intent = Intent(applicationContext, PendingShipments::class.java)
             startActivity(intent)
+        }
+
+        val drawView = findViewById<DrawView>(R.id.drawView)
+        drawView.setOnClickListener{
+            confirmButton.isEnabled = true
+        }
+
+        val clearButton = findViewById<Button>(R.id.buttonClear)
+        clearButton.setOnClickListener{
+            drawView.clear()
+            confirmButton.isEnabled = false
         }
     }
 

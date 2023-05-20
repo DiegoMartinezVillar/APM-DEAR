@@ -41,9 +41,15 @@ class DrawView(context: Context, attributeSet: AttributeSet?) : View(context, at
                 return true
             }
             MotionEvent.ACTION_MOVE -> path.lineTo(x, y)
+            MotionEvent.ACTION_UP -> performClick()
             else -> return false
         }
         invalidate()
+        return true
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
         return true
     }
 
