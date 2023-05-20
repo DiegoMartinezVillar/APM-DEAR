@@ -136,7 +136,7 @@ class ARScanner : AppCompatActivity() {
         val result = scanner.process(image)
             .addOnSuccessListener { barcodes ->
                 if (barcodes.isEmpty()) {
-                    Toast.makeText(this, "No QR code found", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "No QR code found", Toast.LENGTH_LONG).show()
                     return@addOnSuccessListener
                 }
                 // Task completed successfully
@@ -203,7 +203,7 @@ class ARScanner : AppCompatActivity() {
                 }
             }.addOnFailureListener {
                 // Task failed with an exception
-                Toast.makeText(this, "Barcode scanning failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Barcode scanning failed", Toast.LENGTH_LONG).show()
                 Log.e(TAG, "Barcode scanning failed: ${it.message}", it)
             }
     }
