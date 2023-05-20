@@ -137,8 +137,11 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
 
         val arButton = findViewById<Button>(R.id.buttonAR)
         arButton.setOnClickListener{
+            /*
             val intent = Intent(applicationContext, ARDelivery::class.java)
             startActivity(intent)
+            */
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
