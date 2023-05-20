@@ -49,8 +49,9 @@
     <string name="test_address_2">Jane Doe, 2343 Bryant St, San Francisco</string>
     <string name="scan">Escanear</string>
     <string name="delete_text">Borrar</string>
+    <string name="cancel_text">Cancelar</string>
     <string name="delete_dialog_title">Confirmación de borrado</string>
-    <string name="delete_dialog_content">¿Estás seguro de que quieres borrar este seguimiento?</string>
+    <string name="delete_dialog_content">¿Estás seguro de que quieres quitar este seguimiento?</string>
     <string name="delivery_details">Detalles de entrega</string>
     <string name="log_in">Inicio de sesión</string>
     <string name="tracking_details">Detalles de seguimiento</string>

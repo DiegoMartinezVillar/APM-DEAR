@@ -86,8 +86,12 @@ class PendingShipments : AppCompatActivity() {
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.close()
-        } else {
-            onBackPressedDispatcher.onBackPressed()
+        }
+        else {
+            Intent(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_HOME)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }.also { startActivity(it) }
         }
     }
 

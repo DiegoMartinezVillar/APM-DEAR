@@ -28,7 +28,7 @@ class PlacesReader(private val context: Context) {
     fun read(): List<Place> {
         val allPackages = PackageRepository(context).getAll()
         return allPackages.map {
-            Place(it.packageNumber.toString(), LatLng(it.placeLat, it.placeLong), it.address, (0.0).toFloat())
+            Place(it.packageNumber.toString(), LatLng(it.placeLat, it.placeLong), it.address)
         }
     }
 }

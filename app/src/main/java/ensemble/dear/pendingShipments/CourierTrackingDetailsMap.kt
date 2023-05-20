@@ -96,6 +96,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 // Prompt the user for permission.
                 getLocationPermission()
 
+                // Turn off the map toolbar
+                map?.uiSettings?.isMapToolbarEnabled = false
                 // Turn on the My Location layer and the related control on the map.
                 //updateLocationUI()
 
@@ -129,14 +131,20 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
 
         val chatButton = findViewById<FloatingActionButton>(R.id.buttonChat)
         chatButton.setOnClickListener{
+            /*
             val intent = Intent(applicationContext, Chat::class.java)
             startActivity(intent)
+            */
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
 
         val arButton = findViewById<Button>(R.id.buttonAR)
         arButton.setOnClickListener{
+            /*
             val intent = Intent(applicationContext, ARDelivery::class.java)
             startActivity(intent)
+            */
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
@@ -166,7 +174,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 this,
                 map!!,
                 clusterManager
-            )
+            ).also { it.minClusterSize = 2 }
 
         // Set custom info window adapter
         clusterManager.markerCollection.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
@@ -179,6 +187,11 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         clusterManager.setOnClusterItemClickListener { item ->
             addCircle(item)
             return@setOnClusterItemClickListener false
+        }
+
+        // Remove the polygon when the user clicks outside a marker
+        map!!.setOnMapClickListener {
+            removeCircle()
         }
 
         // When the camera starts moving, change the alpha value of the marker to translucent
@@ -201,17 +214,32 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     private var circle: Circle? = null
 
     /**
+     * Removes the [Circle] from the map
+     */
+    private fun removeCircle() {
+        circle?.remove()
+    }
+
+    /**
      * Adds a [Circle] around the provided [item]
      */
     private fun addCircle(item: Place) {
-        circle?.remove()
+        removeCircle() // Remove existing circle if it exists
         circle = map!!.addCircle {
             center(item.latLng)
-            radius(1000.0)
-            fillColor(ContextCompat.getColor(this@CourierTrackingDetailsMap,
-                R.color.accentColor
-            ))
-            strokeColor(ContextCompat.getColor(this@CourierTrackingDetailsMap, R.color.primaryColor))
+            radius(500.0)
+            fillColor(
+                ContextCompat.getColor(
+                    this@CourierTrackingDetailsMap,
+                    R.color.primaryColorTranslucent
+                )
+            )
+            strokeColor(
+                ContextCompat.getColor(
+                    this@CourierTrackingDetailsMap,
+                    R.color.primaryColor
+                )
+            )
         }
     }
 

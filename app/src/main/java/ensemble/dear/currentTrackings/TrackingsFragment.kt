@@ -72,12 +72,7 @@ class TrackingsFragment : Fragment() {
             (adapter.getTrackingsList() as MutableList).removeAt(position)
             adapter.notifyItemRemoved(position)
         }
-        builder.setNegativeButton(android.R.string.cancel) { _: DialogInterface, _: Int ->
-            Toast.makeText(
-                context,
-                android.R.string.cancel, Toast.LENGTH_LONG
-            ).show()
-        }
+        builder.setNegativeButton(R.string.cancel_text) { _: DialogInterface, _: Int -> }
         builder.show()
     }
 

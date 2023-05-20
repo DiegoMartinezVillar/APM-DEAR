@@ -23,9 +23,6 @@
         android:theme="@style/Theme.DeAR"
         tools:targetApi="31">
         <activity
-            android:name=".ARDeliveryImageCheck"
-            android:exported="false" />
-        <activity
             android:name=".currentTrackings.CurrentTrackings"
             android:exported="false" />
         <activity

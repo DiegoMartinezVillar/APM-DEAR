@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -56,7 +57,7 @@ class ClientLogIn : AppCompatActivity() {
         val buttonClientLogIn = findViewById<Button>(R.id.buttonClientLogIn)
         buttonClientLogIn.setOnClickListener {
             //startActivity(Intent(applicationContext, CurrentTrackings::class.java))
-            Toast.makeText(this, "Non-priority feature.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
 
         val buttonClientLogInGoogle = findViewById<Button>(R.id.buttonClientLogInGoogle)
@@ -74,7 +75,7 @@ class ClientLogIn : AppCompatActivity() {
         val textViewClickHereToSignUp = findViewById<TextView>(R.id.textViewClickHereToSignUp)
         textViewClickHereToSignUp.setOnClickListener {
             //startActivity(Intent(applicationContext, ClientSignUp::class.java))
-            Toast.makeText(this, "Non-priority feature.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -118,5 +119,12 @@ class ClientLogIn : AppCompatActivity() {
         } else {
             startActivity(Intent(applicationContext, CurrentTrackings::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+        Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }.also { startActivity(it) }
     }
 }
