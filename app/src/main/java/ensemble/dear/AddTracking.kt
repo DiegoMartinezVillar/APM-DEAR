@@ -69,6 +69,7 @@ class AddTracking : AppCompatActivity() {
                                     inputAlias.text.toString(), "", acct.email.toString())
 
                                 DeliveryRepository(this@AddTracking).insert(delivery)
+                                finish()
                                 startActivity(Intent(applicationContext, CurrentTrackings::class.java))
                             } else {
                                 Toast.makeText(applicationContext,

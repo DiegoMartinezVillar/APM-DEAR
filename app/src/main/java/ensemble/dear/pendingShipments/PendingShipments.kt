@@ -86,8 +86,6 @@ class PendingShipments : AppCompatActivity() {
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.close()
-        } else {
-            onBackPressedDispatcher.onBackPressed()
         }
     }
 

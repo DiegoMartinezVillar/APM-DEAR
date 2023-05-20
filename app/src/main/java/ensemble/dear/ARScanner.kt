@@ -154,7 +154,7 @@ class ARScanner : AppCompatActivity() {
                         // See API reference for complete list of supported types
                         when (barcode.valueType) {
                             Barcode.TYPE_TEXT -> {
-                                // Inflate view and set title, address and rating
+                                // Inflate view and set the QR content
                                 val view = LayoutInflater.from(this)
                                     .inflate(R.layout.qr_popup_window, null)
                                 view.findViewById<TextView>(R.id.text_view_text).text = rawValue

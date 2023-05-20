@@ -18,6 +18,7 @@ class DeliveryConfirmation : AppCompatActivity() {
 
         val confirmButton = findViewById<Button>(R.id.buttonConfirm)
         confirmButton.setOnClickListener{
+            finish()
             val intent = Intent(applicationContext, PendingShipments::class.java)
             startActivity(intent)
         }
