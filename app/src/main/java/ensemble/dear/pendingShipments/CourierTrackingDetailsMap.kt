@@ -16,6 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,16 +27,25 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.Circle
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.maps.android.PolyUtil
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.ktx.addCircle
 import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.awaitMapLoad
 import ensemble.dear.*
+import ensemble.dear.BuildConfig.MAPS_API_KEY
 import ensemble.dear.place.Place
 import ensemble.dear.place.PlaceRenderer
 import ensemble.dear.place.PlacesReader
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import org.json.JSONObject
+import java.io.IOException
+import java.net.URL
 
 class CourierTrackingDetailsMap : AppCompatActivity() {
     private var map: GoogleMap? = null
@@ -41,6 +53,13 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
 
     private val places: List<Place> by lazy {
         PlacesReader(this).read()
+    }
+
+    // The options for the map route polyline
+    private val polylineOptions: PolylineOptions by lazy{
+        PolylineOptions()
+            .color(ContextCompat.getColor(this, R.color.primaryColor))
+            .width(5f)
     }
 
     // The entry point to the Fused Location Provider.
@@ -89,6 +108,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 map = mapFragment.awaitMap()
 
                 addClusteredMarkers()
+                addRoutePolyline()
 
                 // Wait for map to finish loading
                 map!!.awaitMapLoad()
@@ -209,6 +229,60 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
             // can be performed when the camera stops moving
             clusterManager.onCameraIdle()
         }
+    }
+
+    private fun addRoutePolyline() {
+        // Set a request for the directions API
+        val requestQueue = Volley.newRequestQueue(applicationContext)
+
+        val urlDirections =
+            "https://maps.googleapis.com/maps/api/directions/json?" +
+                    "origin=${places[0].latLng.latitude},${places[0].latLng.longitude}" +
+                    "&destination=${places[1].latLng.latitude},${places[1].latLng.longitude}" +
+                    "&key=$MAPS_API_KEY"
+
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            urlDirections,
+            { response ->
+                Log.d("Volley", "Success!")
+                // Get the first route from the results
+                val route = JSONObject(response).getJSONArray("routes")[0] as JSONObject
+                val leg = route.getJSONArray("legs")[0] as JSONObject
+                val steps = leg.getJSONArray("steps")
+
+                for (i in 0 until steps.length()) {
+                    val step = steps[i] as JSONObject
+                    val polyline = step.getJSONObject("polyline")
+                    val points = polyline.getString("points")
+                    val latLngList = PolyUtil.decode(points)
+                    polylineOptions.addAll(latLngList)
+                }
+                map!!.addPolyline(polylineOptions)
+            },
+            { error ->
+                Log.e("Volley", "Error: $error")
+                Toast.makeText(applicationContext, "Could not get the route", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        requestQueue.add(stringRequest)
+    }
+
+    private fun removePolylines() {
+        if (polylineOptions.points.isNotEmpty()) {
+            polylineOptions.points.clear()
+        }
+    }
+
+    private fun addRoutePolylineLocation() {
+        if (lastKnownLocation != null) {
+            val urlDirections =
+                "https://maps.googleapis.com/maps/api/directions/json?" +
+                        "origin=${lastKnownLocation!!.latitude},${lastKnownLocation!!.longitude}" +
+                        "&destination=${places[0].latLng.latitude},${places[0].latLng.longitude}"
+        }
+
     }
 
     private var circle: Circle? = null

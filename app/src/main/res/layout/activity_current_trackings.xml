@@ -16,7 +16,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+            style="@style/Widget.MaterialComponents.AppBarLayout.Primary"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -26,7 +26,7 @@
                 app:title="@string/current_trackings"
                 app:navigationIcon="@drawable/icons8_menu_24"
                 app:navigationIconTint="@color/textIcons"
-                style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:background="@android:color/transparent"
                 android:elevation="0dp" />
 
