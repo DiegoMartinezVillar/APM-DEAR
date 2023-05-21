@@ -3,7 +3,6 @@ package ensemble.dear.pendingShipments
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationRequest
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +20,6 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -58,7 +56,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     private val polylines: MutableList<Polyline> = mutableListOf()
 
     // The options for the map route polyline
-    private val polylineOptions: PolylineOptions by lazy{
+    private val polylineOptions: PolylineOptions by lazy {
         PolylineOptions()
             .color(ContextCompat.getColor(this, R.color.primaryColor))
             .width(5f)
@@ -111,6 +109,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 // Get map
                 map = mapFragment.awaitMap()
 
+                // Set the packages markers
                 addClusteredMarkers()
 
                 // Wait for map to finish loading
@@ -124,21 +123,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 // Turn on the My Location layer and the related control on the map.
                 updateLocationUI()
 
-                /*
-                Two options for moving the camera:
-                    1. Move the camera to the current location of the device.
-                    2. Move the camera to match the bounds of all markers.
-                Uncomment one of the two options below.
-                 */
-
                 // Get the current location of the device and set the position of the map.
                 getDeviceLocation()
-
-                // Ensure all places are visible in the map
-                //val bounds = LatLngBounds.builder()
-                //places.forEach { bounds.include(it.latLng) }
-                //map!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), DEFAULT_PADDING))
-
             }
         }
 
@@ -174,16 +160,6 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         phoneNumberCallText.setOnClickListener{
             Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     /**
@@ -227,12 +203,18 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         map!!.setOnCameraMoveStartedListener {
             clusterManager.markerCollection.markers.forEach { it.alpha = 0.3f }
             clusterManager.clusterMarkerCollection.markers.forEach { it.alpha = 0.3f }
+            polylines.forEach{ polyline ->
+                polyline.color = ContextCompat.getColor(applicationContext, R.color.primaryColorTranslucent)
+            }
         }
 
+        // When the camera stops moving, change the alpha value back to opaque
         map!!.setOnCameraIdleListener {
-            // When the camera stops moving, change the alpha value back to opaque
             clusterManager.markerCollection.markers.forEach { it.alpha = 1.0f }
             clusterManager.clusterMarkerCollection.markers.forEach { it.alpha = 1.0f }
+            polylines.forEach{ polyline ->
+                polyline.color = ContextCompat.getColor(applicationContext, R.color.primaryColor)
+            }
 
             // Call clusterManager.onCameraIdle() when the camera stops moving so that re-clustering
             // can be performed when the camera stops moving
@@ -247,7 +229,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         val urlDirections =
             "https://maps.googleapis.com/maps/api/directions/json?" +
                     "origin=${lastKnownLocation!!.latitude},${lastKnownLocation!!.longitude}" +
-                    "&destination=${places[0].latLng.latitude},${places[0].latLng.longitude}" +
+                    "&destination=${places[0].latLng.latitude},${places[0].latLng.longitude}" + // places[0] should be the client's package destination
                     "&key=$MAPS_API_KEY"
 
         val stringRequest = StringRequest(
@@ -319,17 +301,6 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     }
 
     /**
-     * Saves the state of the map when the activity is paused.
-     */
-    override fun onSaveInstanceState(outState: Bundle) {
-        map?.let { map ->
-            outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
-            outState.putParcelable(KEY_LOCATION, lastKnownLocation)
-        }
-        super.onSaveInstanceState(outState)
-    }
-
-    /**
      * Gets the current location of the device, and positions the map's camera.
      */
     private fun getDeviceLocation() {
@@ -389,6 +360,28 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     }
 
     /**
+     * Updates the map's UI settings based on whether the user has granted location permission.
+     */
+    private fun updateLocationUI() {
+        if (map == null) {
+            return
+        }
+        try {
+            if (locationPermissionGranted) {
+                map?.isMyLocationEnabled = true
+                map?.uiSettings?.isMyLocationButtonEnabled = true
+            } else {
+                map?.isMyLocationEnabled = false
+                map?.uiSettings?.isMyLocationButtonEnabled = false
+                lastKnownLocation = null
+                getLocationPermission()
+            }
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message, e)
+        }
+    }
+
+    /**
      * Handles the result of the request for location permissions.
      */
     override fun onRequestPermissionsResult(requestCode: Int,
@@ -410,25 +403,24 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     }
 
     /**
-     * Updates the map's UI settings based on whether the user has granted location permission.
+     * Saves the state of the map when the activity is paused.
      */
-    private fun updateLocationUI() {
-        if (map == null) {
-            return
+    override fun onSaveInstanceState(outState: Bundle) {
+        map?.let { map ->
+            outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
+            outState.putParcelable(KEY_LOCATION, lastKnownLocation)
         }
-        try {
-            if (locationPermissionGranted) {
-                map?.isMyLocationEnabled = true
-                map?.uiSettings?.isMyLocationButtonEnabled = true
-            } else {
-                map?.isMyLocationEnabled = false
-                map?.uiSettings?.isMyLocationButtonEnabled = false
-                lastKnownLocation = null
-                getLocationPermission()
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                return true
             }
-        } catch (e: SecurityException) {
-            Log.e("Exception: %s", e.message, e)
         }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
