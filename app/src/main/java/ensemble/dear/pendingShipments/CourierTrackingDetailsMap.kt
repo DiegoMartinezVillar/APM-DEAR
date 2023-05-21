@@ -3,6 +3,7 @@ package ensemble.dear.pendingShipments
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationRequest
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,8 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -27,10 +30,9 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.Circle
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.google.maps.android.PolyUtil
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.ktx.addCircle
@@ -42,10 +44,7 @@ import ensemble.dear.place.Place
 import ensemble.dear.place.PlaceRenderer
 import ensemble.dear.place.PlacesReader
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
 import org.json.JSONObject
-import java.io.IOException
-import java.net.URL
 
 class CourierTrackingDetailsMap : AppCompatActivity() {
     private var map: GoogleMap? = null
@@ -54,6 +53,9 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     private val places: List<Place> by lazy {
         PlacesReader(this).read()
     }
+
+    // List of polylines drawn on the map
+    private val polylines: MutableList<Polyline> = mutableListOf()
 
     // The options for the map route polyline
     private val polylineOptions: PolylineOptions by lazy{
@@ -99,6 +101,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
 
         setContentView(R.layout.activity_courier_tracking_details_map)
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(applicationContext)
+
         // Build map
         val mapFragment =
             supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
@@ -108,7 +112,6 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 map = mapFragment.awaitMap()
 
                 addClusteredMarkers()
-                addRoutePolyline()
 
                 // Wait for map to finish loading
                 map!!.awaitMapLoad()
@@ -119,7 +122,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 // Turn off the map toolbar
                 map?.uiSettings?.isMapToolbarEnabled = false
                 // Turn on the My Location layer and the related control on the map.
-                //updateLocationUI()
+                updateLocationUI()
 
                 /*
                 Two options for moving the camera:
@@ -129,12 +132,12 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                  */
 
                 // Get the current location of the device and set the position of the map.
-                //getDeviceLocation()
+                getDeviceLocation()
 
                 // Ensure all places are visible in the map
-                val bounds = LatLngBounds.builder()
-                places.forEach { bounds.include(it.latLng) }
-                map!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), DEFAULT_PADDING))
+                //val bounds = LatLngBounds.builder()
+                //places.forEach { bounds.include(it.latLng) }
+                //map!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), DEFAULT_PADDING))
 
             }
         }
@@ -209,6 +212,12 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
             return@setOnClusterItemClickListener false
         }
 
+        // Recalculate route when the user clicks the location button
+        map!!.setOnMyLocationButtonClickListener {
+            getDeviceLocation()
+            return@setOnMyLocationButtonClickListener true
+        }
+
         // Remove the polygon when the user clicks outside a marker
         map!!.setOnMapClickListener {
             removeCircle()
@@ -231,14 +240,14 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         }
     }
 
-    private fun addRoutePolyline() {
+    private fun addRoutePolylines() {
         // Set a request for the directions API
         val requestQueue = Volley.newRequestQueue(applicationContext)
 
         val urlDirections =
             "https://maps.googleapis.com/maps/api/directions/json?" +
-                    "origin=${places[0].latLng.latitude},${places[0].latLng.longitude}" +
-                    "&destination=${places[1].latLng.latitude},${places[1].latLng.longitude}" +
+                    "origin=${lastKnownLocation!!.latitude},${lastKnownLocation!!.longitude}" +
+                    "&destination=${places[0].latLng.latitude},${places[0].latLng.longitude}" +
                     "&key=$MAPS_API_KEY"
 
         val stringRequest = StringRequest(
@@ -258,7 +267,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                     val latLngList = PolyUtil.decode(points)
                     polylineOptions.addAll(latLngList)
                 }
-                map!!.addPolyline(polylineOptions)
+                val polyline = map!!.addPolyline(polylineOptions)
+                polylines.add(polyline) // Store the polyline so it can be removed later
             },
             { error ->
                 Log.e("Volley", "Error: $error")
@@ -270,19 +280,10 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     }
 
     private fun removePolylines() {
+        polylines.forEach { it.remove() }
         if (polylineOptions.points.isNotEmpty()) {
             polylineOptions.points.clear()
         }
-    }
-
-    private fun addRoutePolylineLocation() {
-        if (lastKnownLocation != null) {
-            val urlDirections =
-                "https://maps.googleapis.com/maps/api/directions/json?" +
-                        "origin=${lastKnownLocation!!.latitude},${lastKnownLocation!!.longitude}" +
-                        "&destination=${places[0].latLng.latitude},${places[0].latLng.longitude}"
-        }
-
     }
 
     private var circle: Circle? = null
@@ -344,10 +345,13 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
-                            map?.moveCamera(
-                                CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
+                            removePolylines()
+                            addRoutePolylines()
+                            // Move the camera position to fit the route.
+                            val bounds = LatLngBounds.builder()
+                            bounds.include(LatLng(lastKnownLocation!!.latitude, lastKnownLocation!!.longitude))
+                            bounds.include(places[0].latLng)
+                            map!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), DEFAULT_PADDING))
                         }
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
@@ -430,7 +434,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     companion object {
         private val TAG = CourierTrackingDetailsMap::class.java.simpleName
         private const val DEFAULT_ZOOM = 14 // Can be any number between 2 and 21, the higher the number the closer the zoom
-        private const val DEFAULT_PADDING = 20 // Space in px between the map edge and the cluster items
+        private const val DEFAULT_PADDING = 100 // Space in px between the map edge and the cluster items
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
         private const val KEY_CAMERA_POSITION = "camera_position"
