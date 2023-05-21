@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.R
-import ensemble.dear.pendingShipments.Shipment
+import ensemble.dear.database.entity.DeliveryPackage
+import ensemble.dear.database.entity.Package
 
 class ShipmentsAdapter(
-    private val shipmentsList: List<Shipment>,
-    private val onClickListener: (Shipment) -> Unit
+    private val shipmentsList: List<Package>,
+    private val onClickListener: (Package) -> Unit
 ) :
     RecyclerView.Adapter<ShipmentsViewHolder>() {
 
@@ -23,5 +24,9 @@ class ShipmentsAdapter(
     override fun onBindViewHolder(holder: ShipmentsViewHolder, position: Int) {
         val item = shipmentsList[position]
         holder.render(item, onClickListener)
+    }
+
+    fun getDeliveriesList(): List<Package> {
+        return shipmentsList
     }
 }

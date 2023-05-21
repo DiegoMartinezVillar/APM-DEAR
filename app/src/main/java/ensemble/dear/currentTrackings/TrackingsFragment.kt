@@ -67,7 +67,6 @@ class TrackingsFragment : Fragment() {
         builder.setTitle(R.string.delete_dialog_title)
         builder.setMessage(R.string.delete_dialog_content)
         builder.setPositiveButton(R.string.delete_text) { _: DialogInterface, _: Int ->
-
             DeliveryRepository(this.requireActivity()).delete(idDelivery)
             (adapter.getTrackingsList() as MutableList).removeAt(position)
             adapter.notifyItemRemoved(position)

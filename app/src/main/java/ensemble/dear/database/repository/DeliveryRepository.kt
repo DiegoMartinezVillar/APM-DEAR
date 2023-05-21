@@ -35,6 +35,10 @@ class DeliveryRepository(context: Context) {
         deliveriesDAO.delete(idDelivery)
     }
 
+    fun deleteAll() {
+        deliveriesDAO.deleteAll()
+    }
+
     fun getAll(): List<Delivery> {
         return deliveriesDAO.getAllDeliveries()
     }

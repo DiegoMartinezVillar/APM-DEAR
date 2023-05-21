@@ -14,6 +14,7 @@ interface DeliveryDAO {
 
     @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
             " p.arrivalDate as arrivalDate, p.shipperCompany as shipperCompany, " +
+            " p.shipperCompanyPhoto as shipperCompanyPhoto, " +
             " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
             " FROM delivery_table d " +
             " JOIN package_table p on p.packageNumber = d.idPackage " +
@@ -22,6 +23,7 @@ interface DeliveryDAO {
 
     @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
             " p.arrivalDate as arrivalDate, p.shipperCompany as shipperCompany, " +
+            " p.shipperCompanyPhoto as shipperCompanyPhoto, " +
             " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
             " FROM delivery_table d " +
             " JOIN package_table p on p.packageNumber = d.idPackage" +
@@ -31,6 +33,7 @@ interface DeliveryDAO {
 
     @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
             " p.arrivalDate as arrivalDate, p.shipperCompany as shipperCompany, " +
+            " p.shipperCompanyPhoto as shipperCompanyPhoto, " +
             " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
             " FROM delivery_table d " +
             " JOIN package_table p on p.packageNumber = d.idPackage " +
@@ -39,6 +42,7 @@ interface DeliveryDAO {
 
     @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
             " p.arrivalDate as arrivalDate, p.shipperCompany as shipperCompany, " +
+            " p.shipperCompanyPhoto as shipperCompanyPhoto, " +
             " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
             " FROM delivery_table d " +
             " JOIN package_table p on p.packageNumber = d.idPackage " +
@@ -55,5 +59,8 @@ interface DeliveryDAO {
 
     @Query("DELETE FROM delivery_table WHERE idDelivery = :idDelivery")
     fun delete(idDelivery: Int)
+
+    @Query("DELETE FROM delivery_table")
+    fun deleteAll()
 
 }

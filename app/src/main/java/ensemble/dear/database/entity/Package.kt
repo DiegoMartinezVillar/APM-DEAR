@@ -15,7 +15,7 @@ data class Package(
     val address: String,
     val state: String,
     val arrivalDate: LocalDate,
-    val idCourier: Int,
+    val idCourier: String,
     val shipperCompany: String,
     val shipperCompanyPhoto: String,
     val placeLat: Double,

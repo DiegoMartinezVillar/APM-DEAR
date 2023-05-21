@@ -4,11 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ensemble.dear.Chat
 import ensemble.dear.R
+import ensemble.dear.currentTrackings.adapter.loadUrl
+import ensemble.dear.database.repository.DeliveryRepository
+import ensemble.dear.database.repository.PackageRepository
+import ensemble.dear.pendingShipments.SHIPMENT_ID
 
 class ClientTrackingDetailsMap : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +33,8 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         phoneNumberCallText.setOnClickListener{
             Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
         }
+
+        setPageData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -38,5 +45,34 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setPageData() {
+        var currentShipmentId: Int? = null
+
+        // connect variables to UI elements
+        val packageNumber: TextView = findViewById(R.id.packageNumber)
+        val shippingCompany: TextView = findViewById(R.id.shipperCompany)
+        val alias: TextView = findViewById(R.id.packageAlias)
+        val imgShipperCompany: ImageView = findViewById(R.id.imageView)
+
+        val bundle: Bundle? = intent.extras
+        if (bundle != null) {
+            currentShipmentId = bundle.getInt(SHIPMENT_ID)
+        }
+
+        /* if currentTrackingId is not null, get corresponding tracking data */
+        currentShipmentId?.let {
+            val currentShipment =
+                DeliveryRepository(this@ClientTrackingDetailsMap).deliveriesDAO.getPackageById(it)
+
+            packageNumber.text = "#" + currentShipment?.packageNumber.toString()
+            shippingCompany.text = currentShipment?.shipperCompany
+            alias.text = currentShipment?.packageAlias
+
+            currentShipment?.shipperCompanyPhoto?.let {
+                    it1 -> imgShipperCompany.loadUrl(it1)
+            }
+        }
     }
 }

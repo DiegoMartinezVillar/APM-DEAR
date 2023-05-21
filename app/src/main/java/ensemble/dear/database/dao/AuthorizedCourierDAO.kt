@@ -12,6 +12,9 @@ interface AuthorizedCourierDAO {
     @Query("Select * from authorizedCourier")
     fun gelAllAuthorizedCouriers(): List<AuthorizedCourier>
 
+    @Query("SELECT * FROM authorizedCourier WHERE email = :idCourier")
+    fun getAuthorizedCourierById(idCourier: String): AuthorizedCourier
+
     @Update
     fun updateAuthorizedCourier(authorizedCouriers: AuthorizedCourier)
 

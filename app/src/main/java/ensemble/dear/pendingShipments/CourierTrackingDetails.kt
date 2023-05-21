@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -12,6 +13,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ensemble.dear.Chat
 import ensemble.dear.DeliveryConfirmation
 import ensemble.dear.R
+import ensemble.dear.currentTrackings.adapter.loadUrl
+import ensemble.dear.database.repository.DeliveryRepository
+import ensemble.dear.database.repository.PackageRepository
 
 class CourierTrackingDetails : AppCompatActivity() {
 
@@ -67,11 +71,10 @@ class CourierTrackingDetails : AppCompatActivity() {
 
         // connect variables to UI elements
         val packageContent: TextView = findViewById(R.id.textView3)
-
         val address: TextView = findViewById(R.id.addressText)
         val packageNumber: TextView = findViewById(R.id.deliveryNumber)
         val shippingCompany: TextView = findViewById(R.id.shipperCompany)
-        //val arrivalDate: TextView = findViewById(R.id.arrivalTime)
+        val imgShipperCompany: ImageView = findViewById(R.id.imageView)
 
         val additionalInstructions: TextView = findViewById(R.id.additionalInstructions)
 
@@ -83,14 +86,28 @@ class CourierTrackingDetails : AppCompatActivity() {
         /* if currentTrackingId is not null, get corresponding tracking data */
         currentShipmentId?.let {
             val currentShipment = shipmentDetailViewModel.getShipmentForId(it)
-            packageContent.text = currentShipment?.packageContent
+            //packageContent.text = currentShipment?.shipperCompany
 
-            address.text = currentShipment?.deliveryAddress
+            address.text = currentShipment?.address
             packageNumber.text = "#" + currentShipment?.packageNumber.toString()
             shippingCompany.text = currentShipment?.shipperCompany
-            additionalInstructions.text = currentShipment?.additionalInstructions
-            //arrivalDate.text = currentTracking?.estimatedArrivalDate.toString()
 
+
+            val packageFound = DeliveryRepository(this@CourierTrackingDetails)
+                .deliveriesDAO.getPackageById(it)
+
+            if(packageFound != null){
+                additionalInstructions.text = packageFound?.additionalInstructions
+            } else {
+                additionalInstructions.text = ""
+            }
+
+            currentShipment?.shipperCompanyPhoto?.let {
+                    it1 -> imgShipperCompany.loadUrl(it1)
+            }
+
+            //arrivalDate.text = currentShipment?.arrivalDate?.dayOfMonth.toString() + " " +
+            //        currentShipment?.arrivalDate?.month?.name?.lowercase() + " " + currentShipment?.arrivalDate?.year.toString()
 
         }
     }
