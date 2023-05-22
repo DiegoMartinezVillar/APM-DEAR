@@ -50,7 +50,7 @@
             android:name=".currentTrackings.ClientTrackingDetailsMap"
             android:exported="false" />
         <activity
-            android:name=".Profile"
+            android:name=".profile.Profile"
             android:exported="false" />
         <activity
             android:name=".Chat"

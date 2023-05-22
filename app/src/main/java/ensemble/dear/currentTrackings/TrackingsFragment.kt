@@ -26,7 +26,6 @@ class TrackingsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
-
     }
 
     override fun onCreateView(
@@ -43,7 +42,6 @@ class TrackingsFragment : Fragment() {
         val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this.requireContext())
 
         if(acct != null) {
-
             val packagesList = DeliveryRepository(this.requireContext()).getAllUser(acct.email.toString())
 
             adapter = TrackingsAdapter(
@@ -65,7 +63,6 @@ class TrackingsFragment : Fragment() {
         builder.setTitle(R.string.delete_dialog_title)
         builder.setMessage(R.string.delete_dialog_content)
         builder.setPositiveButton(R.string.delete_text) { _: DialogInterface, _: Int ->
-
             DeliveryRepository(this.requireActivity()).delete(idDelivery)
             (adapter.getTrackingsList() as MutableList).removeAt(position)
             adapter.notifyItemRemoved(position)

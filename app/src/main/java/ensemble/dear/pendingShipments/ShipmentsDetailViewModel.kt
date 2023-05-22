@@ -4,12 +4,15 @@ package ensemble.dear.pendingShipments
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ensemble.dear.database.ShipmentsDataSource
+import ensemble.dear.database.entity.DeliveryPackage
+import ensemble.dear.database.entity.Package
+import ensemble.dear.database.repository.PackageRepository
 
-class ShipmentsDetailViewModel(private val datasource: ShipmentsDataSource) : ViewModel() {
+class ShipmentsDetailViewModel(private val repository: PackageRepository) : ViewModel() {
 
-    fun getShipmentForId(id: Int) : Shipment? {
-        return datasource.getShipmentByNumber(id)
+    fun getShipmentForId(id: Int) : Package? {
+        //return repository.getPackageDeliveryByNumber(id)
+        return repository.getPackageByNumber(id)
     }
 
 }
@@ -19,7 +22,7 @@ class ShipmentsDetailViewModelFactory(private val context: Context) : ViewModelP
         if (modelClass.isAssignableFrom(ShipmentsDetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ShipmentsDetailViewModel(
-                datasource = ShipmentsDataSource.getDataSource(context.resources)
+                repository =  PackageRepository(context)
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

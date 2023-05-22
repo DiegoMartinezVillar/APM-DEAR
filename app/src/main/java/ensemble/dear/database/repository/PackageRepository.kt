@@ -3,9 +3,13 @@ package ensemble.dear.database.repository
 import android.app.Application
 import android.content.Context
 import android.os.AsyncTask
+import android.util.Log
 import ensemble.dear.database.AppDatabase
 import ensemble.dear.database.dao.PackageDAO
+import ensemble.dear.database.entity.DeliveryPackage
 import ensemble.dear.database.entity.Package
+import java.time.LocalDate
+import java.time.ZoneId
 
 class PackageRepository(context: Context) {
 
@@ -19,12 +23,25 @@ class PackageRepository(context: Context) {
         packageDAO.delete(packageEnt)
     }
 
+    fun deleteAll() {
+        packageDAO.deleteAll()
+    }
+
     fun getAll(): List<Package> {
         return packageDAO.getAllPackages()
     }
 
+    fun getAllCourierPackagesForToday(idCourier: String): List<Package> {
+        return packageDAO.getCourierPackagesForToday(idCourier,
+            LocalDate.now(ZoneId.of("Europe/Madrid")).toString())
+    }
+
     fun getPackageByNumber(number: Int): Package {
         return packageDAO.getPackageByNumber(number)
+    }
+
+    fun getPackageDeliveryByNumber(number: Int): DeliveryPackage {
+        return packageDAO.getPackageDeliveryByNumber(number)
     }
 
     companion object {
