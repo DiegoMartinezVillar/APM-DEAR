@@ -134,6 +134,8 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
             //Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
             Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
+
+        setPageData()
     }
 
     /**
@@ -205,6 +207,7 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         )
 
         requestQueue.add(stringRequest)
+
     }
 
     private fun removePolylines() {
@@ -232,7 +235,6 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         }
         super.onSaveInstanceState(outState)
 
-        setPageData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
