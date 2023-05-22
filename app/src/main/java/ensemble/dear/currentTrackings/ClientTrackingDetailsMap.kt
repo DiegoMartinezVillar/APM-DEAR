@@ -205,6 +205,8 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         )
 
         requestQueue.add(stringRequest)
+
+        setPageData()
     }
 
     private fun removePolylines() {
@@ -232,7 +234,6 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         }
         super.onSaveInstanceState(outState)
 
-        setPageData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
