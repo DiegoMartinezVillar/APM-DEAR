@@ -11,7 +11,6 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import ensemble.dear.R
 import ensemble.dear.database.entity.DeliveryPackage
-import ensemble.dear.database.entity.Package
 
 /**
  * load image into ImageView using Coil - SVG images

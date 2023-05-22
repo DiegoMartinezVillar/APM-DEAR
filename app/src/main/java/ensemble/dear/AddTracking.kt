@@ -68,10 +68,11 @@ class AddTracking : AppCompatActivity() {
                                     inputAlias.text.toString(), "", acct.email.toString())
 
                                 DeliveryRepository(this@AddTracking).insert(delivery)
+                                finish()
                                 startActivity(Intent(applicationContext, CurrentTrackings::class.java))
                             } else {
                                 Toast.makeText(applicationContext,
-                                    "you already are tracking for this number", Toast.LENGTH_LONG).show()
+                                    "You already are tracking for this number", Toast.LENGTH_LONG).show()
                             }
                         }
                     } else {
@@ -103,10 +104,10 @@ class AddTracking : AppCompatActivity() {
                             buttonAddTracking.isEnabled = true
 
                             Toast.makeText(applicationContext,
-                                "tracking found!", Toast.LENGTH_LONG).show()
+                                "Tracking found!", Toast.LENGTH_LONG).show()
                             hideKeyboard()
                         } else {
-                            inputTrackingNumber.error = "you already are tracking for this number";
+                            inputTrackingNumber.error = "You already are tracking for this number";
                         }
                     } else {
                         inputTrackingNumber.error = "This field can not be blank";
@@ -115,11 +116,11 @@ class AddTracking : AppCompatActivity() {
                 } else {
                     buttonAddTracking.isEnabled = false
                     Toast.makeText(applicationContext,
-                        "tracking not found :(", Toast.LENGTH_LONG).show()
+                        "Tracking not found :(", Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(applicationContext,
-                    "tracking number cannot be empty", Toast.LENGTH_LONG).show()
+                    "Tracking number cannot be empty", Toast.LENGTH_LONG).show()
             }
         }
     }

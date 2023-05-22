@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.R
+import ensemble.dear.pendingShipments.Shipment
 import ensemble.dear.currentTrackings.adapter.loadUrl
 import ensemble.dear.database.entity.DeliveryPackage
 import ensemble.dear.database.entity.Package
