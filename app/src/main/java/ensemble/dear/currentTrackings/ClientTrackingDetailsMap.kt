@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,8 @@ import com.google.maps.android.ktx.awaitMapLoad
 import ensemble.dear.BitmapHelper
 import ensemble.dear.BuildConfig
 import ensemble.dear.R
+import ensemble.dear.currentTrackings.adapter.loadUrl
+import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.place.Place
 import ensemble.dear.place.PlacesReader
 import kotlinx.coroutines.launch
@@ -131,6 +134,8 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
             //Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
             Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
         }
+
+        setPageData()
     }
 
     /**
@@ -202,6 +207,7 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         )
 
         requestQueue.add(stringRequest)
+
     }
 
     private fun removePolylines() {
@@ -228,6 +234,7 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
             outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
         }
         super.onSaveInstanceState(outState)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -247,5 +254,34 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
         private const val KEY_CAMERA_POSITION = "camera_position"
+    }
+
+    private fun setPageData() {
+        var currentShipmentId: Int? = null
+
+        // connect variables to UI elements
+        val packageNumber: TextView = findViewById(R.id.packageNumber)
+        val shippingCompany: TextView = findViewById(R.id.shipperCompany)
+        val alias: TextView = findViewById(R.id.packageAlias)
+        val imgShipperCompany: ImageView = findViewById(R.id.imageView)
+
+        val bundle: Bundle? = intent.extras
+        if (bundle != null) {
+            currentShipmentId = bundle.getInt(TRACKING_ID)
+        }
+
+        /* if currentTrackingId is not null, get corresponding tracking data */
+        currentShipmentId?.let {
+            val currentShipment =
+                DeliveryRepository(this@ClientTrackingDetailsMap).deliveriesDAO.getPackageById(it)
+
+            packageNumber.text = "#" + currentShipment?.packageNumber.toString()
+            shippingCompany.text = currentShipment?.shipperCompany
+            alias.text = currentShipment?.packageAlias
+
+            currentShipment?.shipperCompanyPhoto?.let {
+                it1 -> imgShipperCompany.loadUrl(it1)
+            }
+        }
     }
 }

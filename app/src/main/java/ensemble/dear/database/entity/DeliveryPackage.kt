@@ -9,7 +9,7 @@ data class DeliveryPackage(
     val state: String,
     val arrivalDate: LocalDate,
     val shipperCompany: String,
-    //val shipperCompanyPhoto: String,
+    val shipperCompanyPhoto: String,
     val additionalInstructions: String,
     val packageAlias: String
 ) { }

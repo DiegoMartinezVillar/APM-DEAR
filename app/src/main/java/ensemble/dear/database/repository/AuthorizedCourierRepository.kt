@@ -17,6 +17,11 @@ class AuthorizedCourierRepository(context: Context) {
         return db.gelAllAuthorizedCouriers()
     }
 
+    // Get AuthorizedCourier by Id
+    fun getAuthorizedCourierById(idCourier: String): AuthorizedCourier {
+        return db.getAuthorizedCourierById(idCourier)
+    }
+
     // Insert new AuthorizedCourier
     fun insertAuthorizedCourier(authorizedCourier: AuthorizedCourier) {
         insertAsyncTask(db).execute(authorizedCourier)

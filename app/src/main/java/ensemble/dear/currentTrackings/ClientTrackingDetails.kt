@@ -11,7 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ensemble.dear.R
-import ensemble.dear.Chat
+import ensemble.dear.currentTrackings.adapter.loadUrl
 import ensemble.dear.database.DELIVERED_STATE
 import ensemble.dear.database.IN_DELIVERY_STATE
 import ensemble.dear.database.ON_THE_WAY_STATE
@@ -34,6 +34,9 @@ class ClientTrackingDetails : AppCompatActivity() {
         val locateButton = findViewById<Button>(R.id.buttonLocate)
         locateButton.setOnClickListener {
             val intent = Intent(applicationContext, ClientTrackingDetailsMap::class.java)
+            val packageNumber: TextView = findViewById(R.id.detailPackageNumber)
+            val packNumber = packageNumber.text.toString().substring(1).toInt()
+            intent.putExtra(TRACKING_ID, packNumber)
             startActivity(intent)
         }
 
@@ -80,7 +83,7 @@ class ClientTrackingDetails : AppCompatActivity() {
         val packageNumber: TextView = findViewById(R.id.detailPackageNumber)
         val shippingCompany: TextView = findViewById(R.id.shippingCompany)
         val arrivalDate: TextView = findViewById(R.id.arrivalTime)
-
+        val imgShipperCompany: ImageView = findViewById(R.id.imageView)
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
@@ -90,12 +93,18 @@ class ClientTrackingDetails : AppCompatActivity() {
         /* if currentTrackingId is not null, get corresponding tracking data */
         currentTrackingId?.let {
             val currentTracking = trackingDetailViewModel.getTrackingForId(it)
-            packageContent.text = currentTracking?.packageAlias
 
+            packageContent.text = currentTracking?.packageAlias
             address.text = currentTracking?.address.toString()
             packageNumber.text = "#" + currentTracking?.packageNumber.toString()
             shippingCompany.text = currentTracking?.shipperCompany
-            arrivalDate.text = currentTracking?.arrivalDate.toString()
+            arrivalDate.text = currentTracking?.arrivalDate?.dayOfMonth.toString() + " " +
+                    currentTracking?.arrivalDate?.month?.name?.lowercase() + " " +
+                    currentTracking?.arrivalDate?.year.toString()
+
+            currentTracking?.shipperCompanyPhoto?.let {
+                it1 -> imgShipperCompany.loadUrl(it1)
+            }
 
             when (currentTracking?.state) {
                 PRE_ADMISSION_STATE -> {

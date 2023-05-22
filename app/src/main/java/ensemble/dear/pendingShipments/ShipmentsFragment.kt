@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import ensemble.dear.R
+import ensemble.dear.currentTrackings.TRACKING_ID
+import ensemble.dear.database.entity.DeliveryPackage
+import ensemble.dear.database.repository.PackageRepository
 import ensemble.dear.pendingShipments.adapter.ShipmentsAdapter
-
-
-const val SHIPMENT_ID = "shipment_id"
+import ensemble.dear.database.entity.Package
 
 class ShipmentsFragment : Fragment() {
 
@@ -23,8 +26,6 @@ class ShipmentsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -39,24 +40,26 @@ class ShipmentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //initRecyclerView
+        val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this.requireContext())
 
-        adapter = ShipmentsAdapter(
-            shipmentsList = shipmentsMutableList,
-            onClickListener = { shipment -> onItemSelected(shipment) }
-        )
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerShipments)
+        if(acct != null) {
+            val packagesList = PackageRepository(this.requireContext()).getAllCourierPackagesForToday(acct.email.toString())
 
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
+            adapter = ShipmentsAdapter(
+                shipmentsList = packagesList,
+                onClickListener = { delivery -> onItemSelected(delivery) }
+            )
+            val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerShipments)
+
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = adapter
+        }
     }
 
-    private fun onItemSelected(shipment: Shipment) {
-        //Toast.makeText(context, tracking.packageNumber, Toast.LENGTH_SHORT).show()
-
+    private fun onItemSelected(delivery: Package) {
         val intent = Intent(context, CourierTrackingDetails()::class.java)
 
-        intent.putExtra(SHIPMENT_ID, shipment.packageNumber)
+        intent.putExtra(TRACKING_ID, delivery.packageNumber)
         startActivity(intent)
     }
 
