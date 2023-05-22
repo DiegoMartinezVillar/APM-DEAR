@@ -28,7 +28,6 @@ class TrackingsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
-
     }
 
     override fun onCreateView(
@@ -45,7 +44,6 @@ class TrackingsFragment : Fragment() {
         val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this.requireContext())
 
         if(acct != null) {
-
             val packagesList = DeliveryRepository(this.requireContext()).getAllUser(acct.email.toString())
 
             adapter = TrackingsAdapter(

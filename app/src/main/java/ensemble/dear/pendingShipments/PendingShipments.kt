@@ -19,7 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.squareup.picasso.Picasso
 import ensemble.dear.ARScanner
 import ensemble.dear.ClientLogIn
-import ensemble.dear.Profile
+import ensemble.dear.profile.Profile
 
 class PendingShipments : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout

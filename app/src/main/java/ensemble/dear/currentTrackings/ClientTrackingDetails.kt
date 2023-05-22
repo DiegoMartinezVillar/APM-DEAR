@@ -35,6 +35,9 @@ class ClientTrackingDetails : AppCompatActivity() {
         val locateButton = findViewById<Button>(R.id.buttonLocate)
         locateButton.setOnClickListener {
             val intent = Intent(applicationContext, ClientTrackingDetailsMap::class.java)
+            val packageNumber: TextView = findViewById(R.id.detailPackageNumber)
+            val packNumber = packageNumber.text.toString().substring(1).toInt()
+            intent.putExtra(TRACKING_ID, packNumber)
             startActivity(intent)
         }
 
@@ -81,9 +84,7 @@ class ClientTrackingDetails : AppCompatActivity() {
         val packageNumber: TextView = findViewById(R.id.detailPackageNumber)
         val shippingCompany: TextView = findViewById(R.id.shippingCompany)
         val arrivalDate: TextView = findViewById(R.id.arrivalTime)
-
         val imgShipperCompany: ImageView = findViewById(R.id.imageView)
-
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
@@ -103,7 +104,7 @@ class ClientTrackingDetails : AppCompatActivity() {
                     currentTracking?.arrivalDate?.year.toString()
 
             currentTracking?.shipperCompanyPhoto?.let {
-                    it1 -> imgShipperCompany.loadUrl(it1)
+                it1 -> imgShipperCompany.loadUrl(it1)
             }
 
             when (currentTracking?.state) {

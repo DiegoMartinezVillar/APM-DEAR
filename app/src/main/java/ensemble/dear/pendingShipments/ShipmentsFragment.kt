@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import ensemble.dear.R
+import ensemble.dear.currentTrackings.TRACKING_ID
 import ensemble.dear.database.entity.DeliveryPackage
 import ensemble.dear.database.repository.PackageRepository
 import ensemble.dear.pendingShipments.adapter.ShipmentsAdapter
 import ensemble.dear.database.entity.Package
-
-const val SHIPMENT_ID = "shipment_id"
 
 class ShipmentsFragment : Fragment() {
 
@@ -60,7 +59,7 @@ class ShipmentsFragment : Fragment() {
     private fun onItemSelected(delivery: Package) {
         val intent = Intent(context, CourierTrackingDetails()::class.java)
 
-        intent.putExtra(SHIPMENT_ID, delivery.packageNumber)
+        intent.putExtra(TRACKING_ID, delivery.packageNumber)
         startActivity(intent)
     }
 

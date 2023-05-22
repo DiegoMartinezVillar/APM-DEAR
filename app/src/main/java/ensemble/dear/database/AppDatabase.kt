@@ -23,7 +23,7 @@ const val IN_DELIVERY_STATE : String = "in_delivery"
 const val DELIVERED_STATE : String = "delivered"
 
 
-@Database(entities = [AuthorizedCourier::class, Package::class, Delivery::class], version = 12, exportSchema = false)
+@Database(entities = [AuthorizedCourier::class, Package::class, Delivery::class], version = 13, exportSchema = false)
 @TypeConverters(AuthorizedCourierConverter::class, LocalDateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -67,9 +67,10 @@ abstract class AppDatabase : RoomDatabase() {
                 Package(
                     123456789, //"Alarm clock",
                     "436 Constitution Way San Francisco, California",
-                    IN_DELIVERY_STATE, LocalDate.of(2023, 4, 20),
+                    DELIVERED_STATE, LocalDate.of(2023, 4, 20),
                     "ensemble.dear.app@gmail.com", "Aliexpress",
                     "https://upload.wikimedia.org/wikipedia/commons/3/3b/Aliexpress_logo.svg",
+                    "Leave at front door",
                     37.7557557, -122.4208508
                 ),
                 Package(
@@ -78,6 +79,7 @@ abstract class AppDatabase : RoomDatabase() {
                     LocalDate.of(2023, 4, 13),
                     "ensemble.dear.app@gmail.com", "Amazon",
                     "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+                    "The house is next to John's bakery",
                     37.80764569999999, -122.4195251
                 ),
                 Package(
@@ -86,6 +88,7 @@ abstract class AppDatabase : RoomDatabase() {
                     LocalDate.of(2023, 5, 19),
                     "ensemble.dear.app@gmail.com", "Aliexpress",
                     "https://upload.wikimedia.org/wikipedia/commons/3/3b/Aliexpress_logo.svg",
+                    "Send a message around ten minutes before arriving",
                     37.7757292, -122.4119508
                 ),
                 Package(
@@ -94,6 +97,7 @@ abstract class AppDatabase : RoomDatabase() {
                     LocalDate.of(2023, 5, 20),
                     "ensemble.dear.app@gmail.com", "Amazon",
                     "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+                    "Call upon arrival",
                     37.8060487, -122.4206076
                 ),
                 Package(
@@ -102,6 +106,7 @@ abstract class AppDatabase : RoomDatabase() {
                     LocalDate.of(2023, 5, 22),
                     "ensemble.dear.app@gmail.com", "Amazon",
                     "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+                    "Leave on top of the doormat",
                     43.365482, -8.412086
                 )
             )

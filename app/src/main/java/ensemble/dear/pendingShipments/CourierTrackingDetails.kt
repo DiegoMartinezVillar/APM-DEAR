@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ensemble.dear.Chat
 import ensemble.dear.DeliveryConfirmation
 import ensemble.dear.R
+import ensemble.dear.currentTrackings.TRACKING_ID
 import ensemble.dear.currentTrackings.adapter.loadUrl
 import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
@@ -33,6 +34,9 @@ class CourierTrackingDetails : AppCompatActivity() {
         val confirmButton = findViewById<Button>(R.id.buttonConfirm)
         confirmButton.setOnClickListener{
             val intent = Intent(applicationContext, DeliveryConfirmation::class.java)
+            val packageNumber: TextView = findViewById(R.id.deliveryNumber)
+            val packNumber = packageNumber.text.toString().substring(1).toInt()
+            intent.putExtra(TRACKING_ID, packNumber)
             startActivity(intent)
         }
 
@@ -45,6 +49,9 @@ class CourierTrackingDetails : AppCompatActivity() {
         val liveRouteButton = findViewById<Button>(R.id.buttonLiveRoute)
         liveRouteButton.setOnClickListener{
             val intent = Intent(applicationContext, CourierTrackingDetailsMap::class.java)
+            val packageNumber: TextView = findViewById(R.id.deliveryNumber)
+            val packNumber = packageNumber.text.toString().substring(1).toInt()
+            intent.putExtra(TRACKING_ID, packNumber)
             startActivity(intent)
         }
 
@@ -80,27 +87,18 @@ class CourierTrackingDetails : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
-            currentShipmentId = bundle.getInt(SHIPMENT_ID)
+            currentShipmentId = bundle.getInt(TRACKING_ID)
         }
 
-        /* if currentTrackingId is not null, get corresponding tracking data */
+        /* if currentShipmentId is not null, get corresponding tracking data */
         currentShipmentId?.let {
             val currentShipment = shipmentDetailViewModel.getShipmentForId(it)
-            //packageContent.text = currentShipment?.shipperCompany
 
             address.text = currentShipment?.address
             packageNumber.text = "#" + currentShipment?.packageNumber.toString()
             shippingCompany.text = currentShipment?.shipperCompany
+            additionalInstructions.text = currentShipment?.additionalInstructions
 
-
-            val packageFound = DeliveryRepository(this@CourierTrackingDetails)
-                .deliveriesDAO.getPackageById(it)
-
-            if(packageFound != null){
-                additionalInstructions.text = packageFound?.additionalInstructions
-            } else {
-                additionalInstructions.text = ""
-            }
 
             currentShipment?.shipperCompanyPhoto?.let {
                     it1 -> imgShipperCompany.loadUrl(it1)

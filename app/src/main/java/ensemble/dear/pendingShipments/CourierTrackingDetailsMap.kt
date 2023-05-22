@@ -31,6 +31,7 @@ import com.google.maps.android.ktx.addCircle
 import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.awaitMapLoad
 import ensemble.dear.*
+import ensemble.dear.currentTrackings.TRACKING_ID
 import ensemble.dear.currentTrackings.adapter.loadUrl
 import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
@@ -128,6 +129,10 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         val confirmButton = findViewById<Button>(R.id.buttonConfirm)
         confirmButton.setOnClickListener{
             val intent = Intent(applicationContext, DeliveryConfirmation::class.java)
+
+            val packageNumber: TextView = findViewById(R.id.packageNumber)
+            val packNumber = packageNumber.text.toString().substring(1).toInt()
+            intent.putExtra(TRACKING_ID, packNumber)
             startActivity(intent)
         }
 
@@ -341,10 +346,10 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
-            currentShipmentId = bundle.getInt(SHIPMENT_ID)
+            currentShipmentId = bundle.getInt(TRACKING_ID)
         }
 
-        /* if currentTrackingId is not null, get corresponding tracking data */
+        /* if currentShipmentId is not null, get corresponding tracking data */
         currentShipmentId?.let {
             val currentShipment =
                 PackageRepository(this@CourierTrackingDetailsMap).packageDAO.getPackageByNumber(it)

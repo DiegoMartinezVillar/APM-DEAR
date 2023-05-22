@@ -18,6 +18,7 @@ data class Package(
     val idCourier: String,
     val shipperCompany: String,
     val shipperCompanyPhoto: String,
+    val additionalInstructions: String,
     val placeLat: Double,
     val placeLong: Double
 ) { }

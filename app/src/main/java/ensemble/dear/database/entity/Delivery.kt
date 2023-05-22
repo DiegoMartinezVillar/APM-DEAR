@@ -15,7 +15,6 @@ data class Delivery(
     @PrimaryKey(autoGenerate = true)
     val idDelivery: Int,
     val idPackage: Int,
-    val additionalInstructions: String,
     val packageAlias: String,
     val signature: String,
     //val alarm: String

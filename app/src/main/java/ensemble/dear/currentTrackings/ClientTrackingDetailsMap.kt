@@ -12,8 +12,6 @@ import ensemble.dear.Chat
 import ensemble.dear.R
 import ensemble.dear.currentTrackings.adapter.loadUrl
 import ensemble.dear.database.repository.DeliveryRepository
-import ensemble.dear.database.repository.PackageRepository
-import ensemble.dear.pendingShipments.SHIPMENT_ID
 
 class ClientTrackingDetailsMap : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +56,7 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
-            currentShipmentId = bundle.getInt(SHIPMENT_ID)
+            currentShipmentId = bundle.getInt(TRACKING_ID)
         }
 
         /* if currentTrackingId is not null, get corresponding tracking data */
@@ -71,7 +69,7 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
             alias.text = currentShipment?.packageAlias
 
             currentShipment?.shipperCompanyPhoto?.let {
-                    it1 -> imgShipperCompany.loadUrl(it1)
+                it1 -> imgShipperCompany.loadUrl(it1)
             }
         }
     }

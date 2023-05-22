@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Profile"
+    tools:context=".profile.Profile"
     tools:openDrawer="start">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".Profile" >
+            tools:context=".profile.Profile" >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="405dp"
@@ -97,10 +97,11 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Trackings"
+                                android:text="Past trackings"
                                 android:textSize="20sp" />
 
                             <TextView
+                                android:id="@+id/numberPastTrackings"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
@@ -116,7 +117,7 @@
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
 
-            <LinearLayout
+            <!--LinearLayout
                 android:id="@+id/profilePastTracking"
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
@@ -153,7 +154,12 @@
                     android:orientation="horizontal"
                     android:paddingTop="5dp" />
 
-            </LinearLayout>
+            </LinearLayout-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPastTrackings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

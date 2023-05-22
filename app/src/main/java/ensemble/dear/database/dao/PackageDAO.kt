@@ -1,6 +1,7 @@
 package ensemble.dear.database.dao
 
 import androidx.room.*
+import ensemble.dear.database.DELIVERED_STATE
 import ensemble.dear.database.entity.DeliveryPackage
 
 import ensemble.dear.database.entity.Package
@@ -14,7 +15,7 @@ interface PackageDAO {
     @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
             " p.arrivalDate as arrivalDate, p.shipperCompany as shipperCompany, " +
             " p.shipperCompanyPhoto as shipperCompanyPhoto, " +
-            " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
+            " p.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
             " FROM package_table p " +
             " INNER JOIN delivery_table d on p.packageNumber = d.idPackage " +
             " WHERE arrivalDate = :today and idCourier = :idCourier")
@@ -28,12 +29,12 @@ interface PackageDAO {
     @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
             " p.arrivalDate as arrivalDate, p.shipperCompany as shipperCompany, " +
             " p.shipperCompanyPhoto as shipperCompanyPhoto, " +
-            " d.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
+            " p.additionalInstructions as additionalInstructions, d.packageAlias as packageAlias " +
             " FROM package_table p " +
             " JOIN delivery_table d on p.packageNumber = d.idPackage WHERE p.packageNumber = :number")
     fun getPackageDeliveryByNumber(number: Int): DeliveryPackage
 
-    @Query("SELECT * FROM package_table p WHERE p.packageNumber = :number")
+    @Query("SELECT * FROM package_table p WHERE p.packageNumber = :number and p.state != '" + DELIVERED_STATE + "'")
     fun getPackageByNumber(number: Int): Package
 
     @Insert

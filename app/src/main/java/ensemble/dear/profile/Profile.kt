@@ -1,28 +1,39 @@
-package ensemble.dear
+package ensemble.dear.profile
 
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.squareup.picasso.Picasso
+import ensemble.dear.ClientLogIn
+import ensemble.dear.R
 import ensemble.dear.currentTrackings.ClientTrackingDetails
 import ensemble.dear.currentTrackings.CurrentTrackings
+import ensemble.dear.currentTrackings.TRACKING_ID
+import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
+import ensemble.dear.database.entity.DeliveryPackage
+import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.pendingShipments.PendingShipments
+import ensemble.dear.profile.adapter.PastTrackingsAdapter
 
 
 class Profile : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     lateinit var gso: GoogleSignInOptions
     lateinit var gsc: GoogleSignInClient
+
+    private lateinit var adapter: PastTrackingsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +55,9 @@ class Profile : AppCompatActivity() {
             findViewById<TextView>(R.id.text_view_profile_email).text = acct.email
 
             if (acct.photoUrl != null) {
-                Picasso.get().load(acct.photoUrl).into(navigationView.getHeaderView(0).findViewById<ImageView>(R.id.side_menu_profile_pic));
+                Picasso.get().load(acct.photoUrl).into(navigationView.getHeaderView(0).findViewById<ImageView>(
+                    R.id.side_menu_profile_pic
+                ));
                 Picasso.get().load(acct.photoUrl).into(findViewById<ImageView>(R.id.image_view_profile_avatar));
             }
         }
@@ -79,10 +92,12 @@ class Profile : AppCompatActivity() {
             true
         }
 
-        val profilePastTracking = findViewById<LinearLayout>(R.id.profilePastTracking)
+        setPastTrackingsList()
+
+        /*val profilePastTracking = findViewById<LinearLayout>(R.id.profilePastTracking)
         profilePastTracking.setOnClickListener {
             startActivity(Intent(applicationContext, ClientTrackingDetails::class.java))
-        }
+        }*/
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -117,5 +132,25 @@ class Profile : AppCompatActivity() {
         builder.setNegativeButton(android.R.string.no) { _, _ -> }
 
         builder.show()
+    }
+
+    fun setPastTrackingsList() {
+        val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(applicationContext)
+
+        if(acct != null) {
+            val packagesList = DeliveryRepository(applicationContext).getUserPastPackages(acct.email.toString())
+            val numberPastPackages = findViewById<TextView>(R.id.numberPastTrackings)
+
+            adapter = PastTrackingsAdapter(
+                trackingsList = packagesList
+            )
+            val recyclerView = findViewById<RecyclerView>(R.id.recyclerPastTrackings)
+
+            recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+            recyclerView.adapter = adapter
+
+
+            numberPastPackages.text = packagesList.size.toString()
+        }
     }
 }

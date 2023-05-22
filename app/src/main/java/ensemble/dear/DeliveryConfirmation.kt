@@ -7,12 +7,12 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import ensemble.dear.currentTrackings.TRACKING_ID
 import ensemble.dear.currentTrackings.adapter.loadUrl
 import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
 import ensemble.dear.drawing.DrawView
 import ensemble.dear.pendingShipments.PendingShipments
-import ensemble.dear.pendingShipments.SHIPMENT_ID
 
 class DeliveryConfirmation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ class DeliveryConfirmation : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
-            currentShipmentId = bundle.getInt(SHIPMENT_ID)
+            currentShipmentId = bundle.getInt(TRACKING_ID)
         }
 
         /* if currentTrackingId is not null, get corresponding tracking data */

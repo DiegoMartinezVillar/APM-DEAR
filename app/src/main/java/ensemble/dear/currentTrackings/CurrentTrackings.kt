@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import ensemble.dear.AddTracking
 import ensemble.dear.ClientLogIn
-import ensemble.dear.Profile
+import ensemble.dear.profile.Profile
 import ensemble.dear.R
 
 
