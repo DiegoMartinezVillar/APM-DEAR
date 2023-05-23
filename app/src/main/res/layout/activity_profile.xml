@@ -70,7 +70,7 @@
                         android:id="@+id/text_view_profile_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/lightPrimaryColor"
+                        android:textColor="@color/darkPrimaryColor"
                         android:text="pepito@domain.com"
                         android:textAlignment="center" />
                 </LinearLayout>

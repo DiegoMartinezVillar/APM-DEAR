@@ -46,7 +46,7 @@ class CourierTrackingDetails : AppCompatActivity() {
             val intent = Intent(applicationContext, Chat::class.java)
             startActivity(intent)
             */
-            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.non_priority_feature, Toast.LENGTH_SHORT).show()
         }
 
         val liveRouteButton = findViewById<Button>(R.id.buttonLiveRoute)
@@ -61,7 +61,7 @@ class CourierTrackingDetails : AppCompatActivity() {
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
         phoneNumberCallText.setOnClickListener{
             //Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
-            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.non_priority_feature, Toast.LENGTH_SHORT).show()
         }
 
         setPageData()

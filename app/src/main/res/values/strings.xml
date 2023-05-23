@@ -28,7 +28,7 @@
     <string name="proof_of_delivery">Proof of delivery</string>
     <string name="clear">Clear</string>
     <string name="confirm">Confirm</string>
-    <string name="input_tracking_code">Input your tracking code</string>
+    <string name="input_tracking_code">Tracking code</string>
     <string name="alias_for_package">Alias for your package</string>
     <string name="add_tracking">Add tracking</string>
     <string name="current_trackings">Current Trackings</string>
@@ -65,4 +65,10 @@
     <string name="tracking_code_hint"><i>121212121</i></string>
     <string name="alias_hint"><i>Cycling jersey</i></string>
     <string name="additional_instructions_hint"><i>Please leave the package on the doormat</i></string>
+    <string name="non_priority_feature">Non-priority feature</string>
+    <string name="package_found">Tracking found :)</string>
+    <string name="package_not_found">Tracking not found :(</string>
+    <string name="tracking_number_empty">Tracking number cannot be empty</string>
+    <string name="already_tracking">You already are tracking for this number</string>
+    <string name="field_not_blank">This field can not be blank</string>
 </resources>

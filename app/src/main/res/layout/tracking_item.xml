@@ -47,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
+                    android:layout_marginLeft="20dp"
                     android:text="@string/test_package_name"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textSize="15sp"
@@ -57,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
+                    android:layout_marginLeft="20dp"
                     android:text="@string/test_package_description"
                     android:textAppearance="?attr/textAppearanceBody2" />
 
@@ -64,6 +66,7 @@
                     android:id="@+id/daysUntilArrival"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:padding="2dp"
                     android:text="@string/test_arrival_time"
                     android:textAppearance="?attr/textAppearanceBody2" />

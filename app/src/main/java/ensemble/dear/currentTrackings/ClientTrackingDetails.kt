@@ -47,7 +47,7 @@ class ClientTrackingDetails : AppCompatActivity() {
             val intent = Intent(applicationContext, Chat::class.java)
             startActivity(intent)
             */
-            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.non_priority_feature, Toast.LENGTH_SHORT).show()
         }
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
