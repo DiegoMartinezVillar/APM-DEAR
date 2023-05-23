@@ -72,17 +72,17 @@ class AddTracking : AppCompatActivity() {
                                 startActivity(Intent(applicationContext, CurrentTrackings::class.java))
                             } else {
                                 Toast.makeText(applicationContext,
-                                    "You already are tracking for this number", Toast.LENGTH_LONG).show()
+                                    R.string.already_tracking, Toast.LENGTH_LONG).show()
                             }
                         }
                     } else {
                         inputTrackingNumber.error = "This tracking code is not valid";
                     }
                 } else {
-                    inputAlias.error = "This field can not be blank";
+                    inputAlias.error = getString(R.string.field_not_blank);
                 }
             } else {
-                inputTrackingNumber.error = "This field can not be blank";
+                inputTrackingNumber.error = getString(R.string.field_not_blank);
             }
         }
 
@@ -104,23 +104,23 @@ class AddTracking : AppCompatActivity() {
                             buttonAddTracking.isEnabled = true
 
                             Toast.makeText(applicationContext,
-                                "Tracking found!", Toast.LENGTH_LONG).show()
+                                R.string.package_found, Toast.LENGTH_LONG).show()
                             hideKeyboard()
                         } else {
-                            inputTrackingNumber.error = "You already are tracking for this number";
+                            inputTrackingNumber.error = getString(R.string.already_tracking)
                         }
                     } else {
-                        inputTrackingNumber.error = "This field can not be blank";
+                        inputTrackingNumber.error = getString(R.string.field_not_blank);
                     }
 
                 } else {
                     buttonAddTracking.isEnabled = false
                     Toast.makeText(applicationContext,
-                        "Tracking not found :(", Toast.LENGTH_LONG).show()
+                        R.string.package_not_found, Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(applicationContext,
-                    "Tracking number cannot be empty", Toast.LENGTH_LONG).show()
+                    R.string.tracking_number_empty, Toast.LENGTH_LONG).show()
             }
         }
     }

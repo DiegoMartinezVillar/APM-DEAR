@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.DeAR" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.DeAR" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!--        <item name="android:windowTranslucentStatus">true</item>-->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/darkPrimaryColor</item>
-        <item name="colorOnPrimary">@color/textIcons</item>
+        <item name="colorOnPrimary">@color/primaryText</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/accentColor</item>
+        <item name="colorSecondary">@color/secondaryText</item>
         <item name="colorSecondaryVariant">@color/secondaryText</item>
         <item name="colorOnSecondary">@color/primaryText</item>
         <!-- Status bar color. -->

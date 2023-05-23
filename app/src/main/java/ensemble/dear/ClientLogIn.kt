@@ -56,7 +56,7 @@ class ClientLogIn : AppCompatActivity() {
         val buttonClientLogIn = findViewById<Button>(R.id.buttonClientLogIn)
         buttonClientLogIn.setOnClickListener {
             //startActivity(Intent(applicationContext, CurrentTrackings::class.java))
-            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.non_priority_feature, Toast.LENGTH_SHORT).show()
         }
 
         val buttonClientLogInGoogle = findViewById<Button>(R.id.buttonClientLogInGoogle)
@@ -74,7 +74,7 @@ class ClientLogIn : AppCompatActivity() {
         val textViewClickHereToSignUp = findViewById<TextView>(R.id.textViewClickHereToSignUp)
         textViewClickHereToSignUp.setOnClickListener {
             //startActivity(Intent(applicationContext, ClientSignUp::class.java))
-            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.non_priority_feature, Toast.LENGTH_SHORT).show()
         }
     }
 

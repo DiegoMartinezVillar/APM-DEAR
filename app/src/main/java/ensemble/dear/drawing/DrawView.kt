@@ -8,6 +8,8 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat
+import ensemble.dear.R
 
 class DrawView(context: Context, attributeSet: AttributeSet?) : View(context, attributeSet) {
     private val paint: Paint = Paint()
@@ -29,6 +31,12 @@ class DrawView(context: Context, attributeSet: AttributeSet?) : View(context, at
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawPath(path, paint)
+
+        val paint = Paint()
+        paint.color = ContextCompat.getColor(context, R.color.primaryColor)
+        paint.strokeWidth = 10f
+        paint.style = Paint.Style.STROKE
+        canvas.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

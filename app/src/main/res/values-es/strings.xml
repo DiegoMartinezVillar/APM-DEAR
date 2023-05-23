@@ -28,13 +28,13 @@
     <string name="proof_of_delivery">Prueba de entrega</string>
     <string name="clear">Limpiar</string>
     <string name="confirm">Confirmar</string>
-    <string name="input_tracking_code">Introduce tu código de seguimiento</string>
+    <string name="input_tracking_code">Código de seguimiento</string>
     <string name="alias_for_package">Alias para el paquete</string>
     <string name="add_tracking">Añadir seguimiento</string>
     <string name="current_trackings">Seguimientos actuales</string>
     <string name="pending_shipments">Envíos pendientes</string>
     <string name="button_search">Buscar</string>
-    <string name="add_button">Añadir</string>
+    <string name="add_button">¡Añadir paquete!</string>
     <string name="scanner">Escáner</string>
     <string name="scanner_text">Escanea paquetes y comprueba su información</string>
     <string name="test_package_name">#123456789 - Reloj despertador</string>
@@ -62,4 +62,14 @@
     <string name="log_out">Cerrar sesión</string>
     <string name="account">Cuenta</string>
     <string name="confirm_log_out">¿Estás seguro de que quieres cerrar la sesión?</string>
+    <string name="tracking_code_hint"><i>121212121</i></string>
+    <string name="alias_hint"><i>Maillot ciclismo</i></string>
+    <string name="additional_instructions_hint"><i>Por favor deje el paquete en el felpudo</i></string>
+    <string name="non_priority_feature">Funcionalidad no prioritaria</string>
+    <string name="package_found">Seguimiento encontrado :)</string>
+    <string name="package_not_found">Seguimiento no encontrado :(</string>
+    <string name="tracking_number_empty">El código no puede estar vacío</string>
+    <string name="already_tracking">Envío ya en seguimiento</string>
+    <string name="field_not_blank">El campo no puede ser vacío</string>
+    <string name="no_qr">Ningún QR encontrado</string>
 </resources>

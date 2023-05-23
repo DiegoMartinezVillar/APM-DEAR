@@ -136,7 +136,7 @@ class ARScanner : AppCompatActivity() {
         val result = scanner.process(image)
             .addOnSuccessListener { barcodes ->
                 if (barcodes.isEmpty()) {
-                    Toast.makeText(applicationContext, "No QR code found", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, R.string.no_qr, Toast.LENGTH_LONG).show()
                     return@addOnSuccessListener
                 }
                 // Task completed successfully
