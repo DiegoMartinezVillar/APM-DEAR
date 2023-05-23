@@ -34,7 +34,7 @@
     <string name="current_trackings">Current Trackings</string>
     <string name="pending_shipments">Pending Shipments</string>
     <string name="button_search">Search</string>
-    <string name="add_button">Add</string>
+    <string name="add_button">Add tracking!</string>
     <string name="scanner">Scanner</string>
     <string name="scanner_text">Scan packages and check their info</string>
     <string name="test_package_name">#123456789 - Alarm clock</string>
@@ -53,7 +53,7 @@
     <string name="delete_dialog_title">Confirm Deletion</string>
     <string name="delete_dialog_content">Are you sure you want to remove this tracking?</string>
     <string name="delivery_details">Delivery details</string>
-    <string name="log_in">Log in</string>
+    <string name="log_in">Log In</string>
     <string name="tracking_details">Tracking details</string>
     <string name="sign_up">Sign up</string>
     <string name="profile">Profile</string>
@@ -62,4 +62,7 @@
     <string name="log_out">Log out</string>
     <string name="account">Account</string>
     <string name="confirm_log_out">Are you sure you want to log out?</string>
+    <string name="tracking_code_hint"><i>121212121</i></string>
+    <string name="alias_hint"><i>Cycling jersey</i></string>
+    <string name="additional_instructions_hint"><i>Please leave the package on the doormat</i></string>
 </resources>

@@ -25,7 +25,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/current_trackings"
                 app:navigationIcon="@drawable/icons8_menu_24"
-                app:navigationIconTint="@color/textIcons"
+                app:navigationIconTint="@color/primaryText"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:background="@android:color/transparent"
                 android:elevation="0dp" />
