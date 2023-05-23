@@ -61,7 +61,7 @@ dependencies {
 
 
     implementation("io.coil-kt:coil:1.2.0")
-    implementation("io.coil-kt:coil-svg:1.2.0")
+    implementation("io.coil-kt:coil-svg:2.4.0")
 
 
     //Room
