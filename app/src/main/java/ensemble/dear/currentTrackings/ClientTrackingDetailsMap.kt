@@ -1,6 +1,8 @@
 package ensemble.dear.currentTrackings
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -132,7 +134,8 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
         phoneNumberCallText.setOnClickListener{
             //Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
-            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "+1 (415)-553-0123", null)))
         }
 
         setPageData()

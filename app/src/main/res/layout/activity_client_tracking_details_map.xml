@@ -82,6 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="2421 16th St"
+            android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@+id/map_fragment"
             app:layout_constraintTop_toBottomOf="@+id/map_fragment" />
 
@@ -91,6 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:text="Leave at front door"
+            android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@+id/textView15"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
