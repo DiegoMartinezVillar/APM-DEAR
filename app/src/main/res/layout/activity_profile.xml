@@ -21,12 +21,12 @@
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.MaterialToolbar
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/profile"
                 app:navigationIcon="@drawable/icons8_menu_24"
-                app:navigationIconTint="@color/textIcons"
                 android:background="@android:color/transparent"
                 android:elevation="0dp" />
 
@@ -40,15 +40,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="405dp"
-                android:layout_marginTop="54dp"
-                android:background="@color/lightPrimaryColor">
+                android:layout_marginTop="54dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="294dp"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <ensemble.dear.drawing.CircularImageView
                         android:id="@+id/image_view_profile_avatar"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
@@ -71,6 +70,7 @@
                         android:id="@+id/text_view_profile_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/darkPrimaryColor"
                         android:text="pepito@domain.com"
                         android:textAlignment="center" />
                 </LinearLayout>
@@ -79,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_centerHorizontal="true"
+                    app:cardBackgroundColor="@color/darkPrimaryColor"
                     android:layout_marginTop="275dp">
 
                     <LinearLayout
@@ -98,6 +99,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Past trackings"
+                                android:textColor="@color/primaryText"
                                 android:textSize="20sp" />
 
                             <TextView

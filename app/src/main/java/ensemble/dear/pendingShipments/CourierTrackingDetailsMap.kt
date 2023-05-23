@@ -3,6 +3,7 @@ package ensemble.dear.pendingShipments
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -153,7 +154,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
             val intent = Intent(applicationContext, Chat::class.java)
             startActivity(intent)
             */
-            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.non_priority_feature, Toast.LENGTH_SHORT).show()
         }
 
         val arButton = findViewById<Button>(R.id.buttonAR)
@@ -162,12 +163,14 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
             val intent = Intent(applicationContext, ARDelivery::class.java)
             startActivity(intent)
             */
-            Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.non_priority_feature, Toast.LENGTH_SHORT).show()
         }
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
         phoneNumberCallText.setOnClickListener{
-            Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
+            startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "+1 (415)-554-4000", null)))
+
         }
 
         setPageData()

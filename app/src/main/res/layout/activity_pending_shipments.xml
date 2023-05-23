@@ -25,7 +25,6 @@
             android:layout_height="?attr/actionBarSize"
             app:title="@string/pending_shipments"
             app:navigationIcon="@drawable/icons8_menu_24"
-            app:navigationIconTint="@color/textIcons"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:background="@android:color/transparent"
             android:elevation="0dp" />
@@ -38,15 +37,12 @@
             android:layout_height="match_parent"
             tools:context=".pendingShipments.PendingShipments">
 
-
-
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_container_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="54dp"
                 tools:layout="@layout/activity_chat" />
-
 
             <Button
                 android:id="@+id/buttonScan"
