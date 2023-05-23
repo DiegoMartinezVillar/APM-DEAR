@@ -44,6 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
+                    android:layout_marginLeft="18dp"
                     android:text="#123456789"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textSize="18sp"
@@ -53,6 +54,7 @@
                     android:id="@+id/textAddressPackage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
                     android:padding="2dp"
                     android:text="@string/test_address"
                     android:textAppearance="?attr/textAppearanceBody2" />

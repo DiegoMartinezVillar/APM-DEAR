@@ -71,4 +71,5 @@
     <string name="tracking_number_empty">Tracking number cannot be empty</string>
     <string name="already_tracking">You already are tracking for this number</string>
     <string name="field_not_blank">This field can not be blank</string>
+    <string name="no_qr">No QR code found</string>
 </resources>

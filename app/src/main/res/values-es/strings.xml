@@ -71,4 +71,5 @@
     <string name="tracking_number_empty">El código no puede estar vacío</string>
     <string name="already_tracking">Envío ya en seguimiento</string>
     <string name="field_not_blank">El campo no puede ser vacío</string>
+    <string name="no_qr">Ningún QR encontrado</string>
 </resources>
