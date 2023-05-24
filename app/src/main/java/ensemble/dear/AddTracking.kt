@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -47,6 +48,12 @@ class AddTracking : AppCompatActivity() {
         val inputTrackingNumber = findViewById<TextView>(R.id.tracking_code)
         val inputAdditionalInstructions = findViewById<EditText>(R.id.additionalInstructionsText)
         val inputAlias = findViewById<EditText>(R.id.alias_text)
+
+
+        // Hide the keyboard when the user clicks outside the input
+        findViewById<ConstraintLayout> (R.id.constraintViewPendShipments).setOnClickListener {
+            hideKeyboard()
+        }
 
         buttonAddTracking.setOnClickListener {
 
