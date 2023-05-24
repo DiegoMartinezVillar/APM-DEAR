@@ -72,4 +72,5 @@
     <string name="already_tracking">Envío ya en seguimiento</string>
     <string name="field_not_blank">El campo no puede ser vacío</string>
     <string name="no_qr">Ningún QR encontrado</string>
+    <string name="past_trackings">Anteriores seguimientos</string>
 </resources>
