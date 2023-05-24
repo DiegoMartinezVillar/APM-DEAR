@@ -47,7 +47,13 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
 
     private val places: List<Place> by lazy {
         PlacesReader(this).read()
-    } // Should be the current package instead of the list of places
+    }
+
+    private lateinit var destinationPlace: Place
+
+    // This is hardcoded for now, it should be replaced with the courier's location
+    // and updated periodically instead of using a place
+    private var courierPlace: Place = places[1]
 
     // List of polylines drawn on the map
     private val polylines: MutableList<Polyline> = mutableListOf()
@@ -88,6 +94,7 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
 
         setContentView(R.layout.activity_client_tracking_details_map)
 
+        setPageData()
 
         // Build map
         val mapFragment =
@@ -102,7 +109,7 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
 
                 // Move the camera to the package destination (this emulates not knowing the courier location yet)
                 map!!.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(places[0].latLng, DEFAULT_ZOOM.toFloat())
+                    CameraUpdateFactory.newLatLngZoom(destinationPlace.latLng, DEFAULT_ZOOM.toFloat())
                 )
 
                 // Wait for map to finish loading
@@ -133,12 +140,8 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
         phoneNumberCallText.setOnClickListener{
-            //Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
-            //Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
             startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "+1 (415)-553-0123", null)))
         }
-
-        setPageData()
     }
 
     /**
@@ -146,13 +149,10 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
      */
     private fun addMarkers() {
         // Create marker options
-        val place = places[0] // this should be the current package destination
-        val courier = places[1] // this should be the current courier location
-
         val packageDestinationMarker =
-            map!!.addMarker(MarkerOptions().title(place.address).position(place.latLng).icon(boxIcon))
+            map!!.addMarker(MarkerOptions().title(destinationPlace.address).position(destinationPlace.latLng).icon(boxIcon))
         val courierMarker =
-            map!!.addMarker(MarkerOptions().position(courier.latLng).icon(bikeIcon))
+            map!!.addMarker(MarkerOptions().position(courierPlace.latLng).icon(bikeIcon))
 
         // When the camera starts moving, change the alpha value of the marker to translucent
         map!!.setOnCameraMoveStartedListener {
@@ -178,9 +178,9 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         val requestQueue = Volley.newRequestQueue(applicationContext)
 
         val urlDirections =
-            "https://maps.googleapis.com/maps/api/directions/json?" + // places[1] should be the courier's location
-                    "origin=${places[1].latLng.latitude},${places[1].latLng.longitude}" +
-                    "&destination=${places[0].latLng.latitude},${places[0].latLng.longitude}" + // places[0] should be the client's package destination
+            "https://maps.googleapis.com/maps/api/directions/json?" +
+                    "origin=${courierPlace.latLng.latitude},${courierPlace.latLng.longitude}" +
+                    "&destination=${destinationPlace.latLng.latitude},${destinationPlace.latLng.longitude}" +
                     "&key=${BuildConfig.MAPS_API_KEY}"
 
         val stringRequest = StringRequest(
@@ -224,9 +224,42 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         addRoutePolylines()
         // Move the camera to fit the route
         val bounds = LatLngBounds.Builder()
-        bounds.include(places[0].latLng)
-        bounds.include(places[1].latLng)
+        bounds.include(destinationPlace.latLng)
+        bounds.include(courierPlace.latLng)
         map!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), DEFAULT_PADDING))
+    }
+
+    private fun setPageData() {
+        var currentShipmentId: Int? = null
+
+        // connect variables to UI elements
+        val packageNumber: TextView = findViewById(R.id.packageNumber)
+        val shippingCompany: TextView = findViewById(R.id.shipperCompany)
+        val alias: TextView = findViewById(R.id.packageAlias)
+        val imgShipperCompany: ImageView = findViewById(R.id.imageView)
+
+        val bundle: Bundle? = intent.extras
+        if (bundle != null) {
+            currentShipmentId = bundle.getInt(TRACKING_ID)
+        }
+
+        // if currentTrackingId is not null, get corresponding tracking data
+        currentShipmentId?.let {
+            val currentShipment =
+                DeliveryRepository(this@ClientTrackingDetailsMap).deliveriesDAO.getPackageById(it)
+
+            val packageNumberText = "#" + currentShipment.packageNumber.toString()
+            packageNumber.text = packageNumberText
+            shippingCompany.text = currentShipment.shipperCompany
+            alias.text = currentShipment.packageAlias
+
+            currentShipment.shipperCompanyPhoto.let {
+                    it1 -> imgShipperCompany.loadUrl(it1)
+            }
+
+            // set the current package destination
+            destinationPlace = places.find { place -> place.address == currentShipment.address }!!
+        }
     }
 
     /**
@@ -257,34 +290,5 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
         private const val KEY_CAMERA_POSITION = "camera_position"
-    }
-
-    private fun setPageData() {
-        var currentShipmentId: Int? = null
-
-        // connect variables to UI elements
-        val packageNumber: TextView = findViewById(R.id.packageNumber)
-        val shippingCompany: TextView = findViewById(R.id.shipperCompany)
-        val alias: TextView = findViewById(R.id.packageAlias)
-        val imgShipperCompany: ImageView = findViewById(R.id.imageView)
-
-        val bundle: Bundle? = intent.extras
-        if (bundle != null) {
-            currentShipmentId = bundle.getInt(TRACKING_ID)
-        }
-
-        /* if currentTrackingId is not null, get corresponding tracking data */
-        currentShipmentId?.let {
-            val currentShipment =
-                DeliveryRepository(this@ClientTrackingDetailsMap).deliveriesDAO.getPackageById(it)
-
-            packageNumber.text = "#" + currentShipment?.packageNumber.toString()
-            shippingCompany.text = currentShipment?.shipperCompany
-            alias.text = currentShipment?.packageAlias
-
-            currentShipment?.shipperCompanyPhoto?.let {
-                it1 -> imgShipperCompany.loadUrl(it1)
-            }
-        }
     }
 }

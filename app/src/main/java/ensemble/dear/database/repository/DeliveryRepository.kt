@@ -8,7 +8,7 @@ import ensemble.dear.database.entity.DeliveryPackage
 
 class DeliveryRepository(context: Context) {
 
-    var deliveriesDAO: DeliveryDAO = AppDatabase.getInstance(context)?.deliveryDAO()!!
+    var deliveriesDAO: DeliveryDAO = AppDatabase.getInstance(context).deliveryDAO()
 
     fun getPackageById(idPackage: Int): DeliveryPackage {
         return deliveriesDAO.getPackageById(idPackage)

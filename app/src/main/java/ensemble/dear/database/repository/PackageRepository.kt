@@ -13,7 +13,7 @@ import java.time.ZoneId
 
 class PackageRepository(context: Context) {
 
-    var packageDAO: PackageDAO = AppDatabase.getInstance(context)?.packageDAO()!!
+    var packageDAO: PackageDAO = AppDatabase.getInstance(context).packageDAO()
 
     fun insert(packageEnt: Package) {
         insertAsyncTask(packageDAO).execute(packageEnt)

@@ -124,18 +124,15 @@
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="@color/primaryColor"
+        android:enabled="false"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginTop="109dp"
-        android:layout_marginBottom="59dp"
-        android:enabled="false"
         android:text="@string/add_button"
         android:textColor="@color/primaryText"
-        android:backgroundTint="@color/primaryColor"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/additionalInstructionsText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/additionalInstructionsText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
