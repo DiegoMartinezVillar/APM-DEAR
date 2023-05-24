@@ -18,6 +18,7 @@ import ensemble.dear.database.repository.AuthorizedCourierRepository
 import ensemble.dear.database.repository.PackageRepository
 import ensemble.dear.database.repository.DeliveryRepository
 import java.time.LocalDate
+import java.time.ZoneId
 
 const val PRE_ADMISSION_STATE : String = "pre_admission"
 const val ON_THE_WAY_STATE : String = "on_the_way"
@@ -110,7 +111,25 @@ abstract class AppDatabase : RoomDatabase() {
                     "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
                     "Leave on top of the doormat",
                     43.365482, -8.412086
-                )
+                ),
+                Package(
+                    666666666,
+                    "1233 Howard Street, San Francisco", IN_DELIVERY_STATE,
+                    LocalDate.now(ZoneId.of("Europe/Madrid")),
+                    "ensemble.dear.app@gmail.com", "Aliexpress",
+                    "https://upload.wikimedia.org/wikipedia/commons/3/3b/Aliexpress_logo.svg",
+                    "Send a message around ten minutes before arriving",
+                    37.7757292, -122.4119508
+                ),
+                Package(
+                    555555555,
+                    "2715 Hyde Street, San Francisco", IN_DELIVERY_STATE,
+                    LocalDate.now(ZoneId.of("Europe/Madrid")),
+                    "ensemble.dear.app@gmail.com", "Amazon",
+                    "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+                    "Call upon arrival",
+                    37.8060487, -122.4206076
+                ),
             )
 
             for (courier in newPackages) {

@@ -28,6 +28,8 @@ class ClientTrackingDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_tracking_details)
 
+        setPageData()
+
         val toolbar =
             findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
@@ -52,22 +54,8 @@ class ClientTrackingDetails : AppCompatActivity() {
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
         phoneNumberCallText.setOnClickListener {
-            //Toast.makeText(applicationContext, "Calling " + phoneNumberCallText.text, Toast.LENGTH_LONG).show()
-            //Toast.makeText(applicationContext, "Non-priority feature", Toast.LENGTH_SHORT).show()
             startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "+1 (415)-553-0123", null)))
         }
-
-        setPageData()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setPageData() {
@@ -98,14 +86,18 @@ class ClientTrackingDetails : AppCompatActivity() {
 
             packageContent.text = currentTracking?.packageAlias
             address.text = currentTracking?.address.toString()
-            packageNumber.text = "#" + currentTracking?.packageNumber.toString()
+
+            val packageNumberText = "#" + currentTracking?.packageNumber.toString()
+            packageNumber.text = packageNumberText
             shippingCompany.text = currentTracking?.shipperCompany
-            arrivalDate.text = currentTracking?.arrivalDate?.dayOfMonth.toString() + " " +
+
+            val arrivalDateText = currentTracking?.arrivalDate?.dayOfMonth.toString() + " " +
                     currentTracking?.arrivalDate?.month?.name?.lowercase() + " " +
                     currentTracking?.arrivalDate?.year.toString()
+            arrivalDate.text = arrivalDateText
 
             currentTracking?.shipperCompanyPhoto?.let {
-                it1 -> imgShipperCompany.loadUrl(it1)
+                    it1 -> imgShipperCompany.loadUrl(it1)
             }
 
             when (currentTracking?.state) {
@@ -126,6 +118,7 @@ class ClientTrackingDetails : AppCompatActivity() {
                     onTheWayState.setImageResource(android.R.drawable.checkbox_on_background)
                     inDeliveryState.setImageResource(android.R.drawable.checkbox_on_background)
                     deliveredState.setImageResource(android.R.drawable.checkbox_off_background)
+                    enableLocateButton() // map location is only enabled when the package is in delivery
                 }
                 DELIVERED_STATE -> {
                     preadmissionState.setImageResource(android.R.drawable.checkbox_on_background)
@@ -135,5 +128,20 @@ class ClientTrackingDetails : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun enableLocateButton() {
+        val locateButton = findViewById<Button>(R.id.buttonLocate)
+        locateButton.isEnabled = true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
