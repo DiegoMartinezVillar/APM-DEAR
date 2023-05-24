@@ -27,7 +27,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.Circle
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Polyline
@@ -35,13 +34,11 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.maps.android.PolyUtil
 import com.google.maps.android.clustering.ClusterManager
-import com.google.maps.android.ktx.addCircle
 import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.awaitMapLoad
 import ensemble.dear.*
 import ensemble.dear.currentTrackings.TRACKING_ID
 import ensemble.dear.currentTrackings.adapter.loadUrl
-import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.database.repository.PackageRepository
 import ensemble.dear.BuildConfig.MAPS_API_KEY
 import ensemble.dear.place.Place
@@ -57,6 +54,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     private val places: List<Place> by lazy {
         PlacesReader(this).read()
     }
+
+    private lateinit var destinationPlace: Place
 
     // List of polylines drawn on the map
     private val polylines: MutableList<Polyline> = mutableListOf()
@@ -104,6 +103,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_courier_tracking_details_map)
+
+        setPageData()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(applicationContext)
 
@@ -168,12 +169,9 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
 
         val phoneNumberCallText = findViewById<TextView>(R.id.textPhoneNumberCall)
         phoneNumberCallText.setOnClickListener{
-            //Toast.makeText(applicationContext, "Calling "+ phoneNumberCallText.text, Toast.LENGTH_LONG).show()
             startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "+1 (415)-554-4000", null)))
 
         }
-
-        setPageData()
     }
 
     /**
@@ -196,21 +194,10 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         clusterManager.addItems(places)
         clusterManager.cluster()
 
-        // Show polygon
-        clusterManager.setOnClusterItemClickListener { item ->
-            addCircle(item)
-            return@setOnClusterItemClickListener false
-        }
-
         // Recalculate route when the user clicks the location button
         map!!.setOnMyLocationButtonClickListener {
             getDeviceLocation()
             return@setOnMyLocationButtonClickListener true
-        }
-
-        // Remove the polygon when the user clicks outside a marker
-        map!!.setOnMapClickListener {
-            removeCircle()
         }
 
         // When the camera starts moving, change the alpha value of the marker to translucent
@@ -243,7 +230,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         val urlDirections =
             "https://maps.googleapis.com/maps/api/directions/json?" +
                     "origin=${lastKnownLocation!!.latitude},${lastKnownLocation!!.longitude}" +
-                    "&destination=${places[0].latLng.latitude},${places[0].latLng.longitude}" + // places[0] should be the client's package destination
+                    "&destination=${destinationPlace.latLng.latitude},${destinationPlace.latLng.longitude}" +
                     "&key=$MAPS_API_KEY"
 
         val stringRequest = StringRequest(
@@ -282,38 +269,6 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         }
     }
 
-    private var circle: Circle? = null
-
-    /**
-     * Removes the [Circle] from the map
-     */
-    private fun removeCircle() {
-        circle?.remove()
-    }
-
-    /**
-     * Adds a [Circle] around the provided [item]
-     */
-    private fun addCircle(item: Place) {
-        removeCircle() // Remove existing circle if it exists
-        circle = map!!.addCircle {
-            center(item.latLng)
-            radius(500.0)
-            fillColor(
-                ContextCompat.getColor(
-                    this@CourierTrackingDetailsMap,
-                    R.color.primaryColorTranslucent
-                )
-            )
-            strokeColor(
-                ContextCompat.getColor(
-                    this@CourierTrackingDetailsMap,
-                    R.color.primaryColor
-                )
-            )
-        }
-    }
-
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
@@ -335,7 +290,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                             // Move the camera position to fit the route.
                             val bounds = LatLngBounds.builder()
                             bounds.include(LatLng(lastKnownLocation!!.latitude, lastKnownLocation!!.longitude))
-                            bounds.include(places[0].latLng)
+                            bounds.include(destinationPlace.latLng)
                             map!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), DEFAULT_PADDING))
                         }
                     } else {
@@ -416,6 +371,37 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         updateLocationUI()
     }
 
+    private fun setPageData() {
+        var currentShipmentId: Int? = null
+
+        // connect variables to UI elements
+        val packageNumber: TextView = findViewById(R.id.packageNumber)
+        val shippingCompany: TextView = findViewById(R.id.shipperCompany)
+        val imgShipperCompany: ImageView = findViewById(R.id.imageView)
+
+        val bundle: Bundle? = intent.extras
+        if (bundle != null) {
+            currentShipmentId = bundle.getInt(TRACKING_ID)
+        }
+
+        /* if currentShipmentId is not null, get corresponding tracking data */
+        currentShipmentId?.let {
+            val currentShipment =
+                PackageRepository(this@CourierTrackingDetailsMap).packageDAO.getPackageByNumber(it)
+
+            val packageNumberText = "#" + currentShipment.packageNumber.toString()
+            packageNumber.text = packageNumberText
+            shippingCompany.text = currentShipment.shipperCompany
+
+            currentShipment.shipperCompanyPhoto.let {
+                    it1 -> imgShipperCompany.loadUrl(it1)
+            }
+
+            // set the current package destination
+            destinationPlace = places.find { place -> place.address == currentShipment.address }!!
+        }
+    }
+
     /**
      * Saves the state of the map when the activity is paused.
      */
@@ -435,33 +421,6 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun setPageData() {
-        var currentShipmentId: Int? = null
-
-        // connect variables to UI elements
-        val packageNumber: TextView = findViewById(R.id.packageNumber)
-        val shippingCompany: TextView = findViewById(R.id.shipperCompany)
-        val imgShipperCompany: ImageView = findViewById(R.id.imageView)
-
-        val bundle: Bundle? = intent.extras
-        if (bundle != null) {
-            currentShipmentId = bundle.getInt(TRACKING_ID)
-        }
-
-        /* if currentShipmentId is not null, get corresponding tracking data */
-        currentShipmentId?.let {
-            val currentShipment =
-                PackageRepository(this@CourierTrackingDetailsMap).packageDAO.getPackageByNumber(it)
-
-            packageNumber.text = "#" + currentShipment?.packageNumber.toString()
-            shippingCompany.text = currentShipment?.shipperCompany
-
-            currentShipment?.shipperCompanyPhoto?.let {
-                    it1 -> imgShipperCompany.loadUrl(it1)
-            }
-        }
     }
 
     companion object {
