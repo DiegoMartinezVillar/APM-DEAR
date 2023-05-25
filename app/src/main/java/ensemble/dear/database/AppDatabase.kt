@@ -130,6 +130,15 @@ abstract class AppDatabase : RoomDatabase() {
                     "Call upon arrival",
                     37.8060487, -122.4206076
                 ),
+                Package(
+                    444444444,
+                    "Camiño do Lagar de Castro, 6, 15008 A Coruña", IN_DELIVERY_STATE,
+                    LocalDate.now(ZoneId.of("Europe/Madrid")),
+                    "ensemble.dear.app@gmail.com", "Aliexpress",
+                    "https://upload.wikimedia.org/wikipedia/commons/3/3b/Aliexpress_logo.svg",
+                    "Call Lazaro upon arrival",
+                    43.332850, -8.410837
+                )
             )
 
             for (courier in newPackages) {

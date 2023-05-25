@@ -53,7 +53,9 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
 
     // This is hardcoded for now, it should be replaced with the courier's location
     // and updated periodically instead of using a place
-    private var courierPlace: Place = places[1]
+    private var courierPlace: Place = places.find {
+            place -> place.address == "C. Rey Abdullah, 15004 A Coruña, La Coruña"
+    }!!
 
     // List of polylines drawn on the map
     private val polylines: MutableList<Polyline> = mutableListOf()
@@ -189,19 +191,27 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
             { response ->
                 Log.d("Volley", "Success!")
                 // Get the first route from the results
-                val route = JSONObject(response).getJSONArray("routes")[0] as JSONObject
-                val leg = route.getJSONArray("legs")[0] as JSONObject
-                val steps = leg.getJSONArray("steps")
+                val routeArray = JSONObject(response).getJSONArray("routes")
 
-                for (i in 0 until steps.length()) {
-                    val step = steps[i] as JSONObject
-                    val polyline = step.getJSONObject("polyline")
-                    val points = polyline.getString("points")
-                    val latLngList = PolyUtil.decode(points)
-                    polylineOptions.addAll(latLngList)
+                if (routeArray.length() == 0) {
+                    Toast.makeText(applicationContext, "Could not get the route", Toast.LENGTH_SHORT).show()
+                    return@StringRequest
                 }
-                val polyline = map!!.addPolyline(polylineOptions)
-                polylines.add(polyline) // Store the polyline so it can be removed later
+                else {
+                    val route = routeArray[0] as JSONObject
+                    val leg = route.getJSONArray("legs")[0] as JSONObject
+                    val steps = leg.getJSONArray("steps")
+
+                    for (i in 0 until steps.length()) {
+                        val step = steps[i] as JSONObject
+                        val polyline = step.getJSONObject("polyline")
+                        val points = polyline.getString("points")
+                        val latLngList = PolyUtil.decode(points)
+                        polylineOptions.addAll(latLngList)
+                    }
+                    val polyline = map!!.addPolyline(polylineOptions)
+                    polylines.add(polyline) // Store the polyline so it can be removed later
+                }
             },
             { error ->
                 Log.e("Volley", "Error: $error")
