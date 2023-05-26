@@ -19,8 +19,6 @@ import ensemble.dear.database.entity.Package
 
 class ShipmentsFragment : Fragment() {
 
-    private var shipmentsMutableList: MutableList<Shipment> =
-        ShipmentsProvider.shipmentsList.toMutableList()
     private lateinit var adapter: ShipmentsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +41,7 @@ class ShipmentsFragment : Fragment() {
         val acct: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this.requireContext())
 
         if(acct != null) {
+            // Get packages for courier (logged account) for today
             val packagesList = PackageRepository(this.requireContext()).getAllCourierPackagesForToday(acct.email.toString())
 
             adapter = ShipmentsAdapter(

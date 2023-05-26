@@ -16,7 +16,5 @@ data class Delivery(
     val idDelivery: Int,
     val idPackage: Int,
     val packageAlias: String,
-    val signature: String,
-    //val alarm: String
     val idClient: String
 ) { }

@@ -124,7 +124,7 @@ class AddTracking : AppCompatActivity() {
                                 .existsTrackingForUserAndPackage(acct.email.toString(), packageFound.packageNumber)
                             if(!existsTracking){
                                 val delivery = Delivery(0, packageFound.packageNumber,
-                                    inputAlias.text.toString(), "", acct.email.toString())
+                                    inputAlias.text.toString(), acct.email.toString())
 
                                 DeliveryRepository(this@AddTracking).insert(delivery)
                                 finish()

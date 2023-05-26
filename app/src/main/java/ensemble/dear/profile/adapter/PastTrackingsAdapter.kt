@@ -10,16 +10,16 @@ import ensemble.dear.database.entity.DeliveryPackage
 class PastTrackingsAdapter(
     private val trackingsList: List<DeliveryPackage>
 ) :
-    RecyclerView.Adapter<TrackingsViewHolder>() {
+    RecyclerView.Adapter<PastTrackingsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackingsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PastTrackingsViewHolder {
         val layoutinflater = LayoutInflater.from(parent.context)
-        return TrackingsViewHolder(layoutinflater.inflate(R.layout.tracking_past_item, parent, false))
+        return PastTrackingsViewHolder(layoutinflater.inflate(R.layout.tracking_past_item, parent, false))
     }
 
     override fun getItemCount(): Int = trackingsList.size
 
-    override fun onBindViewHolder(holder: TrackingsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PastTrackingsViewHolder, position: Int) {
         val item = trackingsList[position]
         holder.render(item)
     }

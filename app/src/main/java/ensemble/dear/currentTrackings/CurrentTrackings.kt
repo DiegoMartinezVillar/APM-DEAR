@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import ensemble.dear.AddTracking
 import ensemble.dear.ClientLogIn
-import ensemble.dear.profile.Profile
+import ensemble.dear.profile.ClientProfile
 import ensemble.dear.R
 
 
@@ -50,7 +50,8 @@ class CurrentTrackings : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.navProfile -> {
-                    startActivity(Intent(applicationContext, Profile::class.java))
+
+                    startActivity(Intent(applicationContext, ClientProfile::class.java))
                 }
                 R.id.navLogOut -> {
                     confirmLogOut()

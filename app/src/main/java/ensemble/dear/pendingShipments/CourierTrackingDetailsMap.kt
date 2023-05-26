@@ -52,7 +52,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
     private var cameraPosition: CameraPosition? = null
 
     private val places: List<Place> by lazy {
-        PlacesReader(this).read()
+        PlacesReader(this).readToday()
     }
 
     private lateinit var destinationPlace: Place
@@ -185,7 +185,7 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
                 this,
                 map!!,
                 clusterManager
-            ).also { it.minClusterSize = 2 }
+            ).also { it.minClusterSize = 5 }
 
         // Set custom info window adapter
         clusterManager.markerCollection.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
@@ -386,6 +386,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
         val packageNumber: TextView = findViewById(R.id.packageNumber)
         val shippingCompany: TextView = findViewById(R.id.shipperCompany)
         val imgShipperCompany: ImageView = findViewById(R.id.imageView)
+        val address: TextView = findViewById(R.id.addressText)
+        val addInstructions: TextView = findViewById(R.id.addInstructions)
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
@@ -400,6 +402,8 @@ class CourierTrackingDetailsMap : AppCompatActivity() {
             val packageNumberText = "#" + currentShipment.packageNumber.toString()
             packageNumber.text = packageNumberText
             shippingCompany.text = currentShipment.shipperCompany
+            address.text = currentShipment.address
+            addInstructions.text = currentShipment.additionalInstructions
 
             currentShipment.shipperCompanyPhoto.let {
                     it1 -> imgShipperCompany.loadUrl(it1)

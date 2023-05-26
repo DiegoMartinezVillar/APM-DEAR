@@ -80,7 +80,7 @@ class ClientTrackingDetails : AppCompatActivity() {
             currentTrackingId = bundle.getInt(TRACKING_ID)
         }
 
-        /* if currentTrackingId is not null, get corresponding tracking data */
+        // if currentTrackingId is not null, get corresponding tracking data
         currentTrackingId?.let {
             val currentTracking = trackingDetailViewModel.getTrackingForId(it)
 

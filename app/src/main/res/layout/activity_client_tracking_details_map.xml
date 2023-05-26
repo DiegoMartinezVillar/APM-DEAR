@@ -61,7 +61,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="391dp"
+        android:layout_height="430dp"
         android:layout_marginTop="24dp"
         android:background="@color/darkPrimaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +69,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/packageAlias"
-        app:layout_constraintVertical_bias="0.0" >
+        app:layout_constraintVertical_bias="0.017">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map_fragment"
@@ -80,27 +80,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout="@layout/map"/>
+            tools:layout="@layout/map" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/addressText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="20dp"
             android:text="2421 16th St"
             android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@+id/map_fragment"
             app:layout_constraintTop_toBottomOf="@+id/map_fragment" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/addInstructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:text="Leave at front door"
             android:textColor="@color/primaryText"
-            app:layout_constraintStart_toStartOf="@+id/textView15"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintStart_toStartOf="@+id/addressText"
+            app:layout_constraintTop_toBottomOf="@+id/addressText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

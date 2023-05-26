@@ -5,9 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ensemble.dear.R
-import ensemble.dear.pendingShipments.Shipment
 import ensemble.dear.currentTrackings.adapter.loadUrl
-import ensemble.dear.database.entity.DeliveryPackage
 import ensemble.dear.database.entity.Package
 
 class ShipmentsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -17,12 +15,15 @@ class ShipmentsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val imageMap = view.findViewById<ImageView>(R.id.imageMap)
 
     fun render(packageModel: Package, onClickListener: (Package) -> Unit ) {
-        shipmentAddress.text = packageModel.address
-        shipmentNumber.text = "#" + packageModel.packageNumber.toString()
+        val shipmentNumberText = "#" + packageModel.packageNumber.toString()
 
+        shipmentAddress.text = packageModel.address
+        shipmentNumber.text = shipmentNumberText
+
+        // load shipper company photo in ImageView
         imageMap.loadUrl(packageModel.shipperCompanyPhoto)
 
-        /* Listener */
+        // Click Listener for navigating to details page
         itemView.setOnClickListener {
             onClickListener(packageModel)
         }
