@@ -11,7 +11,6 @@ import ensemble.dear.database.repository.PackageRepository
 class ShipmentsDetailViewModel(private val repository: PackageRepository) : ViewModel() {
 
     fun getShipmentForId(id: Int) : Package? {
-        //return repository.getPackageDeliveryByNumber(id)
         return repository.getPackageByNumber(id)
     }
 

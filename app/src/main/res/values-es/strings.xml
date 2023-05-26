@@ -73,4 +73,5 @@
     <string name="field_not_blank">El campo no puede estar vacío</string>
     <string name="no_qr">Ningún QR encontrado</string>
     <string name="past_trackings">Anteriores seguimientos</string>
+    <string name="past_shipments">Anteriores entregas</string>
 </resources>
