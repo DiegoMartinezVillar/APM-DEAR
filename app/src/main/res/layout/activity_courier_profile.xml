@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".profile.Profile"
+    tools:context=".profile.CourierProfile"
     tools:openDrawer="start">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".profile.Profile" >
+            tools:context=".profile.ClientProfile" >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="405dp"
@@ -98,7 +98,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/past_trackings"
+                                android:text="@string/past_shipments"
                                 android:textColor="@color/primaryText"
                                 android:textSize="20sp" />
 
@@ -119,49 +119,12 @@
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
 
-            <!--LinearLayout
-                android:id="@+id/profilePastTracking"
-                android:layout_width="360dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/lightPrimaryColor"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#CAC9CC"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:paddingVertical="5dp"
-                        android:src="@drawable/correos" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="#123456789"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingTop="5dp" />
-
-            </LinearLayout-->
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerPastTrackings"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
 
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -175,6 +138,6 @@
         app:headerLayout="@layout/header_navigation_drawer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/client_navigation_drawer" />
+        app:menu="@menu/courier_navigation_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

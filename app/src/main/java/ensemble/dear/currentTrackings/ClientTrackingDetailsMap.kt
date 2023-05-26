@@ -247,6 +247,8 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
         val shippingCompany: TextView = findViewById(R.id.shipperCompany)
         val alias: TextView = findViewById(R.id.packageAlias)
         val imgShipperCompany: ImageView = findViewById(R.id.imageView)
+        val address: TextView = findViewById(R.id.addressText)
+        val addInstructions: TextView = findViewById(R.id.addInstructions)
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
@@ -262,6 +264,8 @@ class ClientTrackingDetailsMap : AppCompatActivity() {
             packageNumber.text = packageNumberText
             shippingCompany.text = currentShipment.shipperCompany
             alias.text = currentShipment.packageAlias
+            address.text = currentShipment.address
+            addInstructions.text = currentShipment.additionalInstructions
 
             currentShipment.shipperCompanyPhoto.let {
                     it1 -> imgShipperCompany.loadUrl(it1)

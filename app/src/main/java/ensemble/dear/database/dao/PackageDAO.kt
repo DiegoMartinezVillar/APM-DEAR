@@ -2,6 +2,7 @@ package ensemble.dear.database.dao
 
 import androidx.room.*
 import ensemble.dear.database.DELIVERED_STATE
+import ensemble.dear.database.IN_DELIVERY_STATE
 import ensemble.dear.database.entity.DeliveryPackage
 
 import ensemble.dear.database.entity.Package
@@ -23,7 +24,7 @@ interface PackageDAO {
 
     @Query("SELECT * " +
             " FROM package_table p " +
-            " WHERE arrivalDate = :today and idCourier = :idCourier")
+            " WHERE arrivalDate = :today and idCourier = :idCourier and p.state = '" + IN_DELIVERY_STATE + "' ")
     fun getCourierPackagesForToday(idCourier: String, today: String): List<Package>
 
     @Query("SELECT d.idDelivery as idDelivery, p.packageNumber as packageNumber, p.address as address, p.state as state, " +
@@ -37,11 +38,20 @@ interface PackageDAO {
     @Query("SELECT * FROM package_table p WHERE p.packageNumber = :number and p.state != '" + DELIVERED_STATE + "'")
     fun getPackageByNumber(number: Int): Package
 
-    @Insert
+
+    @Query("SELECT * " +
+            " FROM package_table p " +
+            " WHERE p.idCourier = :idCourier and p.state = '" + DELIVERED_STATE + "'")
+    fun getPastPackages(idCourier: String): List<Package>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(packageEnt: Package)
 
     @Update
     fun update(packageEnt: Package)
+
+    @Query("UPDATE package_table SET signature = :signature, state = '"+ DELIVERED_STATE + "' WHERE packageNumber = :idPackage")
+    fun updateSignature(signature: ByteArray, idPackage: Int)
 
     @Delete
     fun delete(packageEnt: Package)

@@ -1,10 +1,7 @@
 package ensemble.dear.drawing
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -28,11 +25,19 @@ class DrawView(context: Context, attributeSet: AttributeSet?) : View(context, at
         invalidate()
     }
 
+    fun getBitmapFromView(): Bitmap {
+        val bitmap = Bitmap.createBitmap(
+            this.width, this.height, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        this.draw(canvas)
+        return bitmap
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawPath(path, paint)
 
-        val paint = Paint()
         paint.color = ContextCompat.getColor(context, R.color.primaryColor)
         paint.strokeWidth = 10f
         paint.style = Paint.Style.STROKE

@@ -23,9 +23,7 @@ class TrackingsAdapter(
 
     override fun onBindViewHolder(holder: TrackingsViewHolder, position: Int) {
         val item = trackingsList[position]
-
         holder.render(item, onClickListener, onClickDelete)
-
     }
 
     fun getTrackingsList(): List<DeliveryPackage> {

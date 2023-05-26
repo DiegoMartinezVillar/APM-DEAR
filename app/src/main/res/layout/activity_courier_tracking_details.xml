@@ -70,7 +70,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="391dp"
+        android:layout_height="430dp"
         android:layout_marginTop="24dp"
         android:background="@color/darkPrimaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,10 +84,10 @@
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="50dp"
             android:text="@string/receiver"
+            android:textColor="@color/primaryText"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -96,9 +96,9 @@
             android:id="@+id/addressText_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:text="@string/address"
+            android:textColor="@color/primaryText"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView17"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -107,9 +107,9 @@
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:text="@string/phone_number"
+            android:textColor="@color/primaryText"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/addressText_label"
             app:layout_constraintTop_toBottomOf="@+id/addressText" />
@@ -118,9 +118,9 @@
             android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:text="@string/additional_instructions"
+            android:textColor="@color/primaryText"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -129,9 +129,9 @@
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
             android:layout_marginTop="8dp"
             android:text="John Doe"
+            android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@+id/textView17"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -139,9 +139,9 @@
             android:id="@+id/textView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
             android:layout_marginTop="8dp"
             android:text="+1 (415)-554-4000"
+            android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -149,9 +149,9 @@
             android:id="@+id/additionalInstructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
             android:layout_marginTop="8dp"
             android:text="Leave at front door"
+            android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@+id/textView26"
             app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
@@ -159,9 +159,9 @@
             android:id="@+id/addressText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
             android:layout_marginTop="8dp"
             android:text="2421 16th St, San Francisco, CA 94103, USA."
+            android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@+id/addressText_label"
             app:layout_constraintTop_toBottomOf="@+id/addressText_label" />
 
@@ -169,8 +169,8 @@
             android:id="@+id/buttonLiveRoute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/textIcons"
             android:layout_marginTop="32dp"
+            android:backgroundTint="@color/textIcons"
             android:text="@string/live_route"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"

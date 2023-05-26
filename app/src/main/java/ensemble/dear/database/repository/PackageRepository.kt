@@ -19,6 +19,15 @@ class PackageRepository(context: Context) {
         insertAsyncTask(packageDAO).execute(packageEnt)
     }
 
+    fun update(packageEnt: Package) {
+        packageDAO.update(packageEnt)
+    }
+
+    fun updateSignature(signature: ByteArray, idPackage: Int) {
+        packageDAO.updateSignature(signature, idPackage)
+    }
+
+
     fun delete(packageEnt: Package) {
         packageDAO.delete(packageEnt)
     }
@@ -34,6 +43,10 @@ class PackageRepository(context: Context) {
     fun getAllCourierPackagesForToday(idCourier: String): List<Package> {
         return packageDAO.getCourierPackagesForToday(idCourier,
             LocalDate.now(ZoneId.of("Europe/Madrid")).toString())
+    }
+
+    fun getCourierPastPackages(idCourier: String): List<Package> {
+        return packageDAO.getPastPackages(idCourier)
     }
 
     fun getPackageByNumber(number: Int): Package {

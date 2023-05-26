@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso
 import ensemble.dear.ARScanner
 import ensemble.dear.ClientLogIn
 import ensemble.dear.R
-import ensemble.dear.profile.Profile
+import ensemble.dear.profile.CourierProfile
 
 class PendingShipments : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -46,7 +46,7 @@ class PendingShipments : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.navProfile -> {
-                    startActivity(Intent(applicationContext, Profile::class.java))
+                    startActivity(Intent(applicationContext, CourierProfile::class.java))
                 }
                 R.id.navLogOut -> {
                     confirmLogOut()

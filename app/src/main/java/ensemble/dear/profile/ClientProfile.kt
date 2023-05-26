@@ -18,17 +18,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.squareup.picasso.Picasso
 import ensemble.dear.ClientLogIn
 import ensemble.dear.R
-import ensemble.dear.currentTrackings.ClientTrackingDetails
 import ensemble.dear.currentTrackings.CurrentTrackings
-import ensemble.dear.currentTrackings.TRACKING_ID
-import ensemble.dear.currentTrackings.adapter.TrackingsAdapter
-import ensemble.dear.database.entity.DeliveryPackage
 import ensemble.dear.database.repository.DeliveryRepository
 import ensemble.dear.pendingShipments.PendingShipments
 import ensemble.dear.profile.adapter.PastTrackingsAdapter
 
 
-class Profile : AppCompatActivity() {
+class ClientProfile : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     lateinit var gso: GoogleSignInOptions
     lateinit var gsc: GoogleSignInClient
@@ -37,7 +33,7 @@ class Profile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_client_profile)
 
         val topAppBar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(topAppBar)
@@ -67,7 +63,7 @@ class Profile : AppCompatActivity() {
             drawerLayout.open()
         }
 
-        //mark item in drawer as selected
+        // mark item in drawer as selected
 
         val navCurrentTrackings = navigationView.menu.findItem(R.id.navCurrentTrackings)
         val navProfile = navigationView.menu.findItem(R.id.navProfile)
@@ -80,9 +76,6 @@ class Profile : AppCompatActivity() {
                 R.id.navCurrentTrackings -> {
                     startActivity(Intent(applicationContext, CurrentTrackings::class.java))
                 }
-                R.id.navPendingShipments -> {
-                    startActivity(Intent(applicationContext, PendingShipments::class.java))
-                }
                 R.id.navLogOut -> {
                     confirmLogOut()
                 }
@@ -94,10 +87,6 @@ class Profile : AppCompatActivity() {
 
         setPastTrackingsList()
 
-        /*val profilePastTracking = findViewById<LinearLayout>(R.id.profilePastTracking)
-        profilePastTracking.setOnClickListener {
-            startActivity(Intent(applicationContext, ClientTrackingDetails::class.java))
-        }*/
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -148,7 +137,6 @@ class Profile : AppCompatActivity() {
 
             recyclerView.layoutManager = LinearLayoutManager(applicationContext)
             recyclerView.adapter = adapter
-
 
             numberPastPackages.text = packagesList.size.toString()
         }
